@@ -40,8 +40,8 @@
   /* ── NAV ── (mirrors index.html) */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    height: 72px; display: flex; align-items: center; justify-content: space-between;
-    padding: 0 48px;
+    height: 92px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 56px;
     background: rgba(8,39,43,0.94);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -53,15 +53,15 @@
   .nav-logo svg rect { stroke: #fff; }
   .nav-logo svg rect:last-child { fill: #fff; stroke: none; }
   .nav-logo-text {
-    font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+    font-size: var(--fs-body); font-weight: 800; letter-spacing: 0.14em;
     line-height: 1.1; color: #fff; text-transform: uppercase;
   }
   .nav-links {
-    display: flex; gap: 16px; list-style: none;
+    display: flex; gap: 16px; list-style: none; align-items: center;
   }
   .nav-links a {
-    font-size: 10px; transform: scale(0.75); display: inline-block;
-    font-weight: 600; letter-spacing: 0.02em;
+    font-size: var(--fs-h3); font-weight: 500; letter-spacing: 0;
+    transform: scale(0.75); display: inline-block;
     color: #ccc; text-decoration: none; transition: color 0.2s;
   }
   .nav-links a:hover { color: #fff; }
