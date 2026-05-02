@@ -1,359 +1,1362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Use Cases – The Nth Layer</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use Cases | The Nth Layer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --black: #111;
-    --white: #fff;
-    --grey: #f7f7f5;
-    --band-dark: #06272c;
-    --band-border: #18454b;
-    --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    --font-display: 'DM Serif Display', Georgia, serif;
-    --fs-h1: clamp(28px, 3.6vw, 54px);
-    --fs-h2: 19px;
-    --fs-h3: 18px;
-    --fs-body: 13px;
-    --fs-nav: 10px;
-    --fs-label: 11px;
-    --max-width: 1200px;
-  }
+    :root {
+      --black: #111;
+      --white: #fff;
+      --grey: #f5f4f1;
+      --lime: #BFFF00;
+      --dark-bg: #0a0e0f;
+      --card-border: rgba(255, 255, 255, 0.1);
+      --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      --max-width: 1400px;
+    }
 
-  html, body { zoom: 0.9; scroll-behavior: smooth; overflow-x: hidden; }
-  body {
-    font-family: var(--font-body);
-    background: var(--white);
-    color: var(--black);
-    -webkit-font-smoothing: antialiased;
-  }
+    html, body {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    height: 92px; display: flex; align-items: center; justify-content: space-between;
-    padding: 0 56px;
-    background: rgba(255,255,255,0.96);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid #e8e6df;
-  }
-  .nav-logo {
-    display: flex; align-items: center; gap: 18px;
-    text-decoration: none;
-  }
-  .nav-logo-text {
-    font-size: var(--fs-body); font-weight: 800; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #111; line-height: 1.25;
-  }
-  .nav-links {
-    display: flex; gap: 32px; list-style: none; align-items: center;
-  }
-  .nav-links a {
-    font-size: var(--fs-h3); font-weight: 500; letter-spacing: 0;
-    display: inline-block; color: #111; text-decoration: none; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: #555; }
-  @media (max-width: 860px) { .nav-links { display: none; } }
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-size: var(--fs-label); font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: #9a9a9a; display: block; margin-bottom: 24px;
-  }
+    section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 0;
+    }
 
-  /* ── HERO (dark, earth photo) ── */
-  .uc-hero {
-    position: relative;
-    padding-top: 92px;
-    min-height: 320px;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    background: var(--band-dark);
-  }
-  .uc-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(90deg, rgba(0,25,28,0.93) 0%, rgba(0,25,28,0.75) 50%, rgba(0,25,28,0.45) 100%),
-      url('/images/nth-layer-earth-photo-bg.png');
-    background-size: cover;
-    background-position: center right;
-    background-repeat: no-repeat;
-  }
-  .uc-hero-inner {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 72px 32px 60px;
-  }
-  .uc-hero-inner .section-label { color: rgba(255,255,255,0.45); margin-bottom: 14px; }
-  .uc-hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 4.8vw, 68px);
-    font-weight: 400;
-    line-height: 1.05;
-    color: #fff;
-    max-width: 640px;
-    margin-bottom: 18px;
-  }
-  .uc-hero-sub {
-    font-size: var(--fs-h2);
-    color: rgba(255,255,255,0.62);
-    max-width: 500px;
-    line-height: 1.6;
-  }
+    .container {
+      width: min(100% - 128px, var(--max-width));
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* ── MAIN (white) ── */
-  main {
-    background: var(--white);
-    padding-bottom: 0;
-    border-top: 1px solid #e8e8e8;
-  }
-  .uc-container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 32px;
-  }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
 
-  /* ── CASE STUDY ── */
-  .uc-case {
-    padding: 40px 0 48px;
-    border-bottom: 1px solid #e8e8e8;
-  }
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: rgba(10, 14, 15, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
 
-  .uc-case-meta { margin-bottom: 24px; }
-  .uc-case-num {
-    font-size: var(--fs-label); font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: #bbb; display: block; margin-bottom: 6px;
-  }
-  .uc-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 3vw, 44px);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--black);
-    margin-bottom: 8px;
-  }
-  .uc-subtitle {
-    font-size: var(--fs-body);
-    color: #888;
-    letter-spacing: 0.02em;
-  }
+    .nav-inner {
+      width: min(100% - 128px, var(--max-width));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
 
-  .uc-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-    align-items: stretch;
-  }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+    }
 
-  .uc-card {
-    border-radius: 14px;
-    padding: 40px 36px;
-  }
-  .uc-card.uc-challenge {
-    background: var(--band-dark);
-    border: 1px solid var(--band-border);
-  }
-  .uc-card.uc-approach {
-    background: var(--grey);
-    border: 1px solid #ededeb;
-  }
-  .uc-card-label {
-    font-size: var(--fs-label); font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    display: block; margin-bottom: 20px;
-  }
-  .uc-card.uc-challenge .uc-card-label { color: rgba(255,255,255,0.35); }
-  .uc-card.uc-approach .uc-card-label { color: #aaa; }
+    .nav-logo svg {
+      width: 28px;
+      height: 28px;
+    }
 
-  .uc-card p {
-    font-size: var(--fs-body);
-    line-height: 1.7;
-    letter-spacing: -0.005em;
-    margin-bottom: 12px;
-  }
-  .uc-card p:last-child { margin-bottom: 0; }
-  .uc-card.uc-challenge p { color: rgba(255,255,255,0.78); }
-  .uc-card.uc-approach p { color: #333; }
+    nav a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+      margin-left: 0;
+    }
 
-  .uc-result {
-    background: var(--grey);
-    border: 1px solid #ededeb;
-    border-radius: 14px;
-    padding: 36px 36px 40px;
-  }
-  .uc-result-label {
-    font-size: var(--fs-label); font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: #aaa; display: block; margin-bottom: 14px;
-  }
-  .uc-result p {
-    font-size: var(--fs-body);
-    line-height: 1.7;
-    letter-spacing: -0.005em;
-    color: #333;
-  }
+    nav a:hover {
+      color: var(--white);
+    }
 
-  /* ── CTA BUTTON ── */
-  .uc-case-cta { margin-top: 32px; }
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    padding: 13px 28px;
-    border-radius: 10px;
-    border: 1px solid rgba(0,0,0,0.18);
-    background: var(--white);
-    color: var(--black);
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-  }
-  .btn-outline:hover {
-    border-color: rgba(0,0,0,0.4);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-  }
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
 
-  /* ── FOOTER BAND ── */
-  .footer-band {
-    background: var(--band-dark);
-    border-top: 1px solid var(--band-border);
-    padding: 80px 32px 56px;
-    text-align: center;
-    margin-top: 0;
-  }
-  .footer-band .container {
-    max-width: var(--max-width);
-    padding: 0 32px;
-    margin: 0 auto;
-  }
-  .footer-headline {
-    font-family: var(--font-display);
-    font-size: clamp(24px, 3vw, 48px);
-    font-weight: 400;
-    color: #fff;
-    margin-bottom: 32px;
-    line-height: 1.15;
-  }
-  .footer-cta-actions {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 64px;
-  }
-  .btn-diag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-body);
-    font-weight: 450;
-    font-size: 15px;
-    letter-spacing: 0.01em;
-    line-height: 1;
-    text-decoration: none;
-    padding: 22px 0;
-    width: 260px;
-    border-radius: 16px;
-    border: 1px solid rgba(0,0,0,.12);
-    background: rgba(255,255,255,0.96);
-    color: #111;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-  }
-  .btn-diag:hover {
-    background: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
-  }
+    /* ═══ HERO ═══ */
+    .hero {
+      margin-top: 72px;
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark-bg);
+      overflow: hidden;
+    }
 
-  .footer-divider {
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    margin-bottom: 32px;
-  }
-  .footer-logo-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer-logo {
-    display: flex; align-items: center; gap: 14px;
-    text-decoration: none; color: #fff;
-  }
-  .footer-logo-text {
-    font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
-    line-height: 1.1; color: #fff; text-transform: uppercase;
-  }
-  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background-image: url('Polygon 9.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 860px) {
-    nav { padding: 0 24px; }
-    .uc-hero-inner { padding: 56px 20px 44px; }
-    .uc-container { padding: 0 20px; }
-    .uc-grid { grid-template-columns: 1fr; gap: 12px; }
-    .uc-card, .uc-result { padding: 28px 22px; }
-    .uc-case { padding: 48px 0 40px; }
-    .footer-band { padding: 60px 20px 40px; }
-    .footer-logo-row { justify-content: center; text-align: center; }
-    .footer-cta-actions .btn-diag { width: 100%; max-width: 320px; }
-  }
-</style>
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background-image: url('Polygon 10.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      max-width: 680px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .audience-toggle {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      padding: 6px;
+      gap: 0;
+    }
+
+    .aud-btn {
+      padding: 12px 24px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .aud-btn.active {
+      background: var(--lime);
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      font-weight: 400;
+    }
+
+    .hero .lime {
+      color: var(--lime);
+    }
+
+    .hero-subtext {
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hidden { display: none !important; }
+
+    /* ═══ CASES SECTION ═══ */
+    .cases-section {
+      background: var(--dark-bg);
+      padding: 0;
+    }
+
+    .uc-case {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .uc-case:last-child {
+      border-bottom: none;
+    }
+
+    .uc-case-meta {
+      margin-bottom: 48px;
+    }
+
+    .uc-case-num {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .uc-title {
+      font-size: clamp(28px, 4vw, 56px);
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .uc-subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    .uc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 32px;
+      align-items: start;
+    }
+
+    .uc-card {
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .uc-card.uc-challenge {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(191, 255, 0, 0.15);
+    }
+
+    .uc-card.uc-approach {
+      background: rgba(191, 255, 0, 0.02);
+      border: 1px solid rgba(191, 255, 0, 0.2);
+    }
+
+    .uc-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .uc-card.uc-challenge .uc-card-label {
+      color: rgba(191, 255, 0, 0.6);
+    }
+
+    .uc-card.uc-approach .uc-card-label {
+      color: var(--lime);
+    }
+
+    .uc-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      letter-spacing: -0.005em;
+      margin-bottom: 16px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .uc-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .uc-result {
+      background: rgba(191, 255, 0, 0.02);
+      border: 1px solid rgba(191, 255, 0, 0.2);
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    .uc-result-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lime);
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .uc-result p {
+      font-size: 14px;
+      line-height: 1.7;
+      letter-spacing: -0.005em;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      background: var(--dark-bg);
+      color: var(--white);
+    }
+
+    .footer-content {
+      padding: 100px 0 60px;
+      text-align: center;
+    }
+
+    .footer-content h2 {
+      font-size: clamp(32px, 4vw, 60px);
+      line-height: 1.2;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .footer-content .lime {
+      color: var(--lime);
+    }
+
+    .footer-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: var(--black);
+    }
+
+    .btn-primary:hover {
+      background: #e6ff4d;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 0;
+    }
+
+    .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .footer-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ═══ MODAL STYLES ═══ */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #f7f7f7;
+      color: var(--black);
+      width: min(760px, calc(100vw - 140px));
+      margin: 0 auto;
+      padding: 30px 30px 32px;
+      border-radius: 20px;
+      border: 1px solid #e3e3e3;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      color: #777;
+      transition: color 0.2s;
+      font-weight: 300;
+    }
+
+    .modal-close:hover {
+      color: var(--black);
+    }
+
+    .modal-eyebrow {
+      display: inline-block;
+      border: 1px solid #d2d2d2;
+      border-radius: 999px;
+      padding: 8px 22px;
+      margin-bottom: 24px;
+      color: #666;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 2.1vw, 36px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .modal-subtitle {
+      max-width: 920px;
+      font-size: clamp(16px, 1.3vw, 20px);
+      color: #242424;
+      margin-bottom: 24px;
+      line-height: 1.35;
+    }
+
+    .modal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+      list-style: none;
+    }
+
+    .modal-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      color: #444;
+      font-size: clamp(14px, 1.2vw, 16px);
+      line-height: 1.32;
+    }
+
+    .modal-list li::before {
+      content: '→';
+      color: #777;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d8d8d4;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.4;
+      color: #111;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #999;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 92px;
+    }
+
+    .contact-modal .modal-content {
+      width: min(1280px, calc(100vw - 120px));
+      padding: 56px 54px 58px;
+      border-radius: 24px;
+    }
+
+    .contact-modal .modal-eyebrow {
+      margin-bottom: 18px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .contact-modal .modal-title {
+      font-size: clamp(58px, 4.5vw, 76px);
+      line-height: 0.98;
+      margin-bottom: 16px;
+    }
+
+    .contact-modal .modal-subtitle,
+    .contact-note {
+      max-width: none;
+      font-size: clamp(18px, 1.7vw, 24px);
+      line-height: 1.32;
+      color: #222;
+      margin-bottom: 24px;
+    }
+
+    .contact-note {
+      color: #555;
+      margin-bottom: 28px;
+    }
+
+    .contact-modal .form-group {
+      margin-bottom: 0;
+    }
+
+    .contact-row-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+
+    .contact-row-single {
+      margin-bottom: 14px;
+    }
+
+    .contact-actions {
+      margin-top: 8px;
+    }
+
+    .contact-modal .form-group input,
+    .contact-modal .form-group textarea {
+      padding: 16px 18px;
+      font-size: 18px;
+      border-radius: 0;
+      min-height: 70px;
+      border-color: #cfcfcb;
+    }
+
+    .contact-modal .form-group textarea {
+      min-height: 166px;
+      height: 166px;
+      resize: none;
+    }
+
+    .contact-modal .modal-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 390px;
+      max-width: 100%;
+      min-height: 94px;
+      padding: 14px 30px;
+      background: #111;
+      border: none;
+      color: #fff;
+      border-radius: 0;
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 24px;
+      }
+
+      .container {
+        padding: 0 24px;
+      }
+
+      .uc-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-flex {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .footer-cta {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .hero .container {
+        gap: 24px;
+      }
+    }
+
+    /* Figma use-case layout */
+    :root {
+      --paper: #fbfbf8;
+      --page-bg: #e9e9e5;
+      --ink: #0d0f0d;
+      --soft-card: #f4f4f1;
+      --result-bg: #f3ffe6;
+      --forest: #132318;
+      --line: rgba(0, 0, 0, 0.08);
+      --max-width: 1920px;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    body::before {
+      content: none;
+      display: none;
+    }
+
+    .site-shell {
+      width: 100%;
+      margin: 0;
+      background: var(--paper);
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    section {
+      padding: 58px 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+      padding: 0 180px;
+    }
+
+    .nav-inner {
+      width: min(100% - 128px, var(--max-width));
+      max-width: none;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    nav {
+      position: static;
+      height: 84px;
+      padding: 0;
+      background: var(--paper);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      backdrop-filter: none;
+    }
+
+    .nav-logo {
+      gap: 12px;
+      color: var(--ink);
+      font-size: 0;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .nav-logo::after {
+      content: 'THE\A NTH\A LAYER';
+      white-space: pre;
+      font-size: 10px;
+      line-height: 0.88;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    nav a {
+      color: rgba(0, 0, 0, 0.78);
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 0;
+    }
+
+    .nav-links {
+      gap: 30px;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    nav a:last-child {
+      background: var(--lime);
+      color: var(--ink);
+      padding: 18px 30px;
+      border-radius: 3px;
+      box-shadow: 0 7px 18px rgba(191, 255, 0, 0.26);
+    }
+
+    .hero {
+      margin-top: 0;
+      min-height: 424px;
+      padding: 56px 0 64px;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.93), rgba(4, 10, 6, 0.91)),
+        radial-gradient(circle at 50% 112%, rgba(66, 120, 54, 0.22), transparent 45%),
+        repeating-linear-gradient(90deg, transparent 0 47px, rgba(191, 255, 0, 0.1) 48px, transparent 49px);
+      color: var(--white);
+    }
+
+    .hero::before {
+      inset: 0;
+      width: auto;
+      height: auto;
+      top: 0;
+      right: 0;
+      background:
+        linear-gradient(180deg, rgba(191, 255, 0, 0.08), transparent 42%),
+        radial-gradient(ellipse at center 104%, transparent 0 40%, rgba(191, 255, 0, 0.09) 40.4%, transparent 40.8%),
+        radial-gradient(ellipse at center 104%, transparent 0 53%, rgba(191, 255, 0, 0.07) 53.4%, transparent 53.8%),
+        radial-gradient(ellipse at center 104%, transparent 0 67%, rgba(191, 255, 0, 0.055) 67.4%, transparent 67.8%);
+      opacity: 1;
+    }
+
+    .hero::after {
+      inset: auto 0 0;
+      left: 0;
+      bottom: 0;
+      width: auto;
+      height: 100%;
+      background:
+        linear-gradient(180deg, rgba(191, 255, 0, 0.2) 0 50px, transparent 50px 100%) 8% 0 / 1px 100% no-repeat,
+        linear-gradient(180deg, rgba(191, 255, 0, 0.16) 0 82px, transparent 82px 100%) 18% 0 / 1px 100% no-repeat,
+        linear-gradient(180deg, rgba(191, 255, 0, 0.2) 0 118px, transparent 118px 100%) 33% 0 / 1px 100% no-repeat,
+        linear-gradient(180deg, rgba(191, 255, 0, 0.14) 0 78px, transparent 78px 100%) 50% 0 / 1px 100% no-repeat,
+        linear-gradient(180deg, rgba(191, 255, 0, 0.16) 0 108px, transparent 108px 100%) 66% 0 / 1px 100% no-repeat,
+        linear-gradient(180deg, rgba(191, 255, 0, 0.12) 0 70px, transparent 70px 100%) 84% 0 / 1px 100% no-repeat;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .hero .container {
+      max-width: 1550px;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .audience-toggle {
+      display: none;
+    }
+
+    .hero h1 {
+      max-width: 1020px;
+      font-size: clamp(52px, 4vw, 74px);
+      line-height: 0.95;
+      font-weight: 400;
+    }
+
+    .hero-subtext {
+      max-width: 760px;
+      font-size: 16px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.72);
+      margin: 0 auto;
+    }
+
+    .cases-section {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0;
+    }
+
+    .uc-case {
+      padding: 54px 0 74px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .uc-case:last-child {
+      border-bottom: none;
+    }
+
+    .uc-case-meta {
+      margin-bottom: 32px;
+    }
+
+    .uc-case-num {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #efefeb;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .uc-case-num::after {
+      content: 'USE CASE';
+    }
+
+    .uc-title {
+      font-size: clamp(44px, 2.8vw, 56px);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .uc-subtitle {
+      font-size: 14px;
+      line-height: 1.45;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .uc-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      margin-bottom: 30px;
+    }
+
+    .uc-card {
+      min-height: 420px;
+      padding: 30px 34px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+    }
+
+    .uc-card.uc-challenge {
+      background: var(--soft-card);
+      border-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .uc-card.uc-approach {
+      background: var(--forest);
+      border-color: rgba(191, 255, 0, 0.13);
+      color: var(--white);
+    }
+
+    .uc-card-label,
+    .uc-result-label {
+      display: inline-flex;
+      width: max-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: var(--ink) !important;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      margin-bottom: 22px;
+    }
+
+    .uc-card p,
+    .uc-result p {
+      position: relative;
+      padding-left: 18px;
+      font-size: 16px;
+      line-height: 1.56;
+      letter-spacing: 0;
+      margin-bottom: 16px;
+      color: rgba(0, 0, 0, 0.74);
+    }
+
+    .uc-card p::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    .uc-card.uc-approach p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .uc-result {
+      background: var(--result-bg);
+      border: 1px solid rgba(120, 185, 36, 0.25);
+      border-radius: 14px;
+      padding: 26px 30px;
+    }
+
+    .uc-result p {
+      padding-left: 0;
+      margin-bottom: 0;
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    footer {
+      position: relative;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.78)),
+        url('/images/nth-layer-earth-photo-bg.png') center / cover no-repeat;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('/Polygon 10.png');
+      background-repeat: no-repeat;
+      background-size: 620px auto;
+      background-position: -220px center;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .footer-content,
+    .footer-bottom {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      padding: 66px 0 50px;
+    }
+
+    .footer-content h2 {
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .footer-cta {
+      gap: 10px;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 11px 16px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .btn-primary:hover {
+      background: #d7ff3f;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(0, 0, 0, 0.28);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .footer-bottom {
+      padding: 24px 0;
+    }
+
+    .footer-flex {
+      align-items: flex-end;
+    }
+
+    .footer-logo {
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .footer-copy {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    @media (max-width: 768px) {
+      body::before { display: none; }
+
+      .container,
+      .nav-inner {
+        padding: 0 24px;
+      }
+
+      .site-shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      nav {
+        height: auto;
+        min-height: 58px;
+        padding: 12px 18px;
+        gap: 14px;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-left: auto;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+
+      .hero {
+        min-height: 260px;
+      }
+
+      .uc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .uc-card {
+        min-height: auto;
+      }
+
+      .footer-cta .btn {
+        width: auto;
+      }
+
+      .contact-row-two {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .contact-modal .modal-content {
+        width: min(92vw, 760px);
+        padding: 30px 26px 32px;
+      }
+
+      .contact-modal .modal-title {
+        font-size: clamp(42px, 7vw, 56px);
+      }
+
+      .contact-modal .modal-subtitle,
+      .contact-note {
+        font-size: 18px;
+      }
+
+      .contact-modal .form-group input,
+      .contact-modal .form-group textarea {
+        font-size: 16px;
+        min-height: 58px;
+      }
+
+      .contact-modal .form-group textarea {
+        min-height: 120px;
+        height: 120px;
+      }
+
+      .contact-modal .modal-submit {
+        width: 100%;
+        min-height: 72px;
+        font-size: 16px;
+      }
+    }
+
+    /* ═══ HAMBURGER MENU ═══ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      color: var(--white);
+      margin-left: auto;
+      z-index: 400;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 290;
+      backdrop-filter: blur(4px);
+    }
+
+    .mobile-overlay.open {
+      display: block;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(280px, 85vw);
+      height: 100vh;
+      background: #0a0e0f;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 300;
+      padding: 80px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu a {
+      display: block;
+      color: rgba(255, 255, 255, 0.82);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--white);
+    }
+
+    .mobile-menu a:last-child {
+      border-bottom: none;
+      margin-top: 12px;
+      background: var(--lime);
+      color: var(--black);
+      padding: 16px 24px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .mobile-menu a:last-child::after {
+      content: ' →';
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none !important;
+      }
+
+      .nav-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        height: 100%;
+        min-height: 58px;
+      }
+    }
+  </style>
 </head>
 <body>
+<div class="site-shell">
 
 <!-- NAV -->
 <nav>
-  <a href="./" class="nav-logo">
-    <svg viewBox="0 0 80 80" height="57" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="2" width="76" height="76" stroke="#111" stroke-width="5"></rect>
-      <rect x="14" y="14" width="52" height="52" stroke="#111" stroke-width="5"></rect>
-      <rect x="26" y="26" width="28" height="28" stroke="#111" stroke-width="5"></rect>
-      <rect x="35" y="35" width="10" height="10" fill="#111"></rect>
-    </svg>
-    <span class="nav-logo-text">The<br>Nth Layer</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="./">Home</a></li>
-    <li><a href="./use-cases.html">Use Cases</a></li>
-    <li><a href="./whitepaper.html">Whitepaper</a></li>
-    <li><a href="./#contact">Get in Touch</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"></rect>
+        <rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"></rect>
+        <rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"></rect>
+        <rect x="35" y="35" width="10" height="10" fill="currentColor"></rect>
+      </svg>
+      The Nth Layer
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/usecases/">Use Cases</a>
+      <a href="/#contact">Get in Touch</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- HERO (dark, earth photo) -->
-<div class="uc-hero">
-  <div class="uc-hero-inner">
-    <span class="section-label">Use Cases</span>
-    <h1 class="uc-hero-title">Work that moves the business forward</h1>
-    <p class="uc-hero-sub">Four examples of how we've helped companies turn strategy, AI, and product into real commercial outcomes.</p>
-  </div>
+<!-- ═══ MOBILE MENU ═══ -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" onclick="toggleMobileMenu()">Home</a>
+  <a href="/usecases/" onclick="toggleMobileMenu()">Use Cases</a>
+  <a href="/#contact" onclick="toggleMobileMenu()">Get in Touch</a>
 </div>
 
-<!-- CASES (white background) -->
-<main>
-  <div class="uc-container">
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="audience-toggle">
+      <button class="aud-btn active" data-audience="investor">Investor</button>
+      <button class="aud-btn" data-audience="operator">Operator</button>
+    </div>
+
+    <div class="investor-content">
+      <h1>Work that moves the business <span class="lime">forward</span></h1>
+      <p class="hero-subtext">Four examples of how we have helped companies turn strategy, AI, and product work into commercial outcomes.</p>
+    </div>
+
+    <div class="operator-content hidden">
+      <h1>Work that moves the business <span class="lime">forward</span></h1>
+      <p class="hero-subtext">Four examples of how we have helped operators turn strategy, AI, and product work into commercial outcomes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases-section">
+  <div class="container">
 
     <!-- CASE 1 -->
     <article class="uc-case">
@@ -369,24 +1372,18 @@
           <p>Initiatives were not clearly linked to business metrics, making impact and prioritisation difficult to assess.</p>
           <p>Alignment across leadership teams was inconsistent, creating friction between product, commercial, and technical decision-making.</p>
           <p>Differentiation in a crowded market was difficult to articulate clearly and consistently.</p>
-          <p>Strategic risks were not formally defined, and there was no clear mitigation plan in place.</p>
-          <p>There was no structured methodology for continuous validation, increasing reliance on assumptions rather than evidence.</p>
-          <p>The product organisation was deeply embedded in delivery, making it difficult to step back and think strategically.</p>
         </div>
         <div class="uc-card uc-approach">
           <span class="uc-card-label">Approach</span>
           <p>Ran a series of leadership workshops focused on strategic alignment, shifting thinking from operational execution to outcome-led strategy.</p>
           <p>Created space for strategic thinking by pulling the team out of day-to-day delivery pressures and enabling focused leadership reflection.</p>
           <p>Grounded discussions in market reality through a structured SWOT analysis, ensuring strategic decisions were evidence-based rather than opinion-led.</p>
-          <p>Used the Airbnb 11-star exercise to push the team beyond incremental improvements and reimagine the highest-value customer experience.</p>
-          <p>Identified the company's true competitive advantage: delivering depth and measurable outcomes in areas where larger platforms offered only breadth.</p>
           <p>Translated workshop outputs into a clear, prioritised strategy focused on the outcomes most valued by target customers.</p>
-          <p>Developed a board-ready narrative that linked differentiation to business metrics, enabling confident executive and board-level decision-making.</p>
         </div>
       </div>
       <div class="uc-result">
         <span class="uc-result-label">Result</span>
-        <p>The board approved and backed the strategy, supported by a clear, outcome-focused narrative grounded in evidence-based decision-making. A board-ready strategy deck articulated a reimagined vision and defined four strategic bets designed to drive growth, enabling leadership to align around shared priorities and make confident product decisions. The roadmap evolved from a list of initiatives into a strategic plan tied to measurable business impact, giving the organisation a clear path to differentiation and stronger positioning against larger platform competitors.</p>
+        <p>The board approved and backed the strategy, supported by a clear, outcome-focused narrative grounded in evidence-based decision-making. The roadmap evolved from a list of initiatives into a strategic plan tied to measurable business impact, giving the organisation a clear path to differentiation and stronger positioning against larger platform competitors.</p>
       </div>
     </article>
 
@@ -400,27 +1397,22 @@
       <div class="uc-grid">
         <div class="uc-card uc-challenge">
           <span class="uc-card-label">Challenge</span>
-          <p>Extensive research, including customer interviews and strategic work with EY, had been completed, but it lacked a clear strategic direction.</p>
-          <p>The organisation was drowning in research, with a low signal-to-noise ratio that made prioritisation difficult.</p>
+          <p>Extensive research had been completed, but it lacked a clear strategic direction and strong signal-to-noise ratio.</p>
           <p>Leadership lacked a structured way to turn insight into clear strategic choices and measurable outcomes.</p>
-          <p>There was no evidence-based plan for evolving the ICP — from traditional intranet buyers toward employee experience, and from a strong regional position into North American expansion.</p>
+          <p>There was no evidence-based plan for evolving the ICP from traditional intranet buyers toward employee experience, and from a strong regional position into North American expansion.</p>
           <p>Existing buyer personas reinforced legacy positioning while the market shifted toward daily engagement and employee value.</p>
-          <p>Strong inputs existed, but no clear strategy connected research to focused execution.</p>
         </div>
         <div class="uc-card uc-approach">
           <span class="uc-card-label">Approach</span>
-          <p>Ran a series of workshops focused on the future of work, clarifying how shifting employee expectations would reshape the employee experience market.</p>
+          <p>Ran a series of workshops focused on the future of work, clarifying how shifting employee expectations would reshape the market.</p>
           <p>Reframed strategy away from legacy buyer needs and toward driving day-to-day engagement and value for end users.</p>
           <p>Increased signal-to-noise by distilling large volumes of research into a small set of clear strategic priorities.</p>
           <p>Anchored decisions in commercial evidence through win/loss analysis across 3,000+ opportunities, including MEDDPICC data.</p>
-          <p>Defined four clear strategic bets designed to reposition the business from intranet provider to employee experience platform.</p>
-          <p>Established a validation path to gather further evidence, reduce uncertainty, and de-risk strategic investment over time.</p>
-          <p>Built an evidence-based roadmap showing how the ICP could evolve, supporting both upmarket positioning and expansion into North America.</p>
         </div>
       </div>
       <div class="uc-result">
         <span class="uc-result-label">Result</span>
-        <p>A high-level product strategy built around four prioritised strategic bets, each grounded in customer evidence and competitive positioning. Leadership aligned on a clear product vision and a structured roadmap that moved beyond feature delivery toward measurable business outcomes. With defined next steps for validating assumptions — including targeted customer discovery, win/loss analysis, and market sizing — the organisation now has a repeatable framework for making confident product investment decisions and closing the gap on larger platform competitors.</p>
+        <p>A high-level product strategy built around four prioritised strategic bets, each grounded in customer evidence and competitive positioning. Leadership aligned on a clear product vision and a structured roadmap that moved beyond feature delivery toward measurable business outcomes. With defined next steps for validating assumptions, the organisation now has a repeatable framework for making confident product investment decisions.</p>
       </div>
     </article>
 
@@ -434,10 +1426,9 @@
       <div class="uc-grid">
         <div class="uc-card uc-challenge">
           <span class="uc-card-label">Challenge</span>
-          <p>The company had a number of popular, well-established Web3 assets in the job board space and wanted to explore new ways to increase engagement.</p>
+          <p>The company had popular Web3 assets in the job board space and wanted to explore new ways to increase engagement.</p>
           <p>Leadership needed to validate whether a conversational voice interface could improve interaction between users and opportunities.</p>
           <p>The core hypothesis was that natural voice-based conversation would increase engagement, leading to stronger matching quality and higher response rates.</p>
-          <p>If successful, the approach had the potential to reduce reliance on traditional recruitment intermediaries by enabling more direct, conversational interaction between users and the platform.</p>
           <p>The challenge was validating this hypothesis quickly without disrupting existing product momentum or committing significant upfront resources.</p>
         </div>
         <div class="uc-card uc-approach">
@@ -446,13 +1437,11 @@
           <p>Used service design principles to identify where conversational AI could naturally fit within the user journey without disrupting the core experience.</p>
           <p>Defined and tested the core hypothesis that natural voice interaction would increase engagement and improve response rates.</p>
           <p>Built a conversational voice AI MVP focused specifically on validating user interaction patterns and engagement behaviour.</p>
-          <p>Tested the MVP with real users, capturing feedback and iterating quickly to refine the experience.</p>
-          <p>Used continuous feedback loops to validate whether voice-driven engagement created measurable improvement before wider investment.</p>
         </div>
       </div>
       <div class="uc-result">
         <span class="uc-result-label">Result</span>
-        <p>The company validated whether conversational voice AI could meaningfully increase user engagement on its Web3 job board assets, gaining the evidence it needed to make an informed decision about wider investment. By building and testing a focused MVP with real users, the business avoided committing significant resources to an unproven hypothesis and instead generated measurable signals about user interaction and matching quality. The learnings provided a clear view on whether voice-driven interaction warranted broader product investment or strategic repositioning, giving leadership confidence to move forward, pivot, or deprioritise on the basis of evidence rather than assumption.</p>
+        <p>The company validated whether conversational voice AI could meaningfully increase user engagement, gaining the evidence it needed to make an informed decision about wider investment. By building and testing a focused MVP with real users, the business avoided committing significant resources to an unproven hypothesis and instead generated measurable signals about user interaction and matching quality.</p>
       </div>
     </article>
 
@@ -469,53 +1458,216 @@
           <p>An AI strategy had been announced, but the product operating model remained built for predictable software rather than probabilistic systems.</p>
           <p>AI initiatives were not tied to key business metrics, leaving no clear way to measure ROI or prioritise investment.</p>
           <p>Roadmaps remained feature-led, with success measured by delivery rather than commercial impact.</p>
-          <p>There was no structured approach to continuous evaluation, performance monitoring, or model tuning after deployment.</p>
           <p>Ownership across product, engineering, and data was unclear, creating fragmented experimentation and duplicated effort.</p>
-          <p>Governance and risk processes were reactive, slowing progress as AI capabilities moved toward production.</p>
         </div>
         <div class="uc-card uc-approach">
           <span class="uc-card-label">Approach</span>
           <p>Conducted a focused operating model review centred on commercial accountability for AI investment.</p>
           <p>Defined clear value hypotheses for each AI initiative, explicitly linked to revenue, margin, cost efficiency, or retention metrics.</p>
           <p>Reframed roadmaps from feature delivery to outcome-based bets with measurable success criteria.</p>
-          <p>Introduced ROI tracking frameworks connecting model performance to business impact.</p>
-          <p>Established continuous evaluation loops, including live performance monitoring, human override tracking, and structured model tuning cycles.</p>
-          <p>Clarified ownership across product, engineering, and data with defined decision rights and accountability.</p>
-          <p>Integrated governance and risk guardrails into experimentation and deployment workflows.</p>
+          <p>Introduced ROI tracking frameworks connecting model performance to business impact and established continuous evaluation loops.</p>
         </div>
       </div>
       <div class="uc-result">
         <span class="uc-result-label">Result</span>
-        <p>AI investment shifted from activity without accountability to initiatives directly tied to core business metrics, including revenue growth, margin improvement, cost efficiency, and retention. Clear value hypotheses replaced vague experimentation, and each AI initiative was measured against defined commercial outcomes. Continuous evaluation and tuning processes ensured model performance improved over time rather than degrading after launch. Governance moved from reactive gatekeeping to structured oversight embedded within delivery. As a result, AI transformation became a disciplined, ROI-driven product strategy embedded into the operating model — not an isolated innovation programme or side initiative disconnected from commercial impact.</p>
+        <p>AI investment shifted from activity without accountability to initiatives directly tied to core business metrics, including revenue growth, margin improvement, cost efficiency, and retention. Clear value hypotheses replaced vague experimentation, and each AI initiative was measured against defined commercial outcomes. AI transformation became a disciplined, ROI-driven product strategy embedded into the operating model.</p>
       </div>
     </article>
 
   </div>
-</main>
+</section>
 
 <!-- FOOTER -->
-<footer class="footer-band">
-  <div class="container">
-    <h2 class="footer-headline">From portfolio risk to portfolio edge.</h2>
-    <div class="footer-cta-actions">
-      <a href="./#diagnostic" class="btn-diag">Quick Portco Diagnostic</a>
-      <a href="./#contact" class="btn-diag">Get in Touch</a>
+<footer>
+  <section class="footer-content">
+    <h2>From portfolio risk to <span class="lime">portfolio edge</span></h2>
+    <div class="footer-cta">
+      <button class="btn btn-primary" onclick="openDiagnostic()">Quick Diagnostic</button>
+      <button class="btn btn-secondary" onclick="openContactModal()">Get in Touch</button>
     </div>
-    <hr class="footer-divider">
-    <div class="footer-logo-row">
-      <a href="./" class="footer-logo">
-        <svg viewBox="0 0 80 80" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="76" height="76" stroke="#fff" stroke-width="5"></rect>
-          <rect x="14" y="14" width="52" height="52" stroke="#fff" stroke-width="5"></rect>
-          <rect x="26" y="26" width="28" height="28" stroke="#fff" stroke-width="5"></rect>
-          <rect x="35" y="35" width="10" height="10" fill="#fff"></rect>
+  </section>
+
+  <section class="footer-bottom">
+    <div class="container footer-flex">
+      <a href="/" class="footer-logo">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="76" height="76" stroke="white" stroke-width="3"/>
+          <rect x="14" y="14" width="52" height="52" stroke="white" stroke-width="3"/>
+          <rect x="26" y="26" width="28" height="28" stroke="white" stroke-width="3"/>
+          <rect x="35" y="35" width="10" height="10" fill="white"/>
         </svg>
-        <span class="footer-logo-text">The<br>Nth Layer</span>
+        <span>The Nth Layer</span>
       </a>
-      <span class="footer-copy">Copyright © 2026 The Nth Layer. All rights reserved.</span>
+      <span class="footer-copy">Copyright 2026 The Nth Layer. All rights reserved.</span>
     </div>
-  </div>
+  </section>
 </footer>
+</div>
+
+<!-- DIAGNOSTIC MODAL -->
+<div class="modal" id="diagnosticModal">
+  <div class="modal-content">
+    <button class="modal-close" type="button" aria-label="Close" onclick="closeDiagnostic()">×</button>
+    <div class="modal-eyebrow">Quick Diagnostic</div>
+    <h2 class="modal-title">Find out where you stand in 2 minutes</h2>
+    <p class="modal-subtitle">Five questions each on product, process, and people. We return a score and a specific recommendation.</p>
+    <ul class="modal-list">
+      <li>Where AI creates real advantage in your market</li>
+      <li>What's blocking you before you spend another pound</li>
+      <li>The two or three bets worth funding — and what to cut</li>
+      <li>A 90-day action plan your board can track</li>
+    </ul>
+    <form id="diagnosticIntroForm" onsubmit="submitDiagnostic(event)">
+      <div class="form-group">
+        <label for="diagEmail">Email Address <span class="required">*</span></label>
+        <input type="email" id="diagEmail" required placeholder="you@company.com">
+      </div>
+      <button type="submit" class="modal-submit">Start the Diagnostic →</button>
+    </form>
+  </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal contact-modal" id="contactModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeContactModal()">×</button>
+    <div class="modal-eyebrow">Get in touch</div>
+    <h2 class="modal-title">Let's talk</h2>
+    <p class="modal-subtitle" id="contactIntro">We work with PE firms holding mid-market portfolios. If that sounds like you, the form takes 30 seconds.</p>
+    <p class="contact-note">Every engagement starts with a 30-minute call. No deck. Just the right questions.</p>
+    <form id="contactModalForm" onsubmit="submitContact(event)">
+      <div class="contact-row-two">
+        <div class="form-group">
+          <input type="text" required placeholder="Name *">
+        </div>
+        <div class="form-group">
+          <input type="text" required placeholder="Company *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <input type="text" required placeholder="Job title *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <input type="email" required placeholder="Email *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <textarea required placeholder="Message *"></textarea>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <button type="submit" class="modal-submit">Send message →</button>
+      </div>
+    </form>
+    <div id="contactModalSuccess" class="modal-subtitle" style="display:none; margin-bottom:0;">Thank you. We will be in touch shortly.</div>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('open');
+    hamburger.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('open')) toggleMobileMenu();
+    }
+  });
+
+  // Audience Toggle
+  const audienceToggle = document.querySelectorAll('.aud-btn');
+  const investorContent = document.querySelectorAll('.investor-content');
+  const operatorContent = document.querySelectorAll('.operator-content');
+
+  audienceToggle.forEach(btn => {
+    btn.addEventListener('click', function() {
+      audienceToggle.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const audience = this.dataset.audience;
+      if (audience === 'investor') {
+        investorContent.forEach(el => el.classList.remove('hidden'));
+        operatorContent.forEach(el => el.classList.add('hidden'));
+      } else {
+        operatorContent.forEach(el => el.classList.remove('hidden'));
+        investorContent.forEach(el => el.classList.add('hidden'));
+      }
+      updateContactIntro();
+    });
+  });
+
+  // Modal Functions
+  function openDiagnostic() {
+    document.getElementById('diagnosticModal').classList.add('active');
+  }
+
+  function closeDiagnostic() {
+    document.getElementById('diagnosticModal').classList.remove('active');
+  }
+
+  function openContactModal() {
+    updateContactIntro();
+    const form = document.getElementById('contactModalForm');
+    const success = document.getElementById('contactModalSuccess');
+    if (form && success) {
+      form.style.display = 'block';
+      success.style.display = 'none';
+    }
+    document.getElementById('contactModal').classList.add('active');
+  }
+
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('active');
+  }
+
+  function submitDiagnostic(e) {
+    e.preventDefault();
+    alert('Thank you! We will review your diagnostic and get back to you soon.');
+    closeDiagnostic();
+    e.target.reset();
+  }
+
+  function submitContact(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactModalForm');
+    const success = document.getElementById('contactModalSuccess');
+    form.style.display = 'none';
+    success.style.display = 'block';
+    e.target.reset();
+  }
+
+  function updateContactIntro() {
+    const intro = document.getElementById('contactIntro');
+    if (!intro) return;
+    const active = document.querySelector('.aud-btn.active');
+    const audience = active ? active.dataset.audience : 'investor';
+    intro.textContent = audience === 'operator'
+      ? 'We work with operators in B2B SaaS, services, and recruitment. If that sounds like you, the form takes 30 seconds.'
+      : 'We work with PE firms holding mid-market portfolios. If that sounds like you, the form takes 30 seconds.';
+  }
+
+  // Close modal on background click
+  document.getElementById('diagnosticModal').addEventListener('click', function(e) {
+    if (e.target === this) closeDiagnostic();
+  });
+
+  document.getElementById('contactModal').addEventListener('click', function(e) {
+    if (e.target === this) closeContactModal();
+  });
+
+  updateContactIntro();
+</script>
 
 </body>
 </html>
