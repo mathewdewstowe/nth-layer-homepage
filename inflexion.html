@@ -1014,34 +1014,23 @@
       border-right: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
-      white-space: nowrap;
     }
 
     .lp-level-content {
       padding: 16px 20px;
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      white-space: nowrap;
     }
 
     .lp-level-name {
       font-size: 13px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      display: inline;
-    }
-
-    .lp-level-name::after {
-      content: ':';
-      margin-right: 4px;
+      margin-bottom: 2px;
     }
 
     .lp-level-desc {
       font-size: 12px;
       line-height: 1.5;
       color: rgba(255,255,255,0.38);
-      display: inline;
     }
 
     /* EVIDENCE */
@@ -1177,46 +1166,13 @@
       color: rgba(191,255,0,0.7);
     }
 
-    /* ═══ HERO DUAL CTAS ═══ */
-    .lp-hero-ctas {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .lp-start-btn-secondary {
-      background: transparent;
-      color: rgba(255,255,255,0.82);
-      border: 1px solid rgba(255,255,255,0.28);
-      box-shadow: none;
-    }
-
-    .lp-start-btn-secondary:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.5);
-      opacity: 1;
-    }
-
     .lp-start-btn-lime {
       background: var(--lime);
       color: var(--black);
       border: none;
       box-shadow: 0 7px 18px rgba(191,255,0,0.26);
     }
-
-    .lp-start-btn-lime:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-
-    /* ═══ DIAGNOSTIC MODAL ═══ */
-    #diagnosticModal .modal-content {
-      width: min(680px, calc(100vw - 48px));
-      padding: 48px 44px 52px;
-    }
-
-    .diag-screen { display: block; }
+    .lp-start-btn-lime:hover { opacity: 0.9; transform: translateY(-1px); }
 
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 768px) {
@@ -1271,11 +1227,10 @@
         <p class="lp-hero-body">
           Six pillar scores, a weighted overall score, a maturity stage, and peer comparisons from 54 sponsor-owned B2B SaaS companies. Plus a 90-day action plan to close the gaps.
         </p>
-        <div class="lp-hero-ctas">
+        <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:4px;">
           <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
           <button class="lp-start-btn lp-start-btn-lime" onclick="startDiagnostic()">AI Maturity Diagnostic →</button>
         </div>
-        <p class="lp-start-note">10 mins · no email required</p>
       </div>
     </div>
   </section>
@@ -1469,11 +1424,8 @@
       <div class="container">
         <h2 class="lp-cta-heading">Ready for a briefing?</h2>
         <p class="lp-cta-sub">A 90-day action plan to close the gaps.</p>
-        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
-          <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
-          <button class="lp-start-btn lp-start-btn-secondary" onclick="startDiagnostic()" style="color:var(--black);border-color:rgba(0,0,0,0.25);">Quick Diagnostic →</button>
-        </div>
-        <p style="font-size: 13px; color: rgba(0,0,0,0.38); margin-top: 14px;">Diagnostic is free · 10 mins · no email required</p>
+        <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
+        <p style="font-size: 13px; color: rgba(0,0,0,0.52); margin-top: 12px;">10–12 mins</p>
       </div>
     </div>
     <div class="footer-inner container">
@@ -1524,47 +1476,6 @@
   </div>
 </div>
 
-<!-- ═══ DIAGNOSTIC MODAL ═══ -->
-<div class="modal" id="diagnosticModal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeDiagnosticModal()" aria-label="Close">×</button>
-
-    <!-- Question screen -->
-    <div id="screen-question" class="diag-screen">
-      <div class="progress-bar-wrap">
-        <div class="progress-meta">
-          <span id="progress-label">Question 1 of 10</span>
-          <span id="progress-pct">0%</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-        </div>
-      </div>
-      <span class="q-dimension" id="q-dimension"></span>
-      <p class="q-text" id="q-text"></p>
-      <div class="q-options" id="q-options"></div>
-    </div>
-
-    <!-- Result screen -->
-    <div id="screen-result" class="diag-screen" style="display:none">
-      <span class="result-tier-badge" id="result-badge"></span>
-      <h2 class="result-heading" id="result-heading"></h2>
-      <p class="result-score" id="result-score"></p>
-      <div class="result-divider"></div>
-      <div class="result-dimensions" id="result-dimensions"></div>
-      <p class="result-next-label">What happens next</p>
-      <p class="result-next-text" id="result-next"></p>
-      <div class="result-actions">
-        <button class="result-cta" onclick="openContactFromResult()">Request a briefing →</button>
-        <button class="result-link" onclick="retake()">Retake</button>
-        <button class="result-link" onclick="copyResult()">Copy result</button>
-        <span id="copy-confirm" class="result-copy-confirm">Copied ✓</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <script>
   const QUESTIONS = [
     { dimension: 'Team Fluency', text: 'How would you describe your leadership team\'s relationship with AI tools?', options: ['We talk about AI but very few of us actually use it', 'A handful of leaders dabble with ChatGPT or similar tools personally', 'Most of our leadership actively uses AI tools in their day-to-day work', 'AI is embedded in how leadership operates and makes decisions'] },
@@ -1599,21 +1510,12 @@
 
   function startDiagnostic() {
     currentQ = 0; answers = [];
-    document.getElementById('screen-question').style.display = 'block';
-    document.getElementById('screen-result').style.display = 'none';
-    document.getElementById('diagnosticModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('diagnostic').classList.add('active');
+    document.getElementById('screen-question').classList.add('active');
+    document.getElementById('screen-result').classList.remove('active');
     renderQuestion();
-  }
-
-  function closeDiagnosticModal() {
-    document.getElementById('diagnosticModal').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function openContactFromResult() {
-    closeDiagnosticModal();
-    openContactModal(null);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function renderQuestion() {
@@ -1665,20 +1567,15 @@
     });
     document.getElementById('result-next').textContent = finalTier.next;
     try { localStorage.setItem('inflexion_last_result', JSON.stringify({ score: finalScore, tier: finalTier.level, label: finalTier.label, date: new Date().toISOString() })); } catch(e) {}
-    document.getElementById('screen-question').style.display = 'none';
-    document.getElementById('screen-result').style.display = 'block';
-    // scroll modal content to top
-    const mc = document.querySelector('#diagnosticModal .modal-content');
-    if (mc) mc.scrollTop = 0;
+    document.getElementById('screen-question').classList.remove('active');
+    document.getElementById('screen-result').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function retake() {
-    currentQ = 0; answers = [];
-    document.getElementById('screen-result').style.display = 'none';
-    document.getElementById('screen-question').style.display = 'block';
-    renderQuestion();
-    const mc = document.querySelector('#diagnosticModal .modal-content');
-    if (mc) mc.scrollTop = 0;
+    document.getElementById('diagnostic').classList.remove('active');
+    document.getElementById('landing').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function copyResult() {
@@ -1719,7 +1616,6 @@
   }
 
   document.getElementById('contactModal').addEventListener('click', function(e) { if (e.target === this) closeContactModal(); });
-  document.getElementById('diagnosticModal').addEventListener('click', function(e) { if (e.target === this) closeDiagnosticModal(); });
 </script>
 
 </body>
