@@ -1394,16 +1394,108 @@
 
     #diag .result-copy-confirm { font-size: 12px; color: var(--lime); font-weight: 700; }
 
+    /* ═══ HAMBURGER MENU ═══ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      color: var(--black);
+      margin-left: auto;
+      z-index: 400;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 290;
+      backdrop-filter: blur(4px);
+    }
+    .mobile-overlay.open { display: block; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(280px, 85vw);
+      height: 100vh;
+      background: #0a0e0f;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 300;
+      padding: 80px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      display: block;
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-menu .mobile-cta {
+      border-bottom: none;
+      margin-top: 12px;
+      background: var(--lime);
+      color: var(--black) !important;
+      padding: 16px 24px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 700;
+    }
+
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 768px) {
+      html { zoom: 1; }
+      .hamburger { display: flex !important; }
+      .nav-links { display: none !important; }
+      .nav-inner { flex-wrap: nowrap !important; }
       .lp-hero .container { grid-template-columns: 1fr; gap: 40px; }
+      .lp-hero { padding: 56px 0 64px; }
+      .lp-h1 { font-size: clamp(32px, 8vw, 44px); }
       .lp-get-grid { grid-template-columns: 1fr; }
       .lp-tiers-intro { grid-template-columns: 1fr; gap: 20px; }
+      .lp-tiers-heading { font-size: clamp(28px, 7vw, 38px); }
       .lp-how-grid { grid-template-columns: 1fr; gap: 32px; }
       .contact-row-two { grid-template-columns: 1fr; }
       .modal-content { padding: 24px 18px 28px; border-radius: 4px; }
+      .modal-title { font-size: clamp(32px, 8vw, 44px); }
       .lp-approach-grid, .lp-score-grid { grid-template-columns: 1fr; gap: 32px; }
       .lp-evidence-grid, .lp-engagement-grid { grid-template-columns: 1fr; }
+      .lp-cta-heading { font-size: clamp(28px, 7vw, 40px); }
+      .pillar-row { grid-template-columns: 1fr auto; gap: 12px; }
+      .pillar-score { font-size: 13px; }
+      .pillar-delta { display: none; }
+      .pillar-stage { display: none; }
+      .diag-wrap { padding: 48px 16px 80px; }
+      .diag-inner { max-width: 100%; }
+      #diag .q-text { font-size: clamp(18px, 5vw, 26px); }
     }
   </style>
 </head>
@@ -1426,8 +1518,19 @@
       <a href="/inflexion/" class="inflexion-nav-link">Inflexion</a>
       <a href="/#contact" class="nav-cta" onclick="openContactModal(event)">Get in Touch →</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" onclick="toggleMobileMenu()">Home</a>
+  <a href="/usecases/" onclick="toggleMobileMenu()">Use Cases</a>
+  <a href="/inflexion/" onclick="toggleMobileMenu()">Inflexion</a>
+  <a href="/#contact" class="mobile-cta" onclick="openContactModal(null); toggleMobileMenu()">Get in Touch →</a>
+</div>
 
 <!-- ═══ LANDING PAGE ═══ -->
 <div id="landing">
@@ -1951,6 +2054,22 @@
       setTimeout(() => { c.style.display = 'none'; }, 2000);
     }).catch(() => {});
   }
+
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('mobileMenu');
+      if (menu && menu.classList.contains('open')) toggleMobileMenu();
+    }
+  });
 
   function openContactModal(e) {
     if (e) e.preventDefault();

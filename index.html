@@ -1014,6 +1014,7 @@
 
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 768px) {
+      html { zoom: 1; }
       .problem-grid, .delivered-grid, .fractional-grid {
         grid-template-columns: 1fr;
       }
@@ -2503,7 +2504,7 @@
       <div class="fractional-left">
         <span class="fractional-divider" aria-hidden="true"></span>
         <h2 id="fractional-heading">A full-time Chief AI Officer is hard to justify inside every portco before the business has shipped meaningful AI change.</h2>
-        <p id="fractional-body">The Nth Layer brings that capability on a fractional basis: assessing opportunities, sequencing the work, aligning leadership teams, and owning delivery until each portco has something real to operate. What you get is AI leadership as a function across the portfolio — not another strategy deck.</p>
+        <p id="fractional-body"></p>
       </div>
       <div class="fractional-right">
         <div class="metric">
@@ -2668,7 +2669,7 @@
         document.getElementById('services-label').textContent = 'What We Do for Private Equity';
         document.getElementById('services-intro').textContent = '';
         document.getElementById('fractional-heading').textContent = 'A full-time Chief AI Officer is hard to justify inside every portco before the business has shipped meaningful AI change.';
-        document.getElementById('fractional-body').textContent = 'The Nth Layer brings that capability on a fractional basis: assessing opportunities, sequencing the work, aligning leadership teams, and owning delivery until each portco has something real to operate. What you get is AI leadership as a function across the portfolio — not another strategy deck.';
+        document.getElementById('fractional-body').textContent = '';
         document.getElementById('who-text').textContent = 'The Nth Layer is led by Matthew Dewstowe, an exited founder and product leader who has built AI products, led transformations, and scaled businesses from the inside. The belief is simple: AI leadership is a role, not a deliverable. You get the function, not a deck. The Nth Layer works at the point where products, workflows, teams, operating models, and value creation plans need to align. One operator. No platform pitch. No portco lock-in.';
         document.getElementById('cta-heading').innerHTML = 'From portfolio risk to <span class="lime">portfolio edge</span>';
       } else {
@@ -2682,7 +2683,7 @@
         document.getElementById('services-label').textContent = 'What We Do';
         document.getElementById('services-intro').textContent = '';
         document.getElementById('fractional-heading').textContent = 'A full-time Chief AI Officer is hard to justify before the business has shipped meaningful AI change.';
-        document.getElementById('fractional-body').textContent = 'The Nth Layer brings that capability on a fractional basis: assessing the opportunity, sequencing the work, aligning teams, and owning delivery until the business has something real to operate. What you get is ownership, execution, and capability transfer — not another deck.';
+        document.getElementById('fractional-body').textContent = '';
         document.getElementById('who-text').textContent = 'The Nth Layer is led by Matthew Dewstowe, an exited founder and product leader who has built AI products, led transformations, and scaled businesses from the inside. The belief is simple: AI leadership is a role, not a deliverable. You get the function, not a deck. The Nth Layer works at the point where products, workflows, teams, and operating models need to change together. One operator. No platform pitch. No portco lock-in.';
         document.getElementById('cta-heading').innerHTML = 'Stop experimenting. <span class="lime">Start compounding.</span>';
       }
