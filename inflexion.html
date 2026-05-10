@@ -1019,19 +1019,29 @@
 
     .lp-level-content {
       padding: 16px 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
     }
 
     .lp-level-name {
       font-size: 13px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      margin-bottom: 2px;
+      display: inline;
+    }
+
+    .lp-level-name::after {
+      content: ':';
+      margin-right: 4px;
     }
 
     .lp-level-desc {
       font-size: 12px;
       line-height: 1.5;
       color: rgba(255,255,255,0.38);
+      display: inline;
     }
 
     /* EVIDENCE */
@@ -1188,6 +1198,18 @@
       opacity: 1;
     }
 
+    .lp-start-btn-lime {
+      background: var(--lime);
+      color: var(--black);
+      border: none;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.26);
+    }
+
+    .lp-start-btn-lime:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
     /* ═══ DIAGNOSTIC MODAL ═══ */
     #diagnosticModal .modal-content {
       width: min(680px, calc(100vw - 48px));
@@ -1251,7 +1273,7 @@
         </p>
         <div class="lp-hero-ctas">
           <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
-          <button class="lp-start-btn lp-start-btn-secondary" onclick="startDiagnostic()">Quick Diagnostic →</button>
+          <button class="lp-start-btn lp-start-btn-lime" onclick="startDiagnostic()">AI Maturity Diagnostic →</button>
         </div>
         <p class="lp-start-note">10 mins · no email required</p>
       </div>
