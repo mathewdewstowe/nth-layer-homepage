@@ -1018,6 +1018,7 @@
       border-right: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
+      white-space: nowrap;
     }
 
     .lp-level-content {
@@ -1089,7 +1090,7 @@
     .lp-evidence-title {
       font-size: 15px;
       font-weight: 700;
-      color: var(--lime);
+      color: var(--black);
       margin-bottom: 8px;
     }
 
@@ -1097,6 +1098,10 @@
       font-size: 13px;
       line-height: 1.6;
       color: rgba(0,0,0,0.5);
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     /* ENGAGEMENT SHAPES */
@@ -1400,22 +1405,22 @@
       <div class="lp-evidence-grid">
         <div class="lp-evidence-item">
           <span class="lp-evidence-tier">Tier 1</span>
-          <div class="lp-evidence-title">audited_financial_disclosures</div>
+          <div class="lp-evidence-title">Audited financial disclosures</div>
           <div class="lp-evidence-body">Annual reports, earnings releases, IPO filings. CFO-attested. The strongest form of evidence.</div>
         </div>
         <div class="lp-evidence-item">
           <span class="lp-evidence-tier">Tier 2</span>
-          <div class="lp-evidence-title">named_customer_references</div>
+          <div class="lp-evidence-title">Named customer references</div>
           <div class="lp-evidence-body">Sponsor case studies and named references with quantified outcomes. Strong, but not formally audited.</div>
         </div>
         <div class="lp-evidence-item">
           <span class="lp-evidence-tier">Tier 3</span>
-          <div class="lp-evidence-title">corroborating_trade_press</div>
+          <div class="lp-evidence-title">Corroborating trade press</div>
           <div class="lp-evidence-body">Independent confirmation of Tier 1 or 2 facts. Useful in support, insufficient in isolation.</div>
         </div>
         <div class="lp-evidence-item dimmed">
           <span class="lp-evidence-tier not-credited">Tier 4 — Not credited</span>
-          <div class="lp-evidence-title">generic_marketing_claims</div>
+          <div class="lp-evidence-title">Generic marketing claims</div>
           <div class="lp-evidence-body">'AI-powered' positioning without quantified outcomes. We do not credit Tier 4 as evidence.</div>
         </div>
       </div>
