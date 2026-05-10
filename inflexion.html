@@ -1185,6 +1185,215 @@
     }
     .lp-start-btn-lime:hover { opacity: 0.9; transform: translateY(-1px); }
 
+    /* ═══ DIAGNOSTIC OVERLAY ═══ */
+    #diag {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0a0e0f;
+      z-index: 2000;
+      overflow-y: auto;
+    }
+
+    .diag-close-btn {
+      position: fixed;
+      top: 20px; right: 24px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      font-size: 22px;
+      line-height: 1;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      z-index: 10;
+      font-family: var(--font-body);
+    }
+    .diag-close-btn:hover { background: rgba(255,255,255,0.13); color: rgba(255,255,255,0.8); }
+
+    .diag-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px var(--page-gutter) 96px;
+    }
+
+    .diag-inner {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    #diag .q-options {
+      display: flex;
+      flex-direction: column;
+      border: none;
+    }
+
+    #diag .q-option {
+      display: block;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 3px;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      line-height: 1.55;
+      padding: 16px 20px;
+      text-align: left;
+      width: 100%;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    #diag .q-option:hover { background: rgba(191,255,0,0.07); border-color: rgba(191,255,0,0.25); color: rgba(255,255,255,0.9); }
+    #diag .q-option.selected { background: rgba(191,255,0,0.12); border-color: var(--lime); color: #fff; }
+
+    #diag .progress-bar-wrap { margin-bottom: 40px; }
+    #diag .progress-meta { color: rgba(255,255,255,0.32); }
+    #diag .progress-track { background: rgba(255,255,255,0.1); }
+
+    #diag .q-dimension {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+
+    #diag .q-text {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+
+    .diag-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      align-items: center;
+    }
+
+    .diag-btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 26px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .diag-btn-primary { background: var(--lime); color: var(--black); }
+    .diag-btn-primary:hover { opacity: 0.88; }
+    .diag-btn-primary:disabled { opacity: 0.35; cursor: default; }
+    .diag-btn-secondary { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); }
+    .diag-btn-secondary:hover { opacity: 0.8; }
+    .diag-btn-secondary:disabled { opacity: 0.3; cursor: default; }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .stage-l0 { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.45); }
+    .stage-l1 { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+    .stage-l2 { background: rgba(191,255,0,0.12); color: rgba(191,255,0,0.8); border: 1px solid rgba(191,255,0,0.3); }
+    .stage-l3 { background: rgba(191,255,0,0.18); color: #c8ff00; border: 1px solid rgba(191,255,0,0.4); }
+    .stage-l4 { background: rgba(191,255,0,0.26); color: #BFFF00; border: 1px solid rgba(191,255,0,0.6); }
+    .stage-l5 { background: var(--lime); color: var(--black); }
+
+    #diag .result-heading {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.6vw, 40px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+
+    #diag .result-score {
+      font-size: 13px;
+      color: rgba(255,255,255,0.32);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .pillar-grid {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .pillar-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 130px 76px;
+      gap: 8px;
+      padding: 13px 18px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+    }
+
+    .pillar-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.72); }
+    .pillar-score { font-size: 15px; font-weight: 800; color: #fff; text-align: right; }
+    .pillar-delta { font-size: 12px; font-weight: 700; text-align: right; }
+    .pillar-stage { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-align: right; }
+
+    .result-next-section-label {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 12px;
+    }
+
+    #diag .result-next-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 32px;
+    }
+
+    #diag .result-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+    #diag .result-link {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.32);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+      padding: 0;
+    }
+    #diag .result-link:hover { color: rgba(255,255,255,0.6); }
+
+    #diag .result-copy-confirm { font-size: 12px; color: var(--lime); font-weight: 700; }
+
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 768px) {
       .lp-hero .container { grid-template-columns: 1fr; gap: 40px; }
@@ -1486,46 +1695,157 @@
   </div>
 </div>
 
+<!-- dummy launcher anchor (used by diagnostic JS) -->
+<div id="launcher" style="display:none"></div>
+
+<!-- ═══ DIAGNOSTIC OVERLAY ═══ -->
+<div id="diag">
+  <button class="diag-close-btn" onclick="closeDiag()">×</button>
+  <div class="diag-wrap">
+    <div class="diag-inner">
+
+      <!-- QUESTION SCREEN -->
+      <div id="screen-question" style="display:none">
+        <div class="progress-bar-wrap">
+          <div class="progress-meta">
+            <span id="progress-label">Question 1 of 30</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+        <span class="q-dimension" id="q-pillar"></span>
+        <p class="q-text" id="q-text"></p>
+        <div class="q-options" id="q-options"></div>
+        <div class="diag-nav">
+          <button class="diag-btn diag-btn-secondary" id="btn-back" onclick="prevQuestion()" disabled>← Back</button>
+          <button class="diag-btn diag-btn-primary" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- RESULT SCREEN -->
+      <div id="screen-result" style="display:none">
+        <span id="result-badge" class="result-badge"></span>
+        <h2 class="result-heading" id="result-heading"></h2>
+        <p class="result-score" id="result-score"></p>
+        <div class="pillar-grid" id="pillar-grid"></div>
+        <p class="result-next-section-label">What happens next</p>
+        <p class="result-next-text" id="result-next"></p>
+        <div class="result-actions">
+          <button class="diag-btn diag-btn-primary" onclick="openContactModal(null)">Request a briefing →</button>
+          <button class="result-link" onclick="copyResult()">Copy result</button>
+          <span id="copy-confirm" class="result-copy-confirm" style="display:none">Copied ✓</span>
+          <button class="result-link" onclick="retake()">Retake</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
+  const PILLAR_NAMES = {
+    P1: 'Strategy & Leadership',
+    P2: 'Data & Knowledge Foundation',
+    P3: 'Use Cases & Value Capture',
+    P4: 'Talent & Operating Model',
+    P5: 'Governance, Risk & Trust',
+    P6: 'Infrastructure & Tooling'
+  };
+
+  const PILLAR_WEIGHTS = { P1: 0.20, P2: 0.15, P3: 0.25, P4: 0.20, P5: 0.10, P6: 0.10 };
+  const COHORT_AVGS   = { P1: 3.63, P2: 3.35, P3: 3.63, P4: 2.89, P5: 3.25, P6: 3.50 };
+
+  const STAGES = [
+    { level: 'L0', label: 'Absent', tagline: 'AI is not yet on the agenda.', next: 'The right next move is a focused strategy sprint with the CEO and exec team to define whether AI is a value-creation lever for this hold period. Without that decision, no other move will stick. The risk is not moving too fast — it is watching competitors build durable AI advantages while you are still in the awareness phase.' },
+    { level: 'L1', label: 'Aware', tagline: 'Conversations are happening. Nothing is in production.', next: 'The next move is to fund 2–3 deeply-scoped pilots in the highest-EBITDA-leverage workflows, with clear kill criteria at 90 days. The trap at this stage is buying enterprise AI platforms before you have a workflow to apply them to. Pick the workflow first, then the tool.' },
+    { level: 'L2', label: 'Active', tagline: 'Pilots exist. None are compounding.', next: 'The next move is to industrialise: pick the 1–2 pilots with the strongest signal, redesign the workflow around them, and publish the results internally. The trap at this stage is having 20 pilots and zero in production — proliferation without conviction. Pick winners and kill the rest.' },
+    { level: 'L3', label: 'Operational', tagline: 'AI is in production. The operating model has not caught up.', next: 'The next move is to formalise the operating model — CoE design, cross-functional squads, governance framework — and to start measuring P&L attribution. The trap at this stage is treating AI as an IT project rather than an operating-model transformation. The EBITDA is in the redesign, not the tooling.' },
+    { level: 'L4', label: 'Systemic', tagline: 'AI is a measurable EBITDA contributor.', next: 'The next move is to push to Level 5 by externalising — productising AI for customers, disclosing AI-driven revenue, externally auditing governance. The trap at this stage is internal complacency: the gap from Level 4 to Level 5 is much wider than from 3 to 4. Most companies stop here.' },
+    { level: 'L5', label: 'Transformational', tagline: 'AI is the operating model and the moat.', next: 'The next move is defending the moat — proprietary data flywheels, regulatory leadership, talent magnetism. The trap at this stage is hubris: every market leader thinks they are ahead until they are not. The businesses that stay here treat it as a moving target, not a destination.' }
+  ];
+
   const QUESTIONS = [
-    { dimension: 'Team Fluency', text: 'How would you describe your leadership team\'s relationship with AI tools?', options: ['We talk about AI but very few of us actually use it', 'A handful of leaders dabble with ChatGPT or similar tools personally', 'Most of our leadership actively uses AI tools in their day-to-day work', 'AI is embedded in how leadership operates and makes decisions'] },
-    { dimension: 'Team Fluency', text: 'What proportion of your wider team uses AI tools at least weekly?', options: ['Fewer than 10%', '10 to 30%', '30 to 60%', 'More than 60%'] },
-    { dimension: 'Tooling', text: 'How does your business currently discover and adopt new AI tools?', options: ['Individuals find tools on their own — no coordination', 'We have tried a few tools but there is no real process', 'We evaluate and deploy tools with some structure', 'We have a clear process for evaluating, adopting, and scaling AI tools'] },
-    { dimension: 'Tooling', text: 'How integrated are AI tools into your core business workflows?', options: ['Not integrated — people use AI tools separately from their actual work', 'Loosely integrated in one or two areas', 'Integrated into several key workflows with clear owners', 'AI is embedded across most of our critical business processes'] },
-    { dimension: 'Product', text: 'Have you shipped any AI-powered product or service features in the last 12 months?', options: ['No', 'We have explored it but nothing has shipped', 'One or two features are in production', 'Multiple AI features have shipped and are actively improving'] },
-    { dimension: 'Product', text: 'How do you measure the impact of AI initiatives in your business?', options: ['We do not measure it', 'We track anecdotal feedback and gut feel', 'Some basic metrics are in place for certain initiatives', 'Clear KPIs tied to business outcomes are tracked for all AI work'] },
-    { dimension: 'Culture', text: 'How is AI strategy decided in your business?', options: ['No real AI strategy exists', 'Someone owns it loosely but it is not coordinated across the business', 'There is a defined owner and some structure around AI decisions', 'AI strategy is integrated into business planning at the highest level'] },
-    { dimension: 'Culture', text: 'What typically happens when an AI pilot or initiative does not work?', options: ['It quietly gets abandoned with no follow-through', 'We reflect briefly but rarely change our approach as a result', 'We do a structured review and adjust the next initiative', 'Failures generate documented learnings that feed directly back into strategy'] },
-    { dimension: 'Capability', text: 'How much of your AI work is owned and built internally versus outsourced?', options: ['Almost all outsourced or entirely ad hoc', 'Mostly outsourced with light internal oversight', 'A mix — growing internal capability but still reliant on external support', 'Primarily internal capability, with external support used strategically'] },
-    { dimension: 'Capability', text: 'How would you describe your AI roadmap for the next 12 months?', options: ['We do not have one', 'Some vague ideas but nothing concrete or committed', 'A roadmap exists with defined priorities and named owners', 'A clear, funded roadmap tied directly to commercial outcomes'] }
+    // P1
+    { pillar:'P1', text:'Does the CEO publicly own the AI agenda?', options:['CEO has never publicly addressed AI strategy','CEO has mentioned AI in internal town halls but no external articulation','CEO has spoken publicly about AI exploration but with no specific commitments','CEO has publicly committed to specific AI outcomes with timelines in at least one external forum','CEO publicly owns AI as a top-3 strategic priority in earnings calls, investor day, or sponsor podcast with named programmes','CEO has publicly committed to specific quantified AI outcomes with audited or board-tracked metrics'] },
+    { pillar:'P1', text:'Is AI explicitly part of the value-creation plan or hold-period thesis?', options:['No mention of AI in the VCP or hold-period thesis','AI mentioned as something to explore — no owner, budget, or milestones','AI workstream defined in VCP with named owner, no budget or KPIs','AI workstream in VCP with named owner, budget allocated, and KPIs defined','AI is a named workstream in the VCP with quarterly board reporting against KPIs and over 5% of operating capex','AI is the central value-creation thesis — sponsor pitch deck and quarterly review centre on AI-driven EBITDA uplift with audited tracking'] },
+    { pillar:'P1', text:'Is there dedicated AI capital allocation visible in the budget?', options:['No identifiable AI line items in the budget','Some software spend on AI tools — no dedicated team or programme budget','Under 1% of opex committed to AI initiatives, mostly tooling and licences','1–3% of opex committed to AI with a dedicated cost centre covering people, infrastructure, and build','3–7% of opex committed to AI with a multi-year budgeted plan','Over 7% of opex committed to AI with explicit ROI tracking and reallocation discipline'] },
+    { pillar:'P1', text:'Does the board review AI progress on a regular cadence?', options:['AI never on the board agenda','Ad hoc updates when something material happens','Annual update at the board level','Quarterly update at the board level with KPIs','Monthly board sub-committee on AI with a named chair and audited metrics','Continuous board oversight via AI-dedicated sub-committee with public commitments to AI-related disclosures'] },
+    { pillar:'P1', text:'Is the executive team AI-literate with named accountability?', options:['No exec-level AI accountability and no AI literacy among the C-suite','AI-curious CEO or CTO but no formal accountability structure','CTO or CIO has AI in their remit alongside other priorities','Dedicated AI lead reports to CEO or sits on exec team — Chief AI Officer, Chief Data Officer, or Head of AI','Dedicated AI lead on exec team with P&L accountability for AI programme outcomes','AI is embedded across multiple exec roles with cross-functional accountability for AI-driven business outcomes'] },
+    // P2
+    { pillar:'P2', text:'Is your customer, operational, and transactional data centralised in a governed data platform?', options:['Data lives in legacy systems with no centralisation effort underway','Centralisation effort scoped but not yet executing','Some domains centralised — legacy fragmentation persists across operations','Operational data lake or warehouse in production for the majority of business domains','Modern data platform with over 80% of business-critical data centralised with documented schemas','Single source of truth across all domains with real-time pipelines, embedded vector store, and explicit data products served via contracts'] },
+    { pillar:'P2', text:'Do you have documented data lineage and quality controls?', options:['No data lineage documentation — data quality is reactive','Informal lineage knowledge held by individual engineers — ad-hoc quality fixes','Lineage documented for some core systems — basic quality SLAs on key tables','End-to-end lineage tooling deployed for the majority of analytical assets with documented quality SLAs','Automated lineage and quality monitoring across all production pipelines with alerting and ownership','Continuous data observability with ML-driven anomaly detection, full lineage from source to model output, and audit trail for regulators'] },
+    { pillar:'P2', text:'Do you have proprietary labelled datasets that competitors cannot easily replicate?', options:['No proprietary data assets — all training and grounding data is publicly available','Some proprietary unlabelled data — no labelling programme','Proprietary unlabelled data corpus exists but underutilised — ad-hoc labelling for specific projects','Proprietary labelled dataset for at least one core use case, actively used to fine-tune or ground production AI','Multiple proprietary labelled datasets across business domains with active labelling pipelines and feedback loops','Proprietary labelled data is the explicit moat — competitors cannot match it and the data flywheel measurably improves model performance over time'] },
+    { pillar:'P2', text:'Is your data governance integrated with your AI governance?', options:['No data governance programme and no AI governance','Some data governance for compliance reasons — AI not in scope','Data governance programme in place — AI flagged as future scope','Data governance covers AI training data and model inputs with a basic AI risk register','Unified data and AI governance with risk classification, model cards, approval workflows, and audit trail','Governance is itself a productised capability — ISO 42001 certified, reviewed by external auditors annually'] },
+    { pillar:'P2', text:'Can you trace any AI-driven decision back to the underlying data and model that produced it?', options:['No traceability — AI outputs are opaque','Some logging of model calls — no link back to training data or model version','Model version tracking with partial logging of inputs and outputs','Full audit trail for production models: input data, model version, output, and downstream action','Audit trail with explainability layer for high-stakes decisions — reviewable on demand','Continuous traceability tooling deployed — outputs re-explainable months later, integrated with regulatory and customer audit processes'] },
+    // P3
+    { pillar:'P3', text:'How many AI use cases are running in production today?', options:['Zero — nothing in production','One use case in production, peripheral to revenue or operations','2–4 use cases in production, mostly internal productivity','5–10 use cases in production including at least one in a core revenue or operational workflow','10–25 use cases in production across multiple business functions with measurable impact','25+ use cases in production — AI is embedded in the default way of working across most functions'] },
+    { pillar:'P3', text:'What measurable P&L impact has AI delivered in the last 12 months?', options:['No measurement of AI P&L impact','Anecdotal claims of value — no measurement framework','Measured impact on a single workflow with no roll-up to P&L','Documented EBIT impact under 2% from AI initiatives, traceable to specific workflows','Documented EBIT impact 2–5% from AI initiatives, validated by finance and reviewed by board','Documented EBIT impact over 5% from AI initiatives, externally audited or disclosed in investor materials'] },
+    { pillar:'P3', text:'Are AI features driving customer-facing revenue, retention, or pricing power?', options:['No customer-facing AI features in product','AI features on product roadmap but not yet shipped','AI features shipped to customers — no measurable usage or revenue impact','AI features measurably drive product engagement or are a stated reason customers chose us','AI features drive measurable retention uplift or pricing power through premium SKU adoption','AI is the explicit reason customers buy — AI-derived revenue is a standalone disclosed line and pricing power has visibly improved'] },
+    { pillar:'P3', text:'Have you killed AI initiatives that did not work?', options:['Never started enough to kill anything','Started initiatives — never formally killed any','Killed an initiative once — post-mortem was informal','Killed at least one AI initiative with a documented post-mortem and reallocated budget','Quarterly portfolio review of AI initiatives with formal kill, scale, or pivot decisions and budget reallocation','Continuous portfolio management with ROI-tracked kill rate — learnings captured, shared cross-functionally, and failure is celebrated as fast learning'] },
+    { pillar:'P3', text:'What is the velocity of AI deployment — from idea to production?', options:['No AI deployments to measure','Over 12 months from idea to first production deployment','6–12 months from idea to first production deployment','3–6 months from idea to first production deployment','Under 3 months from idea to first production deployment, repeatable across teams','Days to weeks deployment cycle — platform-driven, new use cases ship monthly'] },
+    // P4
+    { pillar:'P4', text:'Do you have a documented AI operating model?', options:['No operating model — AI work is ad hoc by individuals','Informal team coalesced around AI — no documented charter','Centralised AI team or CoE in place but bottlenecked — business units dependent on it for everything','Documented operating model with clear handoffs between central AI team and business units','Hub-and-spoke or federated model with central platform and governance and embedded AI engineers in each business unit','AI capability is embedded throughout the operating model — every team has AI literacy, the central team governs platforms not delivery, and the model is externally referenceable'] },
+    { pillar:'P4', text:'Have core workflows been redesigned around AI rather than AI bolted onto existing workflows?', options:['AI bolted on to existing workflows — no redesign considered','Redesign discussed but not executed','Redesign executed for one peripheral workflow','Redesign executed for at least one core workflow with measurable productivity uplift','Redesign across the majority of priority workflows with org structure adjusted to match','Operating model is fundamentally AI-native — every priority workflow has been redesigned around human and agent collaboration'] },
+    { pillar:'P4', text:'Do you have human and agent squads in production, or only humans assisted by tools?', options:['AI is purely a productivity tool — no agentic concept','Some agent experimentation in proof-of-concept','Agents in production for narrow single-step tasks','Multi-step agents in production for at least one workflow with measured outcomes','Human and agent squads as the standard operating unit for at least one business function with named responsibilities and SLAs','Agents are first-class members of the organisation across multiple functions — org chart reflects human and digital workers with performance management covering both'] },
+    { pillar:'P4', text:'What proportion of staff have completed structured AI training?', options:['No structured AI training programme','Optional self-paced training available — under 10% completion','Mandatory baseline training for some roles — 10–30% completion overall','Mandatory baseline training for all knowledge workers — 50%+ completion','Role-specific AI training with over 75% completion and ongoing certifications','Continuous AI literacy programme with role-specific tracks, external certifications, and AI fluency as a hiring criterion'] },
+    { pillar:'P4', text:'Is AI fluency built into hiring, performance management, and promotion?', options:['AI not mentioned in any people process','AI mentioned in some job descriptions — not assessed','AI fluency assessed in hiring for technical roles only','AI fluency assessed across most roles in hiring — performance reviews include AI usage','AI fluency is a formal competency in hiring, performance management, and promotion criteria across the org','AI fluency is a leadership criterion for senior promotions — company has a published AI competency framework and hiring filters explicitly screen for AI-native operators'] },
+    // P5
+    { pillar:'P5', text:'Do you have a documented AI policy covering acceptable use, data handling, and model risk?', options:['No AI policy','AI policy in draft — not yet approved','Approved AI policy covering acceptable use — gaps on data handling and model risk','Comprehensive AI policy approved by exec team covering acceptable use, data handling, and model risk','AI policy approved by board, reviewed annually, communicated to all staff with attestation — covers third-party AI tools and customer-facing AI','AI policy aligned to a recognised standard, externally audited, and publicly disclosed'] },
+    { pillar:'P5', text:'Is there a model validation process before any AI is deployed to customers or revenue-critical workflows?', options:['No validation process — engineers deploy as they see fit','Informal review by a peer engineer','Lightweight checklist review before production deployment','Documented validation process with named approver covering accuracy, bias, and security','Multi-stage validation with sign-off covering explainability and ongoing monitoring','Independent validation function with veto authority, aligned to regulatory frameworks, with monitoring for drift and re-validation triggers'] },
+    { pillar:'P5', text:'How do you handle AI-related incidents — hallucinations, biased outputs, customer complaints?', options:['No process for AI incidents','Ad hoc handling when something escalates','Incidents logged — no formal response framework','Documented incident response process with named owner and severity triage','Integrated AI incident response within broader security framework with root cause analysis, documented learnings, and periodic table-top exercises','Mature incident framework with public-facing disclosure protocol, regulator notification process, customer communication template, and post-incident model retraining protocols'] },
+    { pillar:'P5', text:'Are you compliant with AI-relevant regulation in your operating jurisdictions?', options:['Not aware of AI-specific regulation','Aware of regulation — no compliance assessment yet','Compliance gap analysis completed — remediation plan in draft','Compliance gap analysis completed — remediation in flight with high-risk AI systems classified','Compliant with applicable AI regulation — remediation closed and evidence pack maintained for regulators','Industry-leading compliance posture — engaged with regulators, published transparency reports, and customer-facing trust centre includes AI compliance evidence'] },
+    { pillar:'P5', text:'Can you defend your AI deployments to a sceptical regulator, customer security team, or auditor today?', options:['No documentation — could not defend any deployment','Some documentation — would require significant preparation','Could defend high-level approach but cannot defend specific model behaviour','Could defend most deployments with one week of preparation — documentation complete for high-risk systems','Could defend any deployment within 24 hours — documentation continuously maintained and passed at least one external audit','Continuous defensibility — all deployments documented to audit-grade standard, multiple external audits passed, and trust is a marketed product feature'] },
+    // P6
+    { pillar:'P6', text:'Is your underlying compute and data infrastructure cloud-native and AI-ready?', options:['Mostly on-premises — no cloud strategy','Some cloud workloads — legacy core systems remain on-premises','Cloud-first for new development — legacy migration roadmap exists','Majority cloud-native with AI and ML workloads on managed cloud services','Fully cloud-native with multi-region GPU capacity scaled to demand and data residency handled at platform level','Cloud-native and AI-optimised with private inference clusters for sensitive workloads — capacity is never the bottleneck'] },
+    { pillar:'P6', text:'Do you have a model gateway that governs LLM and AI model usage across the organisation?', options:['No gateway — teams use foundation models directly via individual API keys','Some informal gating via shared API keys','Internal proxy for cost and usage tracking — no governance','Model gateway in production with cost tracking, rate limiting, and audit logging','Model gateway with multi-model routing, semantic caching, prompt management, governance layer, and chargeback','Mature model gateway as the only path to AI — integrated with identity, DLP, observability, evaluation, and FinOps'] },
+    { pillar:'P6', text:'Do you have an agent runtime — infrastructure to run multi-step agents safely in production?', options:['No agent infrastructure','Experimentation with agent frameworks in development environments only','Single agent in production with limited tool access','Multi-agent orchestration platform in production with logging, tracing, and human-in-the-loop checkpoints','Production-grade agent runtime with observability, rollback, sandboxed tool access, and evaluation harness','Agent runtime is a productised internal platform with SDKs, governance, audit trails, MCP server integration, and supports both internal and customer-facing agents'] },
+    { pillar:'P6', text:'Do you have evaluation, observability, and continuous-improvement tooling for AI in production?', options:['No evaluation or observability','Manual spot-checks of model outputs','Some logging — ad hoc evaluation when complaints arise','Continuous logging of inputs and outputs with eval harness for periodic regression testing','Production observability stack with continuous eval, drift detection, and feedback loops','Closed-loop continuous improvement — production data feeds eval, eval feeds retraining, retraining feeds release, metrics reviewed weekly by leadership'] },
+    { pillar:'P6', text:'Do you have a clear build-vs-buy discipline — foundation models bought, differentiation built?', options:['No discipline — build and buy decisions made ad hoc','Mostly building due to internal bias, or mostly buying with no differentiation','Some discipline — not consistently applied','Documented build-vs-buy framework — majority of foundation-model capability bought, custom layer built','Clear pattern: foundation models bought, orchestration bought or open-source, vertical differentiation built on proprietary data','Capital allocation discipline reviewed quarterly — explicit decisions to buy commodities and build moats, with the differentiation layer protected'] }
   ];
 
-  const TIERS = [
-    { level: 'L0', label: 'Unstarted', cssClass: 'tier-l0', tagline: 'AI is on the agenda. Nothing has shipped.', dimensions: { 'Team': 'AI is not yet part of how your leadership or team operates.', 'Tooling': 'No structured approach to adopting or deploying AI tools.', 'Strategy': 'AI is on the agenda, but nothing is compounding yet.' }, next: 'The biggest risk right now is not moving too fast — it is watching competitors build durable AI advantages while you are still in the awareness phase. The right starting point is identifying one or two high-value workflows where AI can deliver a measurable result in 90 days. That first win creates the internal belief needed to go further. We can help you find it.' },
-    { level: 'L1', label: 'Experimenting', cssClass: 'tier-l1', tagline: 'Pilots exist. None are compounding.', dimensions: { 'Team': 'Some individuals are engaged, but AI use is scattered and personal.', 'Tooling': 'Tools are being tried but not embedded into how the business operates.', 'Strategy': 'Pilots are happening. None of them are compounding yet.' }, next: 'Experimentation without a compounding strategy is expensive. The gap between where you are and where you need to be is one of coordination — someone needs to own AI commercially, not just technically. The next move is turning your best experiment into a repeatable capability that builds on itself. That is the step most businesses miss.' },
-    { level: 'L2', label: 'Deploying', cssClass: 'tier-l2', tagline: 'Some AI in production. Still fragmented.', dimensions: { 'Team': 'A critical mass of your team is actively using AI, with growing fluency.', 'Tooling': 'AI is integrated into several workflows, but fragmentation remains.', 'Strategy': 'AI is in production but has not yet become a unified strategic advantage.' }, next: 'You have cleared the hardest part — shipping. The challenge now is coherence. Multiple AI initiatives running in parallel, without a clear through-line, create technical debt and internal confusion. Bringing this together into a compounding capability requires someone to own the architecture of how AI creates value across the business — not just individual features.' },
-    { level: 'L3', label: 'Scaling', cssClass: 'tier-l3', tagline: 'AI is starting to move the business.', dimensions: { 'Team': 'Strong AI fluency across functions with good internal ownership.', 'Tooling': 'Well-integrated, with clear processes for adoption and iteration.', 'Strategy': 'AI is visibly moving the business — in cost, speed, or product quality.' }, next: 'At this stage the constraint is not capability — it is ambition. The businesses that reach L4 make a deliberate decision to treat AI as a core operating model, not a feature layer. That means rewiring how you measure, hire, and build — not just deploying more tools. The question is whether that shift is being led from the top.' },
-    { level: 'L4', label: 'Compounding', cssClass: 'tier-l4', tagline: 'AI is a durable operating advantage.', dimensions: { 'Team': 'AI is embedded in how your people work at every level of the business.', 'Tooling': 'Tools and processes compound on each other — each cycle creates leverage.', 'Strategy': 'AI is a durable operating advantage, not just a capability you have.' }, next: 'You are ahead of most. The question now is how you defend and extend that advantage as competitors close the gap. The risk at this tier is complacency, not capability. The businesses that stay at L4 treat it as a moving target, not a destination — and they bring in the right partners to keep the pace.' }
-  ];
+  // State
+  let currentQ = 0;
+  let answers = new Array(QUESTIONS.length).fill(null);
+  let finalStage = null, finalOverall = 0, finalPillarScores = {};
 
-  function getTier(score) {
-    if (score <= 6)  return TIERS[0];
-    if (score <= 13) return TIERS[1];
-    if (score <= 19) return TIERS[2];
-    if (score <= 24) return TIERS[3];
-    return TIERS[4];
+  function getStage(score) {
+    if (score < 1.0) return STAGES[0];
+    if (score < 2.0) return STAGES[1];
+    if (score < 3.0) return STAGES[2];
+    if (score < 4.0) return STAGES[3];
+    if (score < 5.0) return STAGES[4];
+    return STAGES[5];
   }
 
-  let currentQ = 0, answers = [], finalTier = null, finalScore = 0;
+  function calcResults(ans) {
+    const pillars = ['P1','P2','P3','P4','P5','P6'];
+    const pillarScores = {};
+    pillars.forEach((p, pi) => {
+      const slice = ans.slice(pi * 5, (pi + 1) * 5);
+      const valid = slice.filter(v => v !== null);
+      const avg = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : 0;
+      pillarScores[p] = Math.round(avg * 10) / 10;
+    });
+    const overall = pillars.reduce((sum, p) => sum + pillarScores[p] * PILLAR_WEIGHTS[p], 0);
+    return { pillarScores, overall: Math.round(overall * 100) / 100 };
+  }
 
   function startDiagnostic() {
-    currentQ = 0; answers = [];
-    document.getElementById('landing').classList.add('hidden');
-    document.getElementById('diagnostic').classList.add('active');
-    document.getElementById('screen-question').classList.add('active');
-    document.getElementById('screen-result').classList.remove('active');
+    currentQ = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    document.getElementById('launcher').style.display = 'none';
+    document.getElementById('diag').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('screen-question').style.display = 'block';
+    document.getElementById('screen-result').style.display = 'none';
     renderQuestion();
-    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function closeDiag() {
+    document.getElementById('diag').style.display = 'none';
+    document.body.style.overflow = '';
   }
 
   function renderQuestion() {
@@ -1535,63 +1855,101 @@
     document.getElementById('progress-label').textContent = `Question ${currentQ + 1} of ${total}`;
     document.getElementById('progress-pct').textContent = pct + '%';
     document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('q-dimension').textContent = q.dimension;
+    document.getElementById('q-pillar').textContent = `${q.pillar} — ${PILLAR_NAMES[q.pillar]}`;
     document.getElementById('q-text').textContent = q.text;
-    const letters = ['A', 'B', 'C', 'D'];
     const optionsEl = document.getElementById('q-options');
     optionsEl.innerHTML = '';
     q.options.forEach((opt, i) => {
       const btn = document.createElement('button');
-      btn.className = 'q-option';
-      btn.innerHTML = `<span class="q-option-letter">${letters[i]}</span><span class="q-option-text">${opt}</span>`;
+      btn.className = 'q-option' + (answers[currentQ] === i ? ' selected' : '');
+      btn.textContent = opt;
       btn.onclick = () => selectAnswer(i);
       optionsEl.appendChild(btn);
     });
+    document.getElementById('btn-back').disabled = currentQ === 0;
+    document.getElementById('btn-next').disabled = answers[currentQ] === null;
+    document.getElementById('btn-next').textContent = currentQ === total - 1 ? 'See results →' : 'Next →';
   }
 
   function selectAnswer(score) {
-    answers.push(score);
+    answers[currentQ] = score;
+    document.querySelectorAll('#q-options .q-option').forEach((b, i) => {
+      b.className = 'q-option' + (i === score ? ' selected' : '');
+    });
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  function nextQuestion() {
+    if (answers[currentQ] === null) return;
     if (currentQ < QUESTIONS.length - 1) {
       currentQ++;
-      const el = document.getElementById('screen-question');
-      el.style.opacity = '0'; el.style.transition = 'opacity 0.15s ease';
-      setTimeout(() => { renderQuestion(); el.style.opacity = '1'; }, 150);
-    } else { showResult(); }
+      fade(renderQuestion);
+    } else {
+      showResult();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQ > 0) { currentQ--; fade(renderQuestion); }
+  }
+
+  function fade(fn) {
+    const el = document.getElementById('screen-question');
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.15s ease';
+    setTimeout(() => { fn(); el.style.opacity = '1'; }, 150);
   }
 
   function showResult() {
-    finalScore = answers.reduce((a, b) => a + b, 0);
-    finalTier = getTier(finalScore);
+    const results = calcResults(answers);
+    finalOverall = results.overall;
+    finalPillarScores = results.pillarScores;
+    finalStage = getStage(finalOverall);
     const badge = document.getElementById('result-badge');
-    badge.className = `result-tier-badge ${finalTier.cssClass}`;
-    badge.textContent = `${finalTier.level} — ${finalTier.label}`;
-    document.getElementById('result-heading').textContent = finalTier.tagline;
-    document.getElementById('result-score').textContent = `Your score: ${finalScore} / 30`;
-    const dimsEl = document.getElementById('result-dimensions');
-    dimsEl.innerHTML = '';
-    Object.entries(finalTier.dimensions).forEach(([label, text]) => {
+    badge.textContent = `${finalStage.level} — ${finalStage.label}`;
+    badge.className = `result-badge stage-${finalStage.level.toLowerCase()}`;
+    document.getElementById('result-heading').textContent = finalStage.tagline;
+    document.getElementById('result-score').textContent = `Overall NL-AIMI score: ${finalOverall.toFixed(2)} / 5.0`;
+    const grid = document.getElementById('pillar-grid');
+    grid.innerHTML = '';
+    ['P1','P2','P3','P4','P5','P6'].forEach(p => {
+      const score = finalPillarScores[p];
+      const delta = score - COHORT_AVGS[p];
+      const pStage = getStage(score);
       const row = document.createElement('div');
-      row.className = 'result-dim';
-      row.innerHTML = `<span class="result-dim-label">${label}</span><span class="result-dim-text">${text}</span>`;
-      dimsEl.appendChild(row);
+      row.className = 'pillar-row';
+      row.innerHTML = `<span class="pillar-name">${p} — ${PILLAR_NAMES[p]}</span><span class="pillar-score">${score.toFixed(1)}</span><span class="pillar-delta" style="color:${delta >= 0 ? '#6abf40' : '#e05050'}">${delta >= 0 ? '+' : ''}${delta.toFixed(2)} vs cohort</span><span class="pillar-stage">${pStage.label}</span>`;
+      grid.appendChild(row);
     });
-    document.getElementById('result-next').textContent = finalTier.next;
-    try { localStorage.setItem('inflexion_last_result', JSON.stringify({ score: finalScore, tier: finalTier.level, label: finalTier.label, date: new Date().toISOString() })); } catch(e) {}
-    document.getElementById('screen-question').classList.remove('active');
-    document.getElementById('screen-result').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.getElementById('result-next').textContent = finalStage.next;
+    try { localStorage.setItem('nl_aimi_last_result', JSON.stringify({ overall: finalOverall, pillarScores: finalPillarScores, stage: finalStage.level, label: finalStage.label, date: new Date().toISOString() })); } catch(e) {}
+    document.getElementById('screen-question').style.display = 'none';
+    document.getElementById('screen-result').style.display = 'block';
+    document.getElementById('diag').scrollTop = 0;
   }
 
   function retake() {
-    document.getElementById('diagnostic').classList.remove('active');
-    document.getElementById('landing').classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    currentQ = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    document.getElementById('screen-result').style.display = 'none';
+    document.getElementById('screen-question').style.display = 'block';
+    renderQuestion();
+    document.getElementById('diag').scrollTop = 0;
   }
 
   function copyResult() {
-    if (!finalTier) return;
-    const text = [`Inflexion — AI Readiness Diagnostic`, ``, `Result: ${finalTier.level} — ${finalTier.label}`, `Score: ${finalScore} / 30`, ``, finalTier.tagline, ``, Object.entries(finalTier.dimensions).map(([l, t]) => `${l}: ${t}`).join('\n'), ``, `Next move:`, finalTier.next, ``, `Diagnostic by The Nth Layer — nthlayer.co.uk/inflexion`].join('\n');
-    navigator.clipboard.writeText(text).then(() => { const c = document.getElementById('copy-confirm'); c.style.display = 'inline'; setTimeout(() => { c.style.display = 'none'; }, 2000); }).catch(() => {});
+    if (!finalStage) return;
+    const pillarLines = ['P1','P2','P3','P4','P5','P6'].map(p => {
+      const score = finalPillarScores[p];
+      const delta = score - COHORT_AVGS[p];
+      return `${p} ${PILLAR_NAMES[p]}: ${score.toFixed(1)} (${delta >= 0 ? '+' : ''}${delta.toFixed(2)} vs cohort)`;
+    });
+    const text = ['NL-AIMI Diagnostic — Nth Layer', '', `Result: ${finalStage.level} — ${finalStage.label}`, `Overall score: ${finalOverall.toFixed(2)} / 5.0`, '', finalStage.tagline, '', 'Pillar scores:', ...pillarLines, '', 'What happens next:', finalStage.next, '', 'Diagnostic by The Nth Layer — nthlayer.co.uk/inflexion'].join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const c = document.getElementById('copy-confirm');
+      c.style.display = 'inline';
+      setTimeout(() => { c.style.display = 'none'; }, 2000);
+    }).catch(() => {});
   }
 
   function openContactModal(e) {
@@ -1615,7 +1973,7 @@
     const success = document.getElementById('contactModalSuccess');
     const submitButton = formEl.querySelector('.modal-submit');
     const originalLabel = submitButton.textContent;
-    const payload = { name: document.getElementById('contactName').value.trim(), company: document.getElementById('contactCompany').value.trim(), jobtitle: document.getElementById('contactJobTitle').value.trim(), email: document.getElementById('contactEmail').value.trim(), message: document.getElementById('contactMessage').value.trim(), audience: 'Inflexion', sourcePage: 'inflexion', inflexionScore: finalScore || null, inflexionTier: finalTier ? `${finalTier.level} — ${finalTier.label}` : null };
+    const payload = { name: document.getElementById('contactName').value.trim(), company: document.getElementById('contactCompany').value.trim(), jobtitle: document.getElementById('contactJobTitle').value.trim(), email: document.getElementById('contactEmail').value.trim(), message: document.getElementById('contactMessage').value.trim(), audience: 'Inflexion', sourcePage: 'inflexion', inflexionScore: finalOverall || null, inflexionTier: finalStage ? `${finalStage.level} — ${finalStage.label}` : null };
     submitButton.disabled = true; submitButton.textContent = 'Sending...';
     try {
       const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
