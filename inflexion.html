@@ -2129,41 +2129,251 @@
 
   const QUESTIONS = [
     // P1
-    { pillar:'P1', text:'Does the CEO publicly own the AI agenda?', options:['CEO has never publicly addressed AI strategy','CEO has mentioned AI in internal town halls but no external articulation','CEO has spoken publicly about AI exploration but with no specific commitments','CEO has publicly committed to specific AI outcomes with timelines in at least one external forum','CEO publicly owns AI as a top-3 strategic priority in earnings calls, investor day, or sponsor podcast with named programmes','CEO has publicly committed to specific quantified AI outcomes with audited or board-tracked metrics'] },
-    { pillar:'P1', text:'Is AI explicitly part of the value-creation plan or hold-period thesis?', options:['No mention of AI in the VCP or hold-period thesis','AI mentioned as something to explore — no owner, budget, or milestones','AI workstream defined in VCP with named owner, no budget or KPIs','AI workstream in VCP with named owner, budget allocated, and KPIs defined','AI is a named workstream in the VCP with quarterly board reporting against KPIs and over 5% of operating capex','AI is the central value-creation thesis — sponsor pitch deck and quarterly review centre on AI-driven EBITDA uplift with audited tracking'] },
-    { pillar:'P1', text:'Is there dedicated AI capital allocation visible in the budget?', options:['No identifiable AI line items in the budget','Some software spend on AI tools — no dedicated team or programme budget','Under 1% of opex committed to AI initiatives, mostly tooling and licences','1–3% of opex committed to AI with a dedicated cost centre covering people, infrastructure, and build','3–7% of opex committed to AI with a multi-year budgeted plan','Over 7% of opex committed to AI with explicit ROI tracking and reallocation discipline'] },
-    { pillar:'P1', text:'Does the board review AI progress on a regular cadence?', options:['AI never on the board agenda','Ad hoc updates when something material happens','Annual update at the board level','Quarterly update at the board level with KPIs','Monthly board sub-committee on AI with a named chair and audited metrics','Continuous board oversight via AI-dedicated sub-committee with public commitments to AI-related disclosures'] },
-    { pillar:'P1', text:'Is the executive team AI-literate with named accountability?', options:['No exec-level AI accountability and no AI literacy among the C-suite','AI-curious CEO or CTO but no formal accountability structure','CTO or CIO has AI in their remit alongside other priorities','Dedicated AI lead reports to CEO or sits on exec team — Chief AI Officer, Chief Data Officer, or Head of AI','Dedicated AI lead on exec team with P&L accountability for AI programme outcomes','AI is embedded across multiple exec roles with cross-functional accountability for AI-driven business outcomes'] },
+    { pillar:'P1', text:'Does the CEO publicly own the AI agenda?', options:[
+      'There is no public statement, interview, or published content where the CEO addresses AI',
+      'We can point to internal town hall recordings or all-hands notes where the CEO mentioned AI — nothing external exists',
+      'There is at least one external interview, article, or event where the CEO discussed AI exploration — no specific programme or metric was named',
+      'We can link to a specific external source — earnings call, investor day, podcast, or press release — where the CEO named an AI programme and committed to a timeline',
+      'In multiple external forums in the last 12 months the CEO has named AI as a top-3 priority with specific programmes referenced by name — we can point to these',
+      'We can point to public quantified AI commitments from the CEO with specific metrics, timelines, and board-tracked evidence of delivery against those commitments'
+    ]},
+    { pillar:'P1', text:'Is AI explicitly part of the value-creation plan or hold-period thesis?', options:[
+      'There is no written reference to AI in any strategy document, board paper, or sponsor review we can point to',
+      'AI has been raised in strategy conversations but there is no written plan, named owner, or milestone in any formal document',
+      'There is a document — board paper, strategy deck, or VCP — that names an AI workstream with an owner, but no budget line or KPIs are attached',
+      'We can show a document with an AI workstream, named owner, budget line, and defined KPIs — approved by the exec team or board',
+      'We can show board papers from the last four quarters with AI KPI tracking and a budget line representing over 5% of operating capex',
+      'AI is the headline thesis in sponsor-facing materials — we can point to a pitch deck or investor review where AI-driven EBITDA uplift is the central argument, with audited or board-tracked delivery evidence'
+    ]},
+    { pillar:'P1', text:'Is there dedicated AI capital allocation visible in the budget?', options:[
+      'There is no AI line item in any budget or financial plan we can point to',
+      'We can identify some SaaS spend that includes AI features but there is no dedicated AI team, programme budget, or cost centre',
+      'There is a budget line or cost centre for AI under 1% of opex covering licences and tooling — we can show this in a management account or finance report',
+      'We can show a dedicated AI cost centre covering people, infrastructure, and build at 1–3% of opex, approved in the annual budget cycle',
+      'We can show a multi-year AI plan at 3–7% of opex with named programmes — approved by the board and tracked quarterly',
+      'We can show over 7% of opex committed to AI with explicit ROI tracking per programme, regular reallocation decisions, and a documented framework for what gets funded and what gets cut'
+    ]},
+    { pillar:'P1', text:'Does the board review AI progress on a regular cadence?', options:[
+      'There is no record of AI appearing on any board agenda',
+      'We can point to one or two board updates where AI was raised, triggered by a specific event rather than a standing item',
+      'AI appears as a standing agenda item at least once per year — we can point to a board paper or minute that evidences this',
+      'We can show board papers from each of the last four quarters with AI KPIs — AI is a standing quarterly item with documented metrics',
+      'There is a named board sub-committee or working group for AI with a chair, meeting cadence, and audited metrics we can show',
+      'We can point to public disclosures or investor materials that reference board-level AI oversight — the governance structure is externally visible, not just internal'
+    ]},
+    { pillar:'P1', text:'Is the executive team AI-literate with named accountability?', options:[
+      'No exec has AI in their job title or documented remit and there is no evidence of exec-level AI literacy we can point to',
+      'The CEO or CTO has spoken about AI interest publicly or internally but there is no formal accountability structure or role definition',
+      'There is a job description or org chart showing AI within a CTO or CIO remit alongside other priorities — we can point to this',
+      'We can point to a LinkedIn profile, org chart, or press release showing a dedicated AI lead reporting to the CEO or sitting on the exec team',
+      'We can show a role definition or board paper where the AI lead has explicit P&L accountability for AI outcomes — not just delivery responsibility',
+      'We can show multiple exec job descriptions or public bios where AI is a primary accountability — cross-functional AI ownership is embedded across the leadership team, not concentrated in one role'
+    ]},
     // P2
-    { pillar:'P2', text:'Is your customer, operational, and transactional data centralised in a governed data platform?', options:['Data lives in legacy systems with no centralisation effort underway','Centralisation effort scoped but not yet executing','Some domains centralised — legacy fragmentation persists across operations','Operational data lake or warehouse in production for the majority of business domains','Modern data platform with over 80% of business-critical data centralised with documented schemas','Single source of truth across all domains with real-time pipelines, embedded vector store, and explicit data products served via contracts'] },
-    { pillar:'P2', text:'Do you have documented data lineage and quality controls?', options:['No data lineage documentation — data quality is reactive','Informal lineage knowledge held by individual engineers — ad-hoc quality fixes','Lineage documented for some core systems — basic quality SLAs on key tables','End-to-end lineage tooling deployed for the majority of analytical assets with documented quality SLAs','Automated lineage and quality monitoring across all production pipelines with alerting and ownership','Continuous data observability with ML-driven anomaly detection, full lineage from source to model output, and audit trail for regulators'] },
-    { pillar:'P2', text:'Do you have proprietary labelled datasets that competitors cannot easily replicate?', options:['No proprietary data assets — all training and grounding data is publicly available','Some proprietary unlabelled data — no labelling programme','Proprietary unlabelled data corpus exists but underutilised — ad-hoc labelling for specific projects','Proprietary labelled dataset for at least one core use case, actively used to fine-tune or ground production AI','Multiple proprietary labelled datasets across business domains with active labelling pipelines and feedback loops','Proprietary labelled data is the explicit moat — competitors cannot match it and the data flywheel measurably improves model performance over time'] },
-    { pillar:'P2', text:'Is your data governance integrated with your AI governance?', options:['No data governance programme and no AI governance','Some data governance for compliance reasons — AI not in scope','Data governance programme in place — AI flagged as future scope','Data governance covers AI training data and model inputs with a basic AI risk register','Unified data and AI governance with risk classification, model cards, approval workflows, and audit trail','Governance is itself a productised capability — ISO 42001 certified, reviewed by external auditors annually'] },
-    { pillar:'P2', text:'Can you trace any AI-driven decision back to the underlying data and model that produced it?', options:['No traceability — AI outputs are opaque','Some logging of model calls — no link back to training data or model version','Model version tracking with partial logging of inputs and outputs','Full audit trail for production models: input data, model version, output, and downstream action','Audit trail with explainability layer for high-stakes decisions — reviewable on demand','Continuous traceability tooling deployed — outputs re-explainable months later, integrated with regulatory and customer audit processes'] },
+    { pillar:'P2', text:'Is your customer, operational, and transactional data centralised in a governed data platform?', options:[
+      'Data lives in legacy systems — we cannot point to any centralisation effort or plan',
+      'We can show a scoped plan or project charter for centralisation but nothing has been deployed',
+      'We can demonstrate at least one centralised domain in production, but legacy fragmentation persists across most of the business with no committed remediation plan',
+      'We can show a production data lake or warehouse serving the majority of business domains — accessible to engineering and analytics teams',
+      'We can demonstrate over 80% of business-critical data centralised with documented schemas and named data ownership — queryable and governed',
+      'We can point to a single source of truth across all domains with real-time pipelines, a vector store for AI workloads, and explicit data products served via documented contracts'
+    ]},
+    { pillar:'P2', text:'Do you have documented data lineage and quality controls?', options:[
+      'There is no lineage documentation and no quality process — issues are fixed reactively when they surface',
+      'Lineage knowledge exists informally with individual engineers — there is no written documentation or systematic quality process',
+      'We can show documented lineage for at least some core systems and basic quality SLAs on key tables',
+      'We can demonstrate end-to-end lineage tooling in production covering the majority of analytical assets with documented quality SLAs and named owners',
+      'We can show automated lineage and quality monitoring across all production pipelines with alerting, ownership assignment, and a track record of quality incidents resolved',
+      'We can demonstrate continuous data observability with ML-driven anomaly detection, full lineage from source to model output, and an audit trail we could show to a regulator today'
+    ]},
+    { pillar:'P2', text:'Do you have proprietary labelled datasets that competitors cannot easily replicate?', options:[
+      'All training and grounding data used is publicly available — we cannot point to any proprietary data asset',
+      'We can identify proprietary data we hold but it is unlabelled and there is no active labelling programme',
+      'We can show a proprietary data corpus in storage but it is underutilised — labelling has only happened ad hoc for specific projects with no ongoing programme',
+      'We can demonstrate a proprietary labelled dataset for at least one core use case that is actively used to fine-tune or ground a production AI system',
+      'We can show multiple proprietary labelled datasets across business domains with active labelling pipelines and documented feedback loops improving them over time',
+      'We can demonstrate that proprietary labelled data is a measurable performance advantage — model evaluations show improvement over time and we can show competitors cannot replicate the dataset'
+    ]},
+    { pillar:'P2', text:'Is your data governance integrated with your AI governance?', options:[
+      'There is no data governance programme and no AI governance — we cannot point to any formal process',
+      'We can show a data governance programme that exists for compliance purposes — AI is not in scope and there is no AI governance document',
+      'We can show a data governance programme with a written note that AI will be added — but there is no AI governance in force today',
+      'We can show data governance documentation that explicitly covers AI training data and model inputs, and a basic AI risk register with at least some entries',
+      'We can demonstrate a unified data and AI governance framework with risk classification, model cards, documented approval workflows, and an audit trail we could show to a third party',
+      'We can point to an ISO 42001 certification or equivalent external audit sign-off — governance is a productised and externally verifiable capability'
+    ]},
+    { pillar:'P2', text:'Can you trace any AI-driven decision back to the underlying data and model that produced it?', options:[
+      'AI outputs are opaque — we cannot trace any decision back to the data or model that produced it',
+      'We have some logs of model API calls but there is no link back to training data, model version, or the downstream action taken',
+      'We can show model version tracking and partial logging of inputs and outputs for at least some production systems',
+      'We can demonstrate a full audit trail for production models covering input data, model version, output, and downstream action — retrievable on demand',
+      'We can show an audit trail with an explainability layer for high-stakes decisions — we can reconstruct and explain any flagged decision on demand',
+      'We can demonstrate continuous traceability tooling where outputs remain re-explainable months after the fact, integrated with regulatory and customer audit processes — we have done this in practice'
+    ]},
     // P3
-    { pillar:'P3', text:'How many AI use cases are running in production today?', options:['Zero — nothing in production','One use case in production, peripheral to revenue or operations','2–4 use cases in production, mostly internal productivity','5–10 use cases in production including at least one in a core revenue or operational workflow','10–25 use cases in production across multiple business functions with measurable impact','25+ use cases in production — AI is embedded in the default way of working across most functions'] },
-    { pillar:'P3', text:'What measurable P&L impact has AI delivered in the last 12 months?', options:['No measurement of AI P&L impact','Anecdotal claims of value — no measurement framework','Measured impact on a single workflow with no roll-up to P&L','Documented EBIT impact under 2% from AI initiatives, traceable to specific workflows','Documented EBIT impact 2–5% from AI initiatives, validated by finance and reviewed by board','Documented EBIT impact over 5% from AI initiatives, externally audited or disclosed in investor materials'] },
-    { pillar:'P3', text:'Are AI features driving customer-facing revenue, retention, or pricing power?', options:['No customer-facing AI features in product','AI features on product roadmap but not yet shipped','AI features shipped to customers — no measurable usage or revenue impact','AI features measurably drive product engagement or are a stated reason customers chose us','AI features drive measurable retention uplift or pricing power through premium SKU adoption','AI is the explicit reason customers buy — AI-derived revenue is a standalone disclosed line and pricing power has visibly improved'] },
-    { pillar:'P3', text:'Have you killed AI initiatives that did not work?', options:['Never started enough to kill anything','Started initiatives — never formally killed any','Killed an initiative once — post-mortem was informal','Killed at least one AI initiative with a documented post-mortem and reallocated budget','Quarterly portfolio review of AI initiatives with formal kill, scale, or pivot decisions and budget reallocation','Continuous portfolio management with ROI-tracked kill rate — learnings captured, shared cross-functionally, and failure is celebrated as fast learning'] },
-    { pillar:'P3', text:'What is the velocity of AI deployment — from idea to production?', options:['No AI deployments to measure','Over 12 months from idea to first production deployment','6–12 months from idea to first production deployment','3–6 months from idea to first production deployment','Under 3 months from idea to first production deployment, repeatable across teams','Days to weeks deployment cycle — platform-driven, new use cases ship monthly'] },
+    { pillar:'P3', text:'How many AI use cases are running in production today?', options:[
+      'We have no AI use cases in production — we can point to nothing live',
+      'We can demonstrate one AI use case in production, peripheral to core revenue or operations',
+      'We can demonstrate 2–4 AI use cases in production, mostly internal productivity tools',
+      'We can demonstrate 5–10 AI use cases in production including at least one embedded in a core revenue or operational workflow',
+      'We can point to 10–25 AI use cases in production across multiple business functions — at least some have documented impact metrics',
+      'We can demonstrate 25+ AI use cases in production — AI is the default way of working across most functions, not a separate initiative'
+    ]},
+    { pillar:'P3', text:'What measurable P&L impact has AI delivered in the last 12 months?', options:[
+      'We have no measurement of AI P&L impact — we cannot point to any figure',
+      'We have anecdotal claims of value internally but no measurement framework or documented number',
+      'We can show a measured impact figure for a single workflow but it has not been rolled up to a P&L line',
+      'We can show a finance-owned document attributing under 2% EBIT impact to specific AI initiatives — traceable to named workflows',
+      'We can show finance-validated documentation of 2–5% EBIT impact from AI, reviewed at board level — we can point to the board paper',
+      'We can show over 5% EBIT impact from AI that has been externally audited or disclosed in investor or sponsor materials — publicly or formally attributable'
+    ]},
+    { pillar:'P3', text:'Are AI features driving customer-facing revenue, retention, or pricing power?', options:[
+      'There are no customer-facing AI features in the product — we cannot point to anything shipped',
+      'We can show a product roadmap with AI features planned but nothing has shipped to customers yet',
+      'We can demonstrate AI features shipped to customers but we have no usage data or revenue attribution to point to',
+      'We can show usage data, customer quotes, or win/loss analysis where AI features are a measurable driver of engagement or a stated purchase reason',
+      'We can show documented retention uplift or pricing data — a premium AI SKU with adoption metrics or renewal data attributing retention to AI features',
+      'We can point to disclosed revenue figures or investor materials where AI-derived revenue is a named line — pricing power improvement is externally attributable to AI'
+    ]},
+    { pillar:'P3', text:'Have you killed AI initiatives that did not work?', options:[
+      'We have not started enough AI initiatives for killing to have been a decision — there is nothing to point to',
+      'AI initiatives have been started but none have been formally ended — they are alive or quietly abandoned with no documented decision',
+      'We can point to at least one AI initiative that was formally stopped, but the post-mortem was a conversation rather than a written document',
+      'We can show a written post-mortem for at least one killed AI initiative with a documented reallocation of the freed budget',
+      'We can show a quarterly portfolio review process with records of formal kill, scale, or pivot decisions and budget reallocation documented in each cycle',
+      'We can demonstrate a continuous portfolio management process with a tracked kill rate, written learnings shared cross-functionally, and evidence that fast failure is treated as a signal of good portfolio discipline'
+    ]},
+    { pillar:'P3', text:'What is the velocity of AI deployment — from idea to production?', options:[
+      'We have no AI deployments to measure — nothing has reached production',
+      'We can point to at least one production deployment that took over 12 months from initial idea to go-live',
+      'We can show at least one production deployment completed in 6–12 months — this represents our typical cycle',
+      'We can demonstrate at least one production deployment completed in 3–6 months and this is broadly repeatable across teams',
+      'We can show multiple production deployments completed in under 3 months across different teams — this is the standard, not the exception',
+      'We can demonstrate a platform-driven deployment process where new use cases ship in days to weeks — we can show a monthly deployment cadence with evidence'
+    ]},
     // P4
-    { pillar:'P4', text:'Do you have a documented AI operating model?', options:['No operating model — AI work is ad hoc by individuals','Informal team coalesced around AI — no documented charter','Centralised AI team or CoE in place but bottlenecked — business units dependent on it for everything','Documented operating model with clear handoffs between central AI team and business units','Hub-and-spoke or federated model with central platform and governance and embedded AI engineers in each business unit','AI capability is embedded throughout the operating model — every team has AI literacy, the central team governs platforms not delivery, and the model is externally referenceable'] },
-    { pillar:'P4', text:'Have core workflows been redesigned around AI rather than AI bolted onto existing workflows?', options:['AI bolted on to existing workflows — no redesign considered','Redesign discussed but not executed','Redesign executed for one peripheral workflow','Redesign executed for at least one core workflow with measurable productivity uplift','Redesign across the majority of priority workflows with org structure adjusted to match','Operating model is fundamentally AI-native — every priority workflow has been redesigned around human and agent collaboration'] },
-    { pillar:'P4', text:'Do you have human and agent squads in production, or only humans assisted by tools?', options:['AI is purely a productivity tool — no agentic concept','Some agent experimentation in proof-of-concept','Agents in production for narrow single-step tasks','Multi-step agents in production for at least one workflow with measured outcomes','Human and agent squads as the standard operating unit for at least one business function with named responsibilities and SLAs','Agents are first-class members of the organisation across multiple functions — org chart reflects human and digital workers with performance management covering both'] },
-    { pillar:'P4', text:'What proportion of staff have completed structured AI training?', options:['No structured AI training programme','Optional self-paced training available — under 10% completion','Mandatory baseline training for some roles — 10–30% completion overall','Mandatory baseline training for all knowledge workers — 50%+ completion','Role-specific AI training with over 75% completion and ongoing certifications','Continuous AI literacy programme with role-specific tracks, external certifications, and AI fluency as a hiring criterion'] },
-    { pillar:'P4', text:'Is AI fluency built into hiring, performance management, and promotion?', options:['AI not mentioned in any people process','AI mentioned in some job descriptions — not assessed','AI fluency assessed in hiring for technical roles only','AI fluency assessed across most roles in hiring — performance reviews include AI usage','AI fluency is a formal competency in hiring, performance management, and promotion criteria across the org','AI fluency is a leadership criterion for senior promotions — company has a published AI competency framework and hiring filters explicitly screen for AI-native operators'] },
+    { pillar:'P4', text:'Do you have a documented AI operating model?', options:[
+      'AI work is done ad hoc by individuals — there is no operating model or team structure we can point to',
+      'A group of people work on AI informally but there is no written charter, defined remit, or documented structure',
+      'We can show an org chart with a central AI team or CoE, but it is a bottleneck — business units cannot operate AI independently',
+      'We can show a documented operating model with defined handoffs between a central AI team and business units — roles and responsibilities are written down',
+      'We can show an org chart with a hub-and-spoke or federated structure — a central platform team and embedded AI engineers in business units, with a documented governance layer',
+      'We can point to a published or board-reviewed operating model where AI capability is distributed, the central team governs platforms rather than delivery, and every function has documented AI accountability'
+    ]},
+    { pillar:'P4', text:'Have core workflows been redesigned around AI rather than AI bolted onto existing workflows?', options:[
+      'AI has been added on top of existing workflows with no redesign — we cannot point to any workflow that has been restructured',
+      'Workflow redesign has been discussed in planning sessions but nothing has been executed or documented',
+      'We can show at least one peripheral workflow that has been redesigned — this is not a core revenue or operational process',
+      'We can demonstrate a redesigned core workflow with documented before/after process maps and a measurable productivity uplift figure',
+      'We can show redesigned process documentation across the majority of priority workflows with org structure changes that reflect the new way of working',
+      'We can demonstrate that every priority workflow has been redesigned around human and agent collaboration — the operating model is AI-native by design, not by retrofit'
+    ]},
+    { pillar:'P4', text:'Do you have human and agent squads in production, or only humans assisted by tools?', options:[
+      'AI is used purely as a productivity tool — there is no agent concept in any workflow and nothing to point to',
+      'We can show proof-of-concept work with agent frameworks but nothing is in production',
+      'We can demonstrate at least one agent in production handling a narrow single-step task with logging and oversight',
+      'We can demonstrate multi-step agents in production for at least one workflow with documented outcomes and human oversight checkpoints',
+      'We can show a defined operating unit where human and agent responsibilities are named, SLAs are documented, and this is the standard way of working for at least one business function',
+      'We can point to an org chart or operating model document where agents are first-class workers across multiple functions — performance management covers both human and digital workers'
+    ]},
+    { pillar:'P4', text:'What proportion of staff have completed structured AI training?', options:[
+      'There is no structured AI training programme — we cannot point to any curriculum, enrolment, or completion data',
+      'We can show a training programme exists and is available but completion is under 10% and participation is voluntary',
+      'We can show completion data for at least some roles with mandatory training — overall completion is in the 10–30% range',
+      'We can show completion records demonstrating over 50% of all knowledge workers have completed a mandatory baseline AI training programme',
+      'We can show role-specific training curricula with over 75% completion plus records of external certifications achieved by staff',
+      'We can show a continuous learning programme with role-specific tracks, external certification records, and evidence that AI fluency is assessed in the hiring process — job descriptions and interview scorecards confirm this'
+    ]},
+    { pillar:'P4', text:'Is AI fluency built into hiring, performance management, and promotion?', options:[
+      'AI is not mentioned in any job description, performance review template, or promotion criteria — we cannot point to any people process that includes it',
+      'We can show job descriptions that mention AI but it is not assessed in interviews or performance reviews',
+      'We can show interview scorecards or job descriptions where AI fluency is assessed for technical roles — it does not apply to non-technical hiring',
+      'We can show job descriptions and performance review templates across most roles that include AI fluency as an assessed criterion',
+      'We can point to a competency framework document where AI fluency is a formal criterion across hiring, performance management, and promotion — it applies org-wide',
+      'We can show a published AI competency framework, senior promotion criteria that include AI fluency, and hiring filters that explicitly screen for AI-native operators — this is externally referenceable'
+    ]},
     // P5
-    { pillar:'P5', text:'Do you have a documented AI policy covering acceptable use, data handling, and model risk?', options:['No AI policy','AI policy in draft — not yet approved','Approved AI policy covering acceptable use — gaps on data handling and model risk','Comprehensive AI policy approved by exec team covering acceptable use, data handling, and model risk','AI policy approved by board, reviewed annually, communicated to all staff with attestation — covers third-party AI tools and customer-facing AI','AI policy aligned to a recognised standard, externally audited, and publicly disclosed'] },
-    { pillar:'P5', text:'Is there a model validation process before any AI is deployed to customers or revenue-critical workflows?', options:['No validation process — engineers deploy as they see fit','Informal review by a peer engineer','Lightweight checklist review before production deployment','Documented validation process with named approver covering accuracy, bias, and security','Multi-stage validation with sign-off covering explainability and ongoing monitoring','Independent validation function with veto authority, aligned to regulatory frameworks, with monitoring for drift and re-validation triggers'] },
-    { pillar:'P5', text:'How do you handle AI-related incidents — hallucinations, biased outputs, customer complaints?', options:['No process for AI incidents','Ad hoc handling when something escalates','Incidents logged — no formal response framework','Documented incident response process with named owner and severity triage','Integrated AI incident response within broader security framework with root cause analysis, documented learnings, and periodic table-top exercises','Mature incident framework with public-facing disclosure protocol, regulator notification process, customer communication template, and post-incident model retraining protocols'] },
-    { pillar:'P5', text:'Are you compliant with AI-relevant regulation in your operating jurisdictions?', options:['Not aware of AI-specific regulation','Aware of regulation — no compliance assessment yet','Compliance gap analysis completed — remediation plan in draft','Compliance gap analysis completed — remediation in flight with high-risk AI systems classified','Compliant with applicable AI regulation — remediation closed and evidence pack maintained for regulators','Industry-leading compliance posture — engaged with regulators, published transparency reports, and customer-facing trust centre includes AI compliance evidence'] },
-    { pillar:'P5', text:'Can you defend your AI deployments to a sceptical regulator, customer security team, or auditor today?', options:['No documentation — could not defend any deployment','Some documentation — would require significant preparation','Could defend high-level approach but cannot defend specific model behaviour','Could defend most deployments with one week of preparation — documentation complete for high-risk systems','Could defend any deployment within 24 hours — documentation continuously maintained and passed at least one external audit','Continuous defensibility — all deployments documented to audit-grade standard, multiple external audits passed, and trust is a marketed product feature'] },
+    { pillar:'P5', text:'Do you have a documented AI policy covering acceptable use, data handling, and model risk?', options:[
+      'There is no AI policy — we cannot point to any document covering acceptable use, data handling, or model risk',
+      'We can show a draft AI policy that has not yet been approved by the exec team or board',
+      'We can show an approved AI policy covering acceptable use but it has material gaps on data handling and model risk',
+      'We can show a comprehensive AI policy approved by the exec team covering acceptable use, data handling, and model risk — a single document with named owners',
+      'We can show a board-approved AI policy reviewed in the last 12 months, communicated to all staff with completion records, and covering third-party AI tools and customer-facing AI',
+      'We can point to an AI policy aligned to a recognised standard — ISO 42001 or equivalent — that has been externally audited and is publicly disclosed or available to customers on request'
+    ]},
+    { pillar:'P5', text:'Is there a model validation process before any AI is deployed to customers or revenue-critical workflows?', options:[
+      'There is no validation process — engineers deploy AI to production as they see fit with no documented gate',
+      'Deployments get an informal peer review but there is no written checklist, approval record, or named approver',
+      'We can show a checklist used before production deployment but it is not consistently applied and there is no formal sign-off record',
+      'We can show a documented validation process with a named approver covering accuracy, bias, and security — we have records of this being applied to production deployments',
+      'We can show a multi-stage validation process with documented sign-offs, an explainability assessment, and an ongoing monitoring plan that triggers on defined conditions',
+      'We can demonstrate an independent validation function with veto authority over deployments, aligned to a regulatory framework, with evidence of monitoring for drift and re-validation having been triggered in practice'
+    ]},
+    { pillar:'P5', text:'How do you handle AI-related incidents — hallucinations, biased outputs, customer complaints?', options:[
+      'There is no process for AI incidents — we cannot point to any logging, escalation path, or response procedure',
+      'AI incidents are handled ad hoc when they escalate — there is no written process or consistent approach',
+      'We can show an incident log where AI issues have been recorded but there is no formal response framework or severity triage',
+      'We can show a documented AI incident response process with a named owner, severity triage criteria, and records of it being followed for at least one real incident',
+      'We can show AI incident response integrated into the broader security framework — root cause analysis records, documented learnings, and evidence of at least one table-top exercise having been run',
+      'We can point to a mature incident framework with a public-facing disclosure protocol, a regulator notification procedure, a customer communication template, and evidence that post-incident model retraining has occurred'
+    ]},
+    { pillar:'P5', text:'Are you compliant with AI-relevant regulation in your operating jurisdictions?', options:[
+      'We have not identified any AI-specific regulation applicable to our business — there is no documented awareness or monitoring process',
+      'We can show that relevant AI regulation has been identified but no compliance assessment has been started',
+      'We can show a completed gap analysis document — a remediation plan exists in draft but has not been approved or resourced',
+      'We can show a completed gap analysis with a remediation plan in active delivery — we can demonstrate high-risk AI systems have been classified',
+      'We can show a closed remediation log and an evidence pack we could provide to a regulator today — compliance is maintained and tracked',
+      'We can point to published transparency reports, a customer-facing trust centre with AI compliance evidence, and a documented record of proactive regulator engagement'
+    ]},
+    { pillar:'P5', text:'Can you defend your AI deployments to a sceptical regulator, customer security team, or auditor today?', options:[
+      'We have no documentation that would allow us to defend any AI deployment — we could not respond to a regulator or auditor',
+      'Some documentation exists but it would require weeks of preparation to mount a credible defence of any specific deployment',
+      'We can defend our general approach and principles but cannot point to documentation that explains specific model behaviour or decisions',
+      'We can show documentation for high-risk systems that would allow us to mount a defence within one week — lower-risk systems have partial coverage',
+      'We can demonstrate that any deployment could be defended within 24 hours — documentation is continuously maintained and we can point to at least one passed external audit',
+      'We can show audit-grade documentation across all deployments, multiple external audit records, and evidence that trust and defensibility are marketed to customers as a product feature'
+    ]},
     // P6
-    { pillar:'P6', text:'Is your underlying compute and data infrastructure cloud-native and AI-ready?', options:['Mostly on-premises — no cloud strategy','Some cloud workloads — legacy core systems remain on-premises','Cloud-first for new development — legacy migration roadmap exists','Majority cloud-native with AI and ML workloads on managed cloud services','Fully cloud-native with multi-region GPU capacity scaled to demand and data residency handled at platform level','Cloud-native and AI-optimised with private inference clusters for sensitive workloads — capacity is never the bottleneck'] },
-    { pillar:'P6', text:'Do you have a model gateway that governs LLM and AI model usage across the organisation?', options:['No gateway — teams use foundation models directly via individual API keys','Some informal gating via shared API keys','Internal proxy for cost and usage tracking — no governance','Model gateway in production with cost tracking, rate limiting, and audit logging','Model gateway with multi-model routing, semantic caching, prompt management, governance layer, and chargeback','Mature model gateway as the only path to AI — integrated with identity, DLP, observability, evaluation, and FinOps'] },
-    { pillar:'P6', text:'Do you have an agent runtime — infrastructure to run multi-step agents safely in production?', options:['No agent infrastructure','Experimentation with agent frameworks in development environments only','Single agent in production with limited tool access','Multi-agent orchestration platform in production with logging, tracing, and human-in-the-loop checkpoints','Production-grade agent runtime with observability, rollback, sandboxed tool access, and evaluation harness','Agent runtime is a productised internal platform with SDKs, governance, audit trails, MCP server integration, and supports both internal and customer-facing agents'] },
-    { pillar:'P6', text:'Do you have evaluation, observability, and continuous-improvement tooling for AI in production?', options:['No evaluation or observability','Manual spot-checks of model outputs','Some logging — ad hoc evaluation when complaints arise','Continuous logging of inputs and outputs with eval harness for periodic regression testing','Production observability stack with continuous eval, drift detection, and feedback loops','Closed-loop continuous improvement — production data feeds eval, eval feeds retraining, retraining feeds release, metrics reviewed weekly by leadership'] },
-    { pillar:'P6', text:'Do you have a clear build-vs-buy discipline — foundation models bought, differentiation built?', options:['No discipline — build and buy decisions made ad hoc','Mostly building due to internal bias, or mostly buying with no differentiation','Some discipline — not consistently applied','Documented build-vs-buy framework — majority of foundation-model capability bought, custom layer built','Clear pattern: foundation models bought, orchestration bought or open-source, vertical differentiation built on proprietary data','Capital allocation discipline reviewed quarterly — explicit decisions to buy commodities and build moats, with the differentiation layer protected'] }
+    { pillar:'P6', text:'Is your underlying compute and data infrastructure cloud-native and AI-ready?', options:[
+      'Infrastructure is mostly on-premises — we cannot point to a cloud strategy or migration plan',
+      'We can show some cloud workloads but legacy core systems remain on-premises with no committed migration timeline',
+      'We can show a cloud-first policy for new development and a documented legacy migration roadmap',
+      'We can demonstrate that the majority of workloads including AI and ML are on managed cloud services — we can show the architecture diagram',
+      'We can demonstrate fully cloud-native infrastructure with multi-region GPU capacity, auto-scaling evidence, and documented data residency handling at platform level',
+      'We can show cloud-native infrastructure with private inference clusters for sensitive workloads — capacity has never been the bottleneck for an AI deployment and we can evidence this'
+    ]},
+    { pillar:'P6', text:'Do you have a model gateway that governs LLM and AI model usage across the organisation?', options:[
+      'Teams access foundation models directly via individual API keys — there is no gateway or centralised control we can point to',
+      'We have shared API keys used informally but there is no documented gating process or usage visibility',
+      'We can show an internal proxy that provides cost and usage tracking — there is no governance layer or approval workflow',
+      'We can demonstrate a model gateway in production with cost tracking, rate limiting, and audit logging — we can show these logs',
+      'We can show a model gateway with multi-model routing, semantic caching, prompt management, a governance layer, and per-team chargeback — all in production',
+      'We can demonstrate that the model gateway is the only authorised path to AI in the organisation — integrated with identity, DLP, observability, evaluation, and FinOps with evidence of each'
+    ]},
+    { pillar:'P6', text:'Do you have an agent runtime — infrastructure to run multi-step agents safely in production?', options:[
+      'There is no agent infrastructure — we cannot point to any runtime, framework, or deployment for multi-step agents',
+      'We can show agent framework experimentation in development environments — nothing has been deployed to production',
+      'We can demonstrate a single agent in production with documented tool access scope and basic oversight',
+      'We can show a multi-agent orchestration platform in production with logging, tracing, and human-in-the-loop checkpoints — we can demonstrate these controls are active',
+      'We can demonstrate a production-grade agent runtime with observability dashboards, rollback capability, sandboxed tool access, and an evaluation harness — all in active use',
+      'We can point to a productised internal agent platform with published SDKs, governance documentation, audit trails, MCP server integration, and evidence of both internal and customer-facing agents running on it'
+    ]},
+    { pillar:'P6', text:'Do you have evaluation, observability, and continuous-improvement tooling for AI in production?', options:[
+      'There is no evaluation or observability tooling — we cannot point to any logging, monitoring, or assessment of AI outputs in production',
+      'Model outputs are checked manually and sporadically — there is no systematic logging or evaluation framework',
+      'We can show that inputs and outputs are logged but evaluation only happens reactively when complaints or issues arise',
+      'We can demonstrate continuous logging of inputs and outputs with an evaluation harness used for periodic regression testing — we can show regression test results',
+      'We can show a production observability stack with continuous evaluation, drift detection alerts, and documented feedback loops that have influenced model updates',
+      'We can demonstrate a closed-loop continuous improvement process — production data flows into eval, eval informs retraining decisions, retraining flows into release, and we can show leadership reviewing metrics on a weekly cadence'
+    ]},
+    { pillar:'P6', text:'Do you have a clear build-vs-buy discipline — foundation models bought, differentiation built?', options:[
+      'Build and buy decisions are made ad hoc — there is no framework or documented rationale we can point to',
+      'We can observe a pattern of mostly building or mostly buying but it reflects internal bias rather than a documented discipline',
+      'We can show some build-vs-buy decisions that followed a framework but it is applied inconsistently and not documented as policy',
+      'We can show a documented build-vs-buy framework where foundation model capability is bought and a custom differentiation layer is built — we can point to decisions made under this framework',
+      'We can demonstrate a clear and consistently applied pattern across our AI portfolio: foundation models bought, orchestration bought or open-source, vertical differentiation built on proprietary data — each decision is documented',
+      'We can show quarterly capital allocation reviews with explicit build-vs-buy decisions recorded — the differentiation layer is protected as a strategic asset and we can evidence decisions to buy commodities and build moats over multiple review cycles'
+    ]}
   ];
 
   // State
