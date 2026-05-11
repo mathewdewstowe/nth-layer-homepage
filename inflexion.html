@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inflexion — AI Readiness Diagnostic | The Nth Layer</title>
+  <script>if(new URLSearchParams(window.location.search).get('modal')==='1'){document.documentElement.classList.add('modal-mode');}</script>
+  <style>.modal-mode #launcher{display:none!important;}.modal-mode #diag{display:block!important;}</style>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
@@ -1001,24 +1003,25 @@
     }
 
     .lp-level-list {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
     .lp-level-row {
-      border-right: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: 80px 140px 1fr 120px;
+      align-items: center;
+      gap: 24px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 20px 20px 20px 20px;
+      padding: 16px 0;
     }
 
     .lp-level-num {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       letter-spacing: 0.1em;
       color: var(--lime);
-      margin-bottom: 10px;
       white-space: nowrap;
     }
 
@@ -1026,14 +1029,12 @@
       font-size: 14px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      margin-bottom: 6px;
     }
 
     .lp-level-desc {
       font-size: 12px;
       line-height: 1.5;
       color: rgba(255,255,255,0.38);
-      margin-bottom: 16px;
     }
 
     .lp-level-bar {
@@ -2419,9 +2420,9 @@
 
   document.getElementById('contactModal').addEventListener('click', function(e) { if (e.target === this) closeContactModal(); });
 
-  // Hidden preview link: nthlayer.co.uk/inflexion/?modal=1
+  // Hidden link: nthlayer.co.uk/inflexion/modal
   if (new URLSearchParams(window.location.search).get('modal') === '1') {
-    window.addEventListener('load', function() { startDiagnostic(); });
+    startDiagnostic();
   }
 </script>
 
