@@ -2280,8 +2280,9 @@
     const aboveCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] >= COHORT_AVGS[p]);
     const belowCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] < COHORT_AVGS[p]);
     const overallDelta = finalOverall - COHORT_MEAN;
-    const aboveText = aboveCohort.length ? `Above cohort: ${aboveCohort.map(p => PILLAR_NAMES[p].split(' ')[0]).join(', ')}.` : '';
-    const belowText = belowCohort.length ? `Below cohort: ${belowCohort.map(p => PILLAR_NAMES[p].split(' ')[0]).join(', ')}.` : '';
+    const PILLAR_SHORT = { P1: 'Strategy', P2: 'Data', P3: 'Use Cases', P4: 'Talent', P5: 'Governance', P6: 'Infrastructure' };
+    const aboveText = aboveCohort.length ? `Above cohort: ${aboveCohort.map(p => PILLAR_SHORT[p]).join(', ')}.` : '';
+    const belowText = belowCohort.length ? `Below cohort: ${belowCohort.map(p => PILLAR_SHORT[p]).join(', ')}.` : '';
     document.getElementById('report-peer').innerHTML = `<p class="report-peer-text">You scored <strong>${finalOverall.toFixed(2)}</strong> against a PE portco cohort mean of <strong>${COHORT_MEAN}</strong> (${overallDelta >= 0 ? '+' : ''}${overallDelta.toFixed(2)}). ${aboveText} ${belowText}</p>`;
 
     // Two weakest pillars
