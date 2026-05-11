@@ -1400,6 +1400,133 @@
 
     #diag .result-copy-confirm { font-size: 12px; color: #3d6000; font-weight: 700; }
 
+    /* ─── Result hero ─── */
+    .result-hero {
+      display: grid;
+      grid-template-columns: 1fr 148px;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .result-tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .result-tier-text { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); }
+    .result-stage-name {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .result-tagline { font-size: 15px; line-height: 1.65; color: rgba(0,0,0,0.6); max-width: 480px; }
+    .result-hero-right { text-align: right; padding-top: 6px; }
+    .result-big-score { display: block; font-family: var(--font-display); font-size: clamp(52px, 7vw, 88px); font-weight: 400; line-height: 1; color: var(--black); }
+    .result-big-denom { font-size: 18px; font-weight: 600; color: rgba(0,0,0,0.32); }
+    .result-score-label { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.32); margin-top: 8px; }
+    .result-divider { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 0 0 28px; }
+
+    /* ─── Pillar bars ─── */
+    .pillar-bars { margin-bottom: 32px; }
+    .pillar-bar-row {
+      display: grid;
+      grid-template-columns: 1fr 42px minmax(120px, 260px) 38px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pillar-bar-name { font-size: 13px; font-weight: 600; color: rgba(0,0,0,0.65); }
+    .pillar-bar-stage-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border-radius: 20px;
+      padding: 3px 6px;
+      border: 1px solid currentColor;
+      font-family: var(--font-body);
+    }
+    .pillar-bar-track {
+      position: relative;
+      height: 7px;
+      background: rgba(0,0,0,0.07);
+      border-radius: 4px;
+      overflow: visible;
+    }
+    .pillar-bar-fill { height: 100%; background: var(--lime); border-radius: 4px; transition: width 0.5s ease; }
+    .pillar-bar-cohort-marker {
+      position: absolute;
+      top: -4px;
+      width: 2px;
+      height: 15px;
+      background: rgba(0,0,0,0.22);
+      border-radius: 1px;
+      transform: translateX(-50%);
+    }
+    .pillar-bar-score { font-size: 14px; font-weight: 800; color: var(--black); text-align: right; }
+
+    /* ─── Recommended moves ─── */
+    .moves-section { margin-bottom: 32px; }
+    .move-item { display: grid; grid-template-columns: 36px 1fr; gap: 16px; margin-bottom: 28px; }
+    .move-num { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: rgba(0,0,0,0.18); line-height: 1.2; padding-top: 1px; }
+    .move-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 7px; }
+    .move-title { font-size: 15px; font-weight: 700; color: var(--black); line-height: 1.3; }
+    .move-timeline { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; border: 1px solid rgba(0,0,0,0.15); border-radius: 3px; padding: 4px 8px; color: rgba(0,0,0,0.4); white-space: nowrap; flex-shrink: 0; }
+    .move-desc { font-size: 13px; line-height: 1.7; color: rgba(0,0,0,0.55); margin: 0; }
+
+    /* ─── Result gate ─── */
+    .result-gate {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 4px;
+      padding: 32px;
+      margin: 36px 0 0;
+    }
+    .gate-heading { font-family: var(--font-display); font-size: 24px; color: var(--black); margin-bottom: 8px; font-weight: 400; line-height: 1.15; }
+    .gate-sub { font-size: 14px; color: rgba(0,0,0,0.5); margin-bottom: 24px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 10px; }
+    .gate-input {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 13px 16px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 3px;
+      background: var(--paper);
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .gate-input:focus { border-color: rgba(0,0,0,0.4); }
+    .gate-input::placeholder { color: rgba(0,0,0,0.35); }
+    .gate-error { font-size: 13px; color: #b94040; margin-top: 6px; }
+
+    /* ─── Full report ─── */
+    .report-peer-context {
+      margin-bottom: 28px;
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .report-peer-text { font-size: 14px; color: rgba(0,0,0,0.6); line-height: 1.7; margin: 0; }
+    .report-peer-text strong { color: var(--black); font-weight: 700; }
+    .report-gaps { margin-bottom: 32px; }
+    .gap-item {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 3px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+    .gap-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; gap: 12px; }
+    .gap-item-pillar { font-size: 13px; font-weight: 700; color: var(--black); }
+    .gap-item-score { font-size: 13px; font-weight: 700; color: #b94040; flex-shrink: 0; }
+    .gap-item-vs { font-weight: 500; color: rgba(0,0,0,0.38); }
+    .gap-item-action { font-size: 13px; line-height: 1.65; color: rgba(0,0,0,0.6); margin: 0; }
+
     /* ═══ HAMBURGER MENU ═══ */
     .hamburger {
       display: none;
@@ -1828,18 +1955,57 @@
 
       <!-- RESULT SCREEN -->
       <div id="screen-result" style="display:none">
-        <span id="result-badge" class="result-badge"></span>
-        <h2 class="result-heading" id="result-heading"></h2>
-        <p class="result-score" id="result-score"></p>
-        <div class="pillar-grid" id="pillar-grid"></div>
-        <p class="result-next-section-label">What happens next</p>
-        <p class="result-next-text" id="result-next"></p>
-        <div class="result-actions">
-          <button class="diag-btn diag-btn-primary" onclick="openContactModal(null)">Request a briefing →</button>
-          <button class="result-link" onclick="copyResult()">Copy result</button>
-          <span id="copy-confirm" class="result-copy-confirm" style="display:none">Copied ✓</span>
-          <button class="result-link" onclick="retake()">Retake</button>
+
+        <!-- Hero: stage + score -->
+        <div class="result-hero">
+          <div class="result-hero-left">
+            <div class="result-tier-row">
+              <span id="result-badge" class="result-badge"></span>
+              <span class="result-tier-text" id="result-tier-text"></span>
+            </div>
+            <h2 class="result-stage-name" id="result-stage-name"></h2>
+            <p class="result-tagline" id="result-heading"></p>
+          </div>
+          <div class="result-hero-right">
+            <span class="result-big-score" id="result-big-score"></span>
+            <span class="result-big-denom">/5.0</span>
+            <p class="result-score-label">NL-AIMI Score</p>
+          </div>
         </div>
+
+        <hr class="result-divider" />
+
+        <!-- Pillar bars -->
+        <div class="pillar-bars" id="pillar-bars"></div>
+
+        <!-- Email gate -->
+        <div class="result-gate" id="result-gate">
+          <p class="gate-heading">Get your full report</p>
+          <p class="gate-sub">Peer comparisons from 54 PE portcos, gap analysis, and a 90-day roadmap — sent to you immediately.</p>
+          <div class="gate-form">
+            <input class="gate-input" type="text" id="gate-name" placeholder="Your name" autocomplete="name" />
+            <input class="gate-input" type="text" id="gate-company" placeholder="Company" autocomplete="organization" />
+            <input class="gate-input" type="url" id="gate-url" placeholder="Company website (e.g. acme.com)" autocomplete="url" />
+            <input class="gate-input" type="email" id="gate-email" placeholder="Work email" autocomplete="email" />
+            <button class="diag-btn diag-btn-primary" onclick="submitGate()">Get the full report →</button>
+          </div>
+          <p id="gate-error" class="gate-error" style="display:none"></p>
+        </div>
+
+        <!-- Full report: revealed after gate submit -->
+        <div id="result-full" style="display:none">
+          <div class="report-peer-context" id="report-peer"></div>
+          <div class="report-gaps" id="report-gaps"></div>
+          <p class="result-next-section-label">Recommended moves</p>
+          <div class="moves-section" id="moves-section"></div>
+          <div class="result-actions">
+            <button class="diag-btn diag-btn-primary" onclick="openContactModal(null)">Get in touch →</button>
+            <button class="result-link" onclick="copyResult()">Copy result</button>
+            <span id="copy-confirm" class="result-copy-confirm" style="display:none">Copied ✓</span>
+            <button class="result-link" onclick="retake()">Retake</button>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1858,6 +2024,49 @@
 
   const PILLAR_WEIGHTS = { P1: 0.20, P2: 0.15, P3: 0.25, P4: 0.20, P5: 0.10, P6: 0.10 };
   const COHORT_AVGS   = { P1: 3.63, P2: 3.35, P3: 3.63, P4: 2.89, P5: 3.25, P6: 3.50 };
+  const COHORT_MEAN   = 3.37;
+
+  const STAGE_MOVES = {
+    L0: [
+      { days: 30, title: 'Get AI on the board agenda.', desc: 'Commission a CEO-led strategy sprint — one question: is AI a value-creation lever for this hold period? Without an explicit decision, nothing downstream will stick. Most boards are ready for this conversation.' },
+      { days: 60, title: 'Map your 3 highest-EBITDA-leverage workflows.', desc: 'Before any tooling decision, map where time is spent and where AI could displace cost or create revenue. The answer is almost always in sales, support, or core operational processing — not in admin.' },
+      { days: 90, title: 'Fund one scoped pilot with kill criteria.', desc: 'Pick the best workflow, assign one owner with authority to spend, define what success looks like at 90 days. If it fails, you will have learned more than any consultant can sell you.' }
+    ],
+    L1: [
+      { days: 30, title: 'Fund 2–3 pilots with a clear P&L line.', desc: 'Assign an owner to each with authority to spend and a 90-day kill-or-scale decision date. The trap is endless exploration. The fix is a deadline.' },
+      { days: 60, title: 'Kill pilots without a clear outcome signal.', desc: 'Proliferation is the trap at this stage. At 60 days, force a review: which pilots have a measurable signal? Kill the rest and reallocate. Conviction beats coverage.' },
+      { days: 90, title: 'Productionise your single strongest pilot.', desc: 'The jump from pilot to production is where most companies stall. The difference is workflow redesign — not just the tool on top of an existing process. Make this your single priority for the quarter.' }
+    ],
+    L2: [
+      { days: 30, title: 'Audit your pilot portfolio and force a kill decision.', desc: 'Which 1–2 pilots have the strongest P&L signal? These get all the resources. The rest get killed. Every week on a low-signal pilot is a week not spent closing the gap to L3.' },
+      { days: 60, title: 'Productionise and redesign — not just deploy.', desc: 'Take your top pilot and redesign the workflow end-to-end. Not the tool on top of the old process. The before/after productivity measurement starts here.' },
+      { days: 90, title: 'Publish the internal P&L impact.', desc: 'Nothing accelerates adoption faster than a true story with numbers from a peer team. Write it up, share it with the exec team, and use it in the next board update.' }
+    ],
+    L3: [
+      { days: 30, title: 'Design your AI operating model.', desc: 'Hub-and-spoke or federated? Define who owns AI capability vs who deploys it. Most L3 companies have a CoE that is a bottleneck, not an enabler. The org structure needs to match the ambition.' },
+      { days: 60, title: 'Formalise P&L attribution for every AI initiative.', desc: 'If you cannot measure it, you cannot manage it and you cannot defend it to the board. Finance needs to own the metric. This is the single most common gap between L3 and L4.' },
+      { days: 90, title: 'Launch your governance framework.', desc: 'Risk classification, acceptable use, model validation sign-off. Without governance the next deployment incident becomes a hold-period story. With it, you have a defensible programme.' }
+    ],
+    L4: [
+      { days: 30, title: 'Productise AI for customers.', desc: 'The gap from L4 to L5 is almost always external. What AI capability can you put in the product that customers will pay for or retain because of? This is the question that unlocks the next stage.' },
+      { days: 60, title: 'Disclose AI-driven revenue in investor materials.', desc: 'Naming it makes it real and creates accountability that sustains the programme through management changes. Your sponsor should be citing AI-driven EBITDA in every portfolio update.' },
+      { days: 90, title: 'Commission an external audit of your AI governance.', desc: 'L5 requires defensibility. An independent review now will surface the gaps before a regulator, customer security team, or acquirer does. It is also your most credible proof point.' }
+    ],
+    L5: [
+      { days: 30, title: 'Audit your data flywheel.', desc: 'Is proprietary data measurably improving model performance over time? If not, you are one foundation model upgrade away from losing your moat. The flywheel must be quantifiable.' },
+      { days: 60, title: 'Review your AI talent magnetism.', desc: 'Are AI-native candidates choosing you over competitors? If not, your employer brand has not caught up with your capability. The best AI operators choose by mission and moat — both must be externally visible.' },
+      { days: 90, title: 'Publish a transparency report.', desc: 'The companies that stay at L5 treat it as a moving target. Public commitments — governance disclosures, trust centres, external audits published — create the accountability to keep moving.' }
+    ]
+  };
+
+  const GAP_ACTIONS = {
+    P1: 'Assign a named exec owner with a budget line and quarterly board reporting. The typical trap is diffuse curiosity with no accountability. Start with a 90-day sprint: one sponsor, one P&L owner, one measurable target.',
+    P2: 'Audit your data estate before touching any AI tooling. The most common gap is fragmented source systems with no centralised layer. Pick the 3 highest-value data domains, centralise them, document lineage — then let models near them.',
+    P3: 'Run a portfolio kill. The most common gap is multiple pilots with nothing in production. Force a decision: which 1–2 pilots have a clear P&L line? Productionise those. Kill the rest and reallocate the budget.',
+    P4: 'Redesign one core workflow end-to-end around AI before scaling. The gap is almost always AI bolted onto existing processes with no measurable gain. A focused 6-week workflow redesign sprint — cross-functional, output-obsessed — typically closes two levels.',
+    P5: 'Classify your existing AI deployments by risk and draft a use policy before the next release. The gap is almost always ad-hoc deployment with no accountability. Two-week sprint: inventory, risk-classify, draft policy, assign a named risk owner.',
+    P6: 'Run a tooling audit and implement a model gateway. The gap is shadow AI spend with no oversight — teams using multiple LLM tools with no security or cost controls. One gateway, one budget line, one log.'
+  };
 
   const STAGES = [
     { level: 'L0', label: 'Absent', tagline: 'AI is not yet on the agenda.', next: 'The right next move is a focused strategy sprint with the CEO and exec team to define whether AI is a value-creation lever for this hold period. Without that decision, no other move will stick. The risk is not moving too fast — it is watching competitors build durable AI advantages while you are still in the awareness phase.' },
@@ -2007,24 +2216,48 @@
     finalOverall = results.overall;
     finalPillarScores = results.pillarScores;
     finalStage = getStage(finalOverall);
+
+    // Hero: tier badge + stage name + tagline + big score
     const badge = document.getElementById('result-badge');
-    badge.textContent = `${finalStage.level} — ${finalStage.label}`;
+    badge.textContent = finalStage.level;
     badge.className = `result-badge stage-${finalStage.level.toLowerCase()}`;
+    document.getElementById('result-tier-text').textContent = `STAGE ${finalStage.level} OF L0–L5`;
+    document.getElementById('result-stage-name').textContent = finalStage.label;
     document.getElementById('result-heading').textContent = finalStage.tagline;
-    document.getElementById('result-score').textContent = `Overall NL-AIMI score: ${finalOverall.toFixed(2)} / 5.0`;
-    const grid = document.getElementById('pillar-grid');
-    grid.innerHTML = '';
+    document.getElementById('result-big-score').textContent = finalOverall.toFixed(2);
+
+    // Pillar bar rows
+    const barsEl = document.getElementById('pillar-bars');
+    barsEl.innerHTML = '';
     ['P1','P2','P3','P4','P5','P6'].forEach(p => {
       const score = finalPillarScores[p];
-      const delta = score - COHORT_AVGS[p];
+      const cohort = COHORT_AVGS[p];
       const pStage = getStage(score);
+      const fillPct = (score / 5) * 100;
+      const cohortPct = (cohort / 5) * 100;
       const row = document.createElement('div');
-      row.className = 'pillar-row';
-      row.innerHTML = `<span class="pillar-name">${p} — ${PILLAR_NAMES[p]}</span><span class="pillar-score">${score.toFixed(1)}</span><span class="pillar-delta" style="color:${delta >= 0 ? '#6abf40' : '#e05050'}">${delta >= 0 ? '+' : ''}${delta.toFixed(2)} vs cohort</span><span class="pillar-stage">${pStage.label}</span>`;
-      grid.appendChild(row);
+      row.className = 'pillar-bar-row';
+      row.innerHTML = `
+        <span class="pillar-bar-name">${PILLAR_NAMES[p]}</span>
+        <span class="pillar-bar-stage-pill stage-${pStage.level.toLowerCase()}">${pStage.level}</span>
+        <div class="pillar-bar-track">
+          <div class="pillar-bar-fill" style="width:${fillPct.toFixed(1)}%"></div>
+          <div class="pillar-bar-cohort-marker" style="left:${cohortPct.toFixed(1)}%"></div>
+        </div>
+        <span class="pillar-bar-score">${score.toFixed(1)}</span>`;
+      barsEl.appendChild(row);
     });
-    document.getElementById('result-next').textContent = finalStage.next;
+
+    buildFullReport();
+
+    // Reset gate
+    document.getElementById('result-gate').style.display = 'block';
+    document.getElementById('result-full').style.display = 'none';
+    ['gate-name','gate-company','gate-url','gate-email'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('gate-error').style.display = 'none';
+
     try { localStorage.setItem('nl_aimi_last_result', JSON.stringify({ overall: finalOverall, pillarScores: finalPillarScores, stage: finalStage.level, label: finalStage.label, date: new Date().toISOString() })); } catch(e) {}
+
     document.getElementById('screen-question').style.display = 'none';
     document.getElementById('screen-result').style.display = 'block';
     document.getElementById('diag').scrollTop = 0;
@@ -2034,8 +2267,78 @@
     currentQ = 0;
     answers = new Array(QUESTIONS.length).fill(null);
     document.getElementById('screen-result').style.display = 'none';
+    document.getElementById('result-gate').style.display = 'block';
+    document.getElementById('result-full').style.display = 'none';
+    ['gate-name','gate-company','gate-url','gate-email'].forEach(id => { document.getElementById(id).value = ''; });
     document.getElementById('screen-question').style.display = 'block';
     renderQuestion();
+    document.getElementById('diag').scrollTop = 0;
+  }
+
+  function buildFullReport() {
+    // Peer context
+    const aboveCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] >= COHORT_AVGS[p]);
+    const belowCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] < COHORT_AVGS[p]);
+    const overallDelta = finalOverall - COHORT_MEAN;
+    const aboveText = aboveCohort.length ? `Above cohort: ${aboveCohort.map(p => PILLAR_NAMES[p].split(' ')[0]).join(', ')}.` : '';
+    const belowText = belowCohort.length ? `Below cohort: ${belowCohort.map(p => PILLAR_NAMES[p].split(' ')[0]).join(', ')}.` : '';
+    document.getElementById('report-peer').innerHTML = `<p class="report-peer-text">You scored <strong>${finalOverall.toFixed(2)}</strong> against a PE portco cohort mean of <strong>${COHORT_MEAN}</strong> (${overallDelta >= 0 ? '+' : ''}${overallDelta.toFixed(2)}). ${aboveText} ${belowText}</p>`;
+
+    // Two weakest pillars
+    const gapEl = document.getElementById('report-gaps');
+    gapEl.innerHTML = '<p class="result-next-section-label">Biggest gaps to close</p>';
+    ['P1','P2','P3','P4','P5','P6']
+      .map(p => ({ p, score: finalPillarScores[p], gap: COHORT_AVGS[p] - finalPillarScores[p] }))
+      .sort((a, b) => b.gap - a.gap)
+      .slice(0, 2)
+      .forEach(({ p, score }) => {
+        const div = document.createElement('div');
+        div.className = 'gap-item';
+        div.innerHTML = `<div class="gap-item-header"><span class="gap-item-pillar">${PILLAR_NAMES[p]}</span><span class="gap-item-score">${score.toFixed(1)} <span class="gap-item-vs">vs cohort ${COHORT_AVGS[p]}</span></span></div><p class="gap-item-action">${GAP_ACTIONS[p]}</p>`;
+        gapEl.appendChild(div);
+      });
+
+    // Numbered 90-day moves
+    const movesEl = document.getElementById('moves-section');
+    movesEl.innerHTML = '';
+    (STAGE_MOVES[finalStage.level] || []).forEach((move, i) => {
+      const div = document.createElement('div');
+      div.className = 'move-item';
+      div.innerHTML = `<div class="move-num">0${i + 1}</div><div class="move-body"><div class="move-header"><span class="move-title">${move.title}</span><span class="move-timeline">${move.days} DAYS</span></div><p class="move-desc">${move.desc}</p></div>`;
+      movesEl.appendChild(div);
+    });
+  }
+
+  async function submitGate() {
+    const name = document.getElementById('gate-name').value.trim();
+    const company = document.getElementById('gate-company').value.trim();
+    const url = document.getElementById('gate-url').value.trim();
+    const email = document.getElementById('gate-email').value.trim();
+    const errEl = document.getElementById('gate-error');
+    if (!name || !email) {
+      errEl.textContent = 'Please enter your name and email.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, company, email, jobtitle: '',
+        message: `Diagnostic full report request${url ? ` — ${url}` : ''}`,
+        audience: 'Inflexion', sourcePage: 'inflexion',
+        inflexionScore: finalOverall,
+        inflexionTier: finalStage ? `${finalStage.level} — ${finalStage.label}` : null
+      })
+    }).catch(() => {});
+    document.getElementById('result-gate').style.display = 'none';
+    document.getElementById('result-full').style.display = 'block';
     document.getElementById('diag').scrollTop = 0;
   }
 
