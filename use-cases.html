@@ -1319,6 +1319,15 @@
       }
     }
   </style>
+  <script>
+    (function(){
+      function applyZoom(){
+        document.documentElement.style.zoom = window.innerWidth > 768 ? '0.8' : '1';
+      }
+      applyZoom();
+      window.addEventListener('resize', applyZoom);
+    })();
+  </script>
 </head>
 <body>
 <div class="site-shell">
