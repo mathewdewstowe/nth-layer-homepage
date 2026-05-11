@@ -1996,9 +1996,6 @@
           <p class="gate-heading">Get your full report</p>
           <p class="gate-sub">Peer comparisons from 54 PE portcos, gap analysis, and a 90-day roadmap — sent to you immediately.</p>
           <div class="gate-form">
-            <input class="gate-input" type="text" id="gate-name" placeholder="Your name" autocomplete="name" />
-            <input class="gate-input" type="text" id="gate-company" placeholder="Company" autocomplete="organization" />
-            <input class="gate-input" type="url" id="gate-url" placeholder="Company website (e.g. acme.com)" autocomplete="url" />
             <input class="gate-input" type="email" id="gate-email" placeholder="Work email" autocomplete="email" />
             <button class="diag-btn diag-btn-primary" onclick="submitGate()">Get the full report →</button>
           </div>
@@ -2266,7 +2263,7 @@
     // Reset gate
     document.getElementById('result-gate').style.display = 'block';
     document.getElementById('result-full').style.display = 'none';
-    ['gate-name','gate-company','gate-url','gate-email'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('gate-email').value = '';
     document.getElementById('gate-error').style.display = 'none';
 
     try { localStorage.setItem('nl_aimi_last_result', JSON.stringify({ overall: finalOverall, pillarScores: finalPillarScores, stage: finalStage.level, label: finalStage.label, date: new Date().toISOString() })); } catch(e) {}
@@ -2282,7 +2279,7 @@
     document.getElementById('screen-result').style.display = 'none';
     document.getElementById('result-gate').style.display = 'block';
     document.getElementById('result-full').style.display = 'none';
-    ['gate-name','gate-company','gate-url','gate-email'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('gate-email').value = '';
     document.getElementById('screen-question').style.display = 'block';
     renderQuestion();
     document.getElementById('diag').scrollTop = 0;
@@ -2324,13 +2321,10 @@
   }
 
   async function submitGate() {
-    const name = document.getElementById('gate-name').value.trim();
-    const company = document.getElementById('gate-company').value.trim();
-    const url = document.getElementById('gate-url').value.trim();
     const email = document.getElementById('gate-email').value.trim();
     const errEl = document.getElementById('gate-error');
-    if (!name || !email) {
-      errEl.textContent = 'Please enter your name and email.';
+    if (!email) {
+      errEl.textContent = 'Please enter your work email.';
       errEl.style.display = 'block';
       return;
     }
@@ -2344,8 +2338,8 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, company, email, jobtitle: '',
-        message: `Diagnostic full report request${url ? ` — ${url}` : ''}`,
+        name: '', company: '', email, jobtitle: '',
+        message: 'Diagnostic full report request',
         audience: 'Inflexion', sourcePage: 'inflexion',
         inflexionScore: finalOverall,
         inflexionTier: finalStage ? `${finalStage.level} — ${finalStage.label}` : null
