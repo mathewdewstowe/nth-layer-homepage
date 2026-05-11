@@ -2487,6 +2487,11 @@
   if (new URLSearchParams(window.location.search).get('modal') === '1' || window.location.pathname === '/inflexion/modal' || window.location.pathname === '/inflexion/modal/') {
     startDiagnostic();
   }
+
+  // Example report: nthlayer.co.uk/inflexion/example
+  if (window.location.pathname === '/inflexion/example' || window.location.pathname === '/inflexion/example/') {
+    window.location.replace('/inflexion-example');
+  }
 </script>
 
 </body>
