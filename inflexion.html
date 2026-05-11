@@ -2488,8 +2488,8 @@
     startDiagnostic();
   }
 
-  // Example report: nthlayer.co.uk/inflexion/example
-  if (window.location.pathname === '/inflexion/example' || window.location.pathname === '/inflexion/example/') {
+  // Example report: nthlayer.co.uk/inflexion/example or /inflexion/modal/example
+  if (['/inflexion/example', '/inflexion/example/', '/inflexion/modal/example', '/inflexion/modal/example/'].includes(window.location.pathname)) {
     window.location.replace('/inflexion-example');
   }
 </script>
