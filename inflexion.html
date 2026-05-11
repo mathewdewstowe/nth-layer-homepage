@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inflexion — AI Readiness Diagnostic | The Nth Layer</title>
-  <script>if(new URLSearchParams(window.location.search).get('modal')==='1'){document.documentElement.classList.add('modal-mode');}</script>
+  <script>if(new URLSearchParams(window.location.search).get('modal')==='1'||window.location.pathname==='/inflexion/modal'||window.location.pathname==='/inflexion/modal/'){document.documentElement.classList.add('modal-mode');}</script>
   <style>.modal-mode #launcher{display:none!important;}.modal-mode #diag{display:block!important;}</style>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
@@ -2421,7 +2421,7 @@
   document.getElementById('contactModal').addEventListener('click', function(e) { if (e.target === this) closeContactModal(); });
 
   // Hidden link: nthlayer.co.uk/inflexion/modal
-  if (new URLSearchParams(window.location.search).get('modal') === '1') {
+  if (new URLSearchParams(window.location.search).get('modal') === '1' || window.location.pathname === '/inflexion/modal' || window.location.pathname === '/inflexion/modal/') {
     startDiagnostic();
   }
 </script>
