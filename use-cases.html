@@ -1322,7 +1322,17 @@
   <script>
     (function(){
       function applyZoom(){
-        document.documentElement.style.zoom = window.innerWidth > 768 ? '0.8' : '1';
+        if (window.innerWidth <= 768) {
+          document.documentElement.style.zoom = '1';
+          return;
+        }
+        // Detect browser-level zoom (Brave/Chrome remember zoom per URL).
+        // outerWidth = outer window CSS px; innerWidth = viewport CSS px.
+        // Their ratio approximates the browser zoom multiplier.
+        var browserZoom = window.outerWidth / window.innerWidth;
+        // Target visual scale is 0.8. CSS zoom = target / browserZoom.
+        var cssZoom = 0.8 / (browserZoom > 0 ? browserZoom : 1);
+        document.documentElement.style.zoom = cssZoom.toString();
       }
       applyZoom();
       window.addEventListener('resize', applyZoom);
