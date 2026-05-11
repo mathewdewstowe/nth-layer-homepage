@@ -962,10 +962,9 @@
     .lp-score .section-label::after { background: rgba(255,255,255,0.08); }
 
     .lp-score-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
       margin-top: 36px;
     }
 
@@ -1001,44 +1000,51 @@
     }
 
     .lp-level-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       border-left: 1px solid rgba(255,255,255,0.08);
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
     .lp-level-row {
-      display: grid;
-      grid-template-columns: 80px 1fr;
       border-right: 1px solid rgba(255,255,255,0.08);
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 20px 20px 20px;
     }
 
     .lp-level-num {
-      padding: 16px;
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 0.1em;
       color: var(--lime);
-      border-right: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
+      margin-bottom: 10px;
       white-space: nowrap;
     }
 
-    .lp-level-content {
-      padding: 16px 20px;
-    }
-
     .lp-level-name {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      margin-bottom: 2px;
+      margin-bottom: 6px;
     }
 
     .lp-level-desc {
       font-size: 12px;
       line-height: 1.5;
       color: rgba(255,255,255,0.38);
+      margin-bottom: 16px;
+    }
+
+    .lp-level-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+    }
+
+    .lp-level-bar-fill {
+      height: 3px;
+      background: var(--lime);
+      border-radius: 2px;
     }
 
     /* EVIDENCE */
@@ -1191,7 +1197,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: #0a0e0f;
+      background: var(--paper);
       z-index: 2000;
       overflow-y: auto;
     }
@@ -1199,9 +1205,9 @@
     .diag-close-btn {
       position: fixed;
       top: 20px; right: 24px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.5);
+      background: rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.1);
+      color: rgba(0,0,0,0.4);
       font-size: 22px;
       line-height: 1;
       width: 40px; height: 40px;
@@ -1212,7 +1218,7 @@
       z-index: 10;
       font-family: var(--font-body);
     }
-    .diag-close-btn:hover { background: rgba(255,255,255,0.13); color: rgba(255,255,255,0.8); }
+    .diag-close-btn:hover { background: rgba(0,0,0,0.1); color: rgba(0,0,0,0.7); }
 
     .diag-wrap {
       min-height: 100vh;
@@ -1235,11 +1241,11 @@
 
     #diag .q-option {
       display: block;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.09);
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
       border-radius: 3px;
       margin-bottom: 8px;
-      color: rgba(255,255,255,0.75);
+      color: rgba(0,0,0,0.7);
       font-size: 14px;
       line-height: 1.55;
       padding: 16px 20px;
@@ -1249,12 +1255,12 @@
       cursor: pointer;
       transition: background 0.12s, border-color 0.12s;
     }
-    #diag .q-option:hover { background: rgba(191,255,0,0.07); border-color: rgba(191,255,0,0.25); color: rgba(255,255,255,0.9); }
-    #diag .q-option.selected { background: rgba(191,255,0,0.12); border-color: var(--lime); color: #fff; }
+    #diag .q-option:hover { background: rgba(191,255,0,0.12); border-color: rgba(120,180,0,0.4); color: rgba(0,0,0,0.85); }
+    #diag .q-option.selected { background: rgba(191,255,0,0.18); border-color: #7ab000; color: var(--black); }
 
     #diag .progress-bar-wrap { margin-bottom: 40px; }
-    #diag .progress-meta { color: rgba(255,255,255,0.32); }
-    #diag .progress-track { background: rgba(255,255,255,0.1); }
+    #diag .progress-meta { color: rgba(0,0,0,0.38); }
+    #diag .progress-track { background: rgba(0,0,0,0.1); }
 
     #diag .q-dimension {
       display: inline-block;
@@ -1262,7 +1268,7 @@
       font-weight: 900;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--lime);
+      color: #5a8500;
       margin-bottom: 14px;
     }
 
@@ -1271,7 +1277,7 @@
       font-size: clamp(22px, 2.4vw, 34px);
       line-height: 1.15;
       letter-spacing: -0.01em;
-      color: #fff;
+      color: var(--black);
       margin-bottom: 28px;
     }
 
@@ -1295,7 +1301,7 @@
     .diag-btn-primary { background: var(--lime); color: var(--black); }
     .diag-btn-primary:hover { opacity: 0.88; }
     .diag-btn-primary:disabled { opacity: 0.35; cursor: default; }
-    .diag-btn-secondary { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); }
+    .diag-btn-secondary { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.5); border: 1px solid rgba(0,0,0,0.1); }
     .diag-btn-secondary:hover { opacity: 0.8; }
     .diag-btn-secondary:disabled { opacity: 0.3; cursor: default; }
 
@@ -1311,11 +1317,11 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .stage-l0 { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.45); }
-    .stage-l1 { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
-    .stage-l2 { background: rgba(191,255,0,0.12); color: rgba(191,255,0,0.8); border: 1px solid rgba(191,255,0,0.3); }
-    .stage-l3 { background: rgba(191,255,0,0.18); color: #c8ff00; border: 1px solid rgba(191,255,0,0.4); }
-    .stage-l4 { background: rgba(191,255,0,0.26); color: #BFFF00; border: 1px solid rgba(191,255,0,0.6); }
+    .stage-l0 { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.38); }
+    .stage-l1 { background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.5); }
+    .stage-l2 { background: rgba(120,180,0,0.1); color: #4a7000; border: 1px solid rgba(120,180,0,0.3); }
+    .stage-l3 { background: rgba(120,180,0,0.15); color: #3d6000; border: 1px solid rgba(120,180,0,0.4); }
+    .stage-l4 { background: rgba(120,180,0,0.22); color: #2e4800; border: 1px solid rgba(120,180,0,0.5); }
     .stage-l5 { background: var(--lime); color: var(--black); }
 
     #diag .result-heading {
@@ -1323,14 +1329,14 @@
       font-size: clamp(26px, 2.6vw, 40px);
       line-height: 1.08;
       letter-spacing: -0.02em;
-      color: #fff;
+      color: var(--black);
       margin-bottom: 10px;
       font-weight: 400;
     }
 
     #diag .result-score {
       font-size: 13px;
-      color: rgba(255,255,255,0.32);
+      color: rgba(0,0,0,0.38);
       font-weight: 600;
       letter-spacing: 0.04em;
       margin-bottom: 32px;
@@ -1339,8 +1345,8 @@
     .pillar-grid {
       display: flex;
       flex-direction: column;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      border-left: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-left: 1px solid rgba(0,0,0,0.08);
       margin-bottom: 32px;
     }
 
@@ -1349,29 +1355,29 @@
       grid-template-columns: 1fr 52px 130px 76px;
       gap: 8px;
       padding: 13px 18px;
-      border-right: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-right: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       align-items: center;
     }
 
-    .pillar-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.72); }
-    .pillar-score { font-size: 15px; font-weight: 800; color: #fff; text-align: right; }
+    .pillar-name { font-size: 13px; font-weight: 600; color: rgba(0,0,0,0.65); }
+    .pillar-score { font-size: 15px; font-weight: 800; color: var(--black); text-align: right; }
     .pillar-delta { font-size: 12px; font-weight: 700; text-align: right; }
-    .pillar-stage { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-align: right; }
+    .pillar-stage { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: rgba(0,0,0,0.38); text-align: right; }
 
     .result-next-section-label {
       font-size: 11px;
       font-weight: 900;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(0,0,0,0.35);
       margin-bottom: 12px;
     }
 
     #diag .result-next-text {
       font-size: 15px;
       line-height: 1.7;
-      color: rgba(255,255,255,0.55);
+      color: rgba(0,0,0,0.6);
       margin-bottom: 32px;
     }
 
@@ -1383,16 +1389,16 @@
       font-family: var(--font-body);
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255,255,255,0.32);
+      color: rgba(0,0,0,0.4);
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 3px;
       transition: color 0.2s;
       padding: 0;
     }
-    #diag .result-link:hover { color: rgba(255,255,255,0.6); }
+    #diag .result-link:hover { color: rgba(0,0,0,0.7); }
 
-    #diag .result-copy-confirm { font-size: 12px; color: var(--lime); font-weight: 700; }
+    #diag .result-copy-confirm { font-size: 12px; color: #3d6000; font-weight: 700; }
 
     /* ═══ HAMBURGER MENU ═══ */
     .hamburger {
@@ -1486,7 +1492,8 @@
       .contact-row-two { grid-template-columns: 1fr; }
       .modal-content { padding: 24px 18px 28px; border-radius: 4px; }
       .modal-title { font-size: clamp(32px, 8vw, 44px); }
-      .lp-approach-grid, .lp-score-grid { grid-template-columns: 1fr; gap: 32px; }
+      .lp-approach-grid { grid-template-columns: 1fr; gap: 32px; }
+      .lp-level-list { grid-template-columns: 1fr 1fr; }
       .lp-evidence-grid, .lp-engagement-grid { grid-template-columns: 1fr; }
       .lp-cta-heading { font-size: clamp(28px, 7vw, 40px); }
       .pillar-row { grid-template-columns: 1fr auto; gap: 12px; }
@@ -1541,7 +1548,7 @@
       <div class="lp-hero-left">
         <span class="lp-hero-divider" aria-hidden="true"></span>
         <p class="lp-eyebrow">The Nth Layer — AI Maturity Index</p>
-        <h1 class="lp-h1">AI maturity benchmarking purpose-built for private equity</h1>
+        <h1 class="lp-h1">AI Maturity benchmarking purpose-built for private equity</h1>
       </div>
       <div class="lp-hero-right">
         <p class="lp-hero-body">
@@ -1551,7 +1558,7 @@
           Six pillar scores, a weighted overall score, a maturity stage, and peer comparisons from 54 sponsor-owned B2B SaaS companies. Plus a 90-day action plan to close the gaps.
         </p>
         <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:4px;">
-          <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
+          <button class="lp-start-btn" onclick="openContactModal(event)">Get in touch →</button>
           <button class="lp-start-btn lp-start-btn-lime" onclick="startDiagnostic()">AI Maturity Diagnostic →</button>
         </div>
       </div>
@@ -1672,38 +1679,33 @@
         <div class="lp-level-list">
           <div class="lp-level-row">
             <div class="lp-level-num">LEVEL 0</div>
-            <div class="lp-level-content">
-              <div class="lp-level-name">Absent</div>
-              <div class="lp-level-desc">No evidence of AI activity in this pillar.</div>
-            </div>
+            <div class="lp-level-name">Absent</div>
+            <div class="lp-level-desc">No evidence of AI activity in this pillar.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:0%"></div></div>
           </div>
           <div class="lp-level-row">
             <div class="lp-level-num">LEVEL 1</div>
-            <div class="lp-level-content">
-              <div class="lp-level-name">Aware</div>
-              <div class="lp-level-desc">Strategy or investment announced. No production output.</div>
-            </div>
+            <div class="lp-level-name">Aware</div>
+            <div class="lp-level-desc">Strategy or investment announced. No production output.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:25%"></div></div>
           </div>
           <div class="lp-level-row">
             <div class="lp-level-num">LEVEL 2</div>
-            <div class="lp-level-content">
-              <div class="lp-level-name">Operational</div>
-              <div class="lp-level-desc">AI in production in at least one core workflow with measurable ROI.</div>
-            </div>
+            <div class="lp-level-name">Operational</div>
+            <div class="lp-level-desc">AI in production in at least one core workflow with measurable ROI.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:50%"></div></div>
           </div>
           <div class="lp-level-row">
             <div class="lp-level-num">LEVEL 3</div>
-            <div class="lp-level-content">
-              <div class="lp-level-name">Systemic</div>
-              <div class="lp-level-desc">AI across most priority workflows. &gt;2% EBIT impact. Governed agents.</div>
-            </div>
+            <div class="lp-level-name">Systemic</div>
+            <div class="lp-level-desc">AI across most priority workflows. &gt;2% EBIT impact. Governed agents.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:75%"></div></div>
           </div>
           <div class="lp-level-row">
             <div class="lp-level-num">LEVEL 4</div>
-            <div class="lp-level-content">
-              <div class="lp-level-name">Transformational</div>
-              <div class="lp-level-desc">AI is the operating model. &gt;5% EBIT directly attributable.</div>
-            </div>
+            <div class="lp-level-name">Transformational</div>
+            <div class="lp-level-desc">AI is the operating model. &gt;5% EBIT directly attributable.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:100%"></div></div>
           </div>
         </div>
       </div>
@@ -1746,8 +1748,7 @@
       <div class="container">
         <h2 class="lp-cta-heading">Ready for a briefing?</h2>
         <p class="lp-cta-sub">A 90-day action plan to close the gaps.</p>
-        <button class="lp-start-btn" onclick="openContactModal(event)">Request a briefing →</button>
-        <p style="font-size: 13px; color: rgba(0,0,0,0.52); margin-top: 12px;">10–12 mins</p>
+        <button class="lp-start-btn" onclick="openContactModal(event)">Get in touch →</button>
       </div>
     </div>
     <div class="footer-inner container">
