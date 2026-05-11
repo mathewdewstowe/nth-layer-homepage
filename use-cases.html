@@ -1326,16 +1326,18 @@
           document.documentElement.style.zoom = '1';
           return;
         }
-        // Detect browser-level zoom (Brave/Chrome remember zoom per URL).
-        // outerWidth = outer window CSS px; innerWidth = viewport CSS px.
-        // Their ratio approximates the browser zoom multiplier.
-        var browserZoom = window.outerWidth / window.innerWidth;
-        // Target visual scale is 0.8. CSS zoom = target / browserZoom.
-        var cssZoom = 0.8 / (browserZoom > 0 ? browserZoom : 1);
-        document.documentElement.style.zoom = cssZoom.toString();
+        // outerWidth is 0 on background tabs — only compensate when real value available
+        var ow = window.outerWidth;
+        var iw = window.innerWidth;
+        var browserZoom = (ow > 0 && iw > 0) ? ow / iw : 1;
+        document.documentElement.style.zoom = (0.8 / browserZoom).toString();
       }
       applyZoom();
       window.addEventListener('resize', applyZoom);
+      // Re-run when tab becomes active — outerWidth is real at that point
+      document.addEventListener('visibilitychange', function(){
+        if (!document.hidden) applyZoom();
+      });
     })();
   </script>
 </head>
