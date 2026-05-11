@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Maturity Benchmark · Full Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0d0f0d; --paper: #fbfbf8; --lime: #BFFF00;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-display: 'DM Serif Display', Georgia, serif;
+  }
+  body { font-family: var(--font-body); background: #fff; color: var(--black); -webkit-font-smoothing: antialiased; width: 794px; margin: 0 auto; padding-top: 48px; }
+  @page { size: A4; margin: 0; }
+  @media print { body { width: 210mm; padding-top: 0; } }
+
+  .page { width: 794px; padding: 44px 52px 44px; background: #fff; display: flex; flex-direction: column; }
+  .page-2 { padding-top: 44px; }
+
+  /* Print UI — visible in browser, hidden when printing */
+  .print-ui { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: #0d0f0d; display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; }
+  .print-ui-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+  .print-ui-btn { background: var(--lime); color: var(--black); border: none; padding: 9px 18px; font-family: var(--font-body); font-size: 12px; font-weight: 800; border-radius: 3px; cursor: pointer; letter-spacing: 0.03em; }
+  @media print { .print-ui { display: none; } body { padding-top: 0; } }
+
+  /* ── Header ── */
+  .pdf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; padding-bottom: 18px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-wrap svg { width: 30px; height: 30px; }
+  .logo-text { font-size: 10px; font-weight: 900; letter-spacing: 0.06em; line-height: 1.3; color: var(--black); text-transform: uppercase; }
+  .report-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.32); }
+
+  /* ── Benchmark intro ── */
+  .benchmark-intro { background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; padding: 14px 18px; margin-bottom: 24px; }
+  .benchmark-intro-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 6px; }
+  .benchmark-intro-text { font-size: 12px; color: rgba(0,0,0,0.6); line-height: 1.65; }
+  .benchmark-intro-disclaimer { font-size: 9px; color: rgba(0,0,0,0.35); line-height: 1.5; margin-top: 7px; padding-top: 7px; border-top: 1px solid rgba(0,0,0,0.07); }
+
+  /* ── Stage badge + hero ── */
+  .result-tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .result-tier-text { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); }
+  .result-badge { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 3px; font-family: var(--font-body); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .stage-l0 { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.38); }
+  .stage-l1 { background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.5); }
+  .stage-l2 { background: rgba(120,180,0,0.10); color: #4a7000; border: 1px solid rgba(120,180,0,0.3); }
+  .stage-l3 { background: rgba(120,180,0,0.15); color: #3d6000; border: 1px solid rgba(120,180,0,0.4); }
+  .stage-l4 { background: rgba(120,180,0,0.22); color: #2e4800; border: 1px solid rgba(120,180,0,0.5); }
+  .stage-l5 { background: var(--lime); color: var(--black); }
+
+  .result-hero { display: grid; grid-template-columns: 1fr 160px; gap: 24px; align-items: start; margin-bottom: 10px; }
+  .result-stage-name { font-family: var(--font-display); font-size: 52px; font-weight: 400; color: var(--black); line-height: 1; margin-bottom: 10px; }
+  .result-tagline { font-size: 13px; line-height: 1.65; color: rgba(0,0,0,0.6); max-width: 420px; }
+  .result-hero-right { text-align: right; padding-top: 4px; }
+  .result-big-score { display: block; font-family: var(--font-display); font-size: 76px; font-weight: 400; line-height: 1; color: var(--black); }
+  .result-big-denom { font-size: 17px; font-weight: 600; color: rgba(0,0,0,0.32); }
+  .result-score-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.32); margin-top: 5px; }
+
+  .result-divider { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 14px 0 18px; }
+  .section-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 8px; }
+
+  /* ── Stage scale ── */
+  .stage-scale { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid rgba(0,0,0,0.09); border-radius: 3px; overflow: hidden; margin-bottom: 18px; }
+  .stage-cell { padding: 8px 9px; border-right: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.015); }
+  .stage-cell:last-child { border-right: none; }
+  .stage-cell.active { background: rgba(120,180,0,0.12); }
+  .stage-cell-level { font-size: 9px; font-weight: 900; letter-spacing: 0.08em; color: rgba(0,0,0,0.32); margin-bottom: 2px; }
+  .stage-cell.active .stage-cell-level { color: #3d6000; }
+  .stage-cell-name { font-size: 10px; font-weight: 700; color: rgba(0,0,0,0.55); margin-bottom: 2px; }
+  .stage-cell.active .stage-cell-name { color: #3d6000; }
+  .stage-cell-desc { font-size: 9px; color: rgba(0,0,0,0.32); line-height: 1.4; }
+  .stage-cell.active .stage-cell-desc { color: rgba(50,80,0,0.65); }
+
+  /* ── Cohort + distribution ── */
+  .cohort-section { display: grid; grid-template-columns: 1fr 220px; gap: 16px; margin-bottom: 18px; }
+  .cohort-comparison { padding: 12px 16px; background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; }
+  .cohort-comparison-title { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 10px; }
+  .cohort-row { display: grid; grid-template-columns: 110px 34px 1fr; gap: 8px; align-items: center; margin-bottom: 7px; }
+  .cohort-row:last-of-type { margin-bottom: 0; }
+  .cohort-row-label { font-size: 11px; font-weight: 600; color: rgba(0,0,0,0.6); }
+  .cohort-row-score { font-size: 12px; font-weight: 800; color: var(--black); text-align: right; }
+  .cohort-row-track { height: 6px; background: rgba(0,0,0,0.07); border-radius: 3px; }
+  .cohort-row-fill { height: 100%; border-radius: 3px; }
+  .cohort-row-fill.you { background: var(--lime); }
+  .cohort-row-fill.cohort { background: rgba(0,0,0,0.18); }
+  .cohort-caption { font-size: 10px; color: rgba(0,0,0,0.32); margin-top: 8px; }
+
+  /* Stage distribution */
+  .stage-dist { padding: 12px 16px; background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; }
+  .stage-dist-title { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 10px; }
+  .dist-bars { display: flex; align-items: flex-end; gap: 5px; height: 52px; margin-bottom: 6px; }
+  .dist-col { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 3px; }
+  .dist-bar { width: 100%; border-radius: 2px 2px 0 0; background: rgba(0,0,0,0.1); }
+  .dist-bar.active { background: rgba(120,180,0,0.6); }
+  .dist-count { font-size: 8px; font-weight: 800; color: rgba(0,0,0,0.35); }
+  .dist-count.active { color: #3d6000; }
+  .dist-labels { display: flex; gap: 5px; }
+  .dist-label { flex: 1; text-align: center; font-size: 8px; font-weight: 700; color: rgba(0,0,0,0.35); }
+  .dist-label.active { color: #3d6000; }
+  .dist-caption { font-size: 10px; color: rgba(0,0,0,0.35); margin-top: 6px; }
+
+  /* ── Pillar bars ── */
+  .pillar-bars-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .cohort-legend { display: flex; align-items: center; gap: 5px; font-size: 9px; color: rgba(0,0,0,0.38); font-weight: 600; }
+  .cohort-legend-line { width: 2px; height: 10px; background: rgba(0,0,0,0.22); border-radius: 1px; }
+  .pillar-bars { margin-bottom: 18px; }
+  .pillar-bar-row { display: grid; grid-template-columns: 1fr 38px 200px 34px; gap: 9px; align-items: center; margin-bottom: 8px; }
+  .pillar-bar-name { font-size: 11px; font-weight: 600; color: rgba(0,0,0,0.65); }
+  .pillar-bar-stage-pill { display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; letter-spacing: 0.05em; border-radius: 20px; padding: 2px 6px; border: 1px solid currentColor; }
+  .pillar-bar-track { position: relative; height: 6px; background: rgba(0,0,0,0.07); border-radius: 3px; overflow: visible; }
+  .pillar-bar-fill { height: 100%; background: var(--lime); border-radius: 3px; }
+  .pillar-bar-cohort-marker { position: absolute; top: -4px; width: 2px; height: 14px; background: rgba(0,0,0,0.22); border-radius: 1px; transform: translateX(-50%); }
+  .pillar-bar-score { font-size: 12px; font-weight: 800; color: var(--black); text-align: right; }
+
+  /* ── Peer analysis ── */
+  .peer-box { padding: 12px 16px; background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; }
+  .peer-text { font-size: 12px; color: rgba(0,0,0,0.6); line-height: 1.7; }
+  .peer-text strong { color: var(--black); font-weight: 700; }
+
+  /* ── Page footer ── */
+  .pdf-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+  .pdf-footer-left { font-size: 10px; color: rgba(0,0,0,0.3); font-weight: 500; }
+  .pdf-footer-right { font-size: 10px; color: rgba(0,0,0,0.3); font-weight: 500; }
+
+  /* ── Page 2 ── */
+  .mini-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .mini-logo { display: flex; align-items: center; gap: 10px; }
+  .mini-logo svg { width: 20px; height: 20px; }
+  .mini-logo-text { font-size: 9px; font-weight: 900; letter-spacing: 0.06em; line-height: 1.3; color: var(--black); text-transform: uppercase; }
+  .mini-page-label { font-size: 10px; color: rgba(0,0,0,0.3); font-weight: 600; }
+
+  /* ── Priority opportunities ── */
+  .opp-item { display: grid; grid-template-columns: 28px 1fr; gap: 14px; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .opp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .opp-num { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: rgba(0,0,0,0.15); line-height: 1.2; padding-top: 1px; }
+  .opp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 5px; }
+  .opp-title { font-size: 13px; font-weight: 700; color: var(--black); line-height: 1.3; }
+  .opp-badges { display: flex; gap: 5px; flex-shrink: 0; }
+  .opp-badge-priority { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; border-radius: 2px; padding: 3px 7px; text-transform: uppercase; }
+  .priority-1 { background: rgba(185,50,50,0.10); color: #b93232; border: 1px solid rgba(185,50,50,0.28); }
+  .priority-2 { background: rgba(200,100,20,0.10); color: #c05818; border: 1px solid rgba(200,100,20,0.28); }
+  .priority-3 { background: rgba(170,130,0,0.10); color: #957200; border: 1px solid rgba(170,130,0,0.28); }
+  .priority-4 { background: rgba(40,100,160,0.08); color: #2a5e96; border: 1px solid rgba(40,100,160,0.22); }
+  .priority-5 { background: rgba(40,100,160,0.05); color: #2a5e96; border: 1px solid rgba(40,100,160,0.15); }
+  .opp-score-badge { font-size: 9px; font-weight: 800; color: rgba(0,0,0,0.35); border: 1px solid rgba(0,0,0,0.1); border-radius: 2px; padding: 3px 7px; white-space: nowrap; }
+  .opp-why { font-size: 10px; color: rgba(0,0,0,0.55); line-height: 1.6; margin-bottom: 4px; }
+  .opp-action { font-size: 10px; font-weight: 700; color: var(--black); line-height: 1.5; }
+  .opp-action-label { font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.32); margin-bottom: 2px; }
+  .opp-cohort-ref { margin-top: 6px; padding: 5px 10px; background: rgba(0,0,0,0.03); border-radius: 3px; border-left: 2px solid rgba(0,0,0,0.1); }
+  .opp-cohort-ref-label { font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.3); margin-bottom: 3px; }
+  .opp-cohort-ref-text { font-size: 11px; color: rgba(0,0,0,0.45); line-height: 1.55; }
+  .opp-cohort-ref-text strong { color: rgba(0,0,0,0.65); font-weight: 700; }
+  sup.cit { font-size: 7px; font-weight: 700; color: rgba(0,0,0,0.32); vertical-align: super; line-height: 0; margin-left: 1px; }
+  .citations-section { margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.07); }
+  .citations-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.3); margin-bottom: 8px; }
+  .citation-item { font-size: 9px; color: rgba(0,0,0,0.38); line-height: 1.65; margin-bottom: 2px; }
+  .citation-item a { color: rgba(0,0,0,0.38); text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.15); }
+  .citation-item a:hover { color: rgba(0,0,0,0.6); }
+
+  /* ── Moves ── */
+  .moves-section { margin-bottom: 24px; }
+  .move-item { display: grid; grid-template-columns: 28px 1fr; gap: 14px; margin-bottom: 16px; }
+  .move-num { font-family: var(--font-display); font-size: 18px; font-weight: 400; color: rgba(0,0,0,0.15); line-height: 1.2; }
+  .move-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
+  .move-title { font-size: 13px; font-weight: 700; color: var(--black); line-height: 1.3; }
+  .move-timeline { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; border: 1px solid rgba(0,0,0,0.15); border-radius: 2px; padding: 3px 7px; color: rgba(0,0,0,0.38); white-space: nowrap; flex-shrink: 0; }
+  .move-desc { font-size: 11px; line-height: 1.65; color: rgba(0,0,0,0.5); }
+
+  /* ── Contact banner ── */
+  .contact-banner { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 0; background: var(--black); padding: 24px 52px; }
+  .contact-piece { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.01em; white-space: nowrap; }
+  .contact-piece.brand { font-size: 16px; font-weight: 800; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; }
+  .contact-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.22); border-radius: 50%; margin: 0 24px; flex-shrink: 0; }
+
+  /* ── CTA ── */
+  .cta-box { display: flex; align-items: center; justify-content: space-between; background: var(--black); border-radius: 4px; padding: 24px 28px; }
+  .cta-title { font-family: var(--font-display); font-size: 20px; color: #fff; font-weight: 400; margin-bottom: 5px; }
+  .cta-sub { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+  .cta-btn { background: var(--lime); color: var(--black); font-family: var(--font-body); font-size: 13px; font-weight: 700; padding: 11px 20px; border-radius: 3px; border: none; white-space: nowrap; flex-shrink: 0; margin-left: 24px; }
+</style>
+</head>
+<body>
+
+<div class="print-ui">
+  <span class="print-ui-label">AI Maturity Benchmark · Full Report</span>
+</div>
+
+<!-- ══ PAGE 1 ══ -->
+<div class="page">
+
+  <header class="pdf-header">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="76" height="76" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="14" y="14" width="52" height="52" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="26" y="26" width="28" height="28" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="35" y="35" width="10" height="10" fill="#0d0f0d"/>
+      </svg>
+      <div class="logo-text">THE<br>NTH<br>LAYER</div>
+    </div>
+    <div class="report-label">AI Maturity Benchmark · Full Report · Confidential</div>
+  </header>
+
+  <!-- Benchmark intro (identical to preview) -->
+  <div class="benchmark-intro">
+    <div class="benchmark-intro-label">About this benchmark</div>
+    <p class="benchmark-intro-text">The Nth Layer AI Maturity Benchmark measures how effectively PE-backed businesses are building, deploying, and scaling AI. Scores are based on 30 diagnostic questions across six pillars, benchmarked against 54 PE-backed SaaS businesses assessed over the past 18 months. Every score is derived from management responses and publicly observable evidence, not self-reported maturity claims.</p>
+    <p class="benchmark-intro-disclaimer">Disclaimer: Cohort company benchmarks are derived from publicly available sources including company websites, investor materials, and published documentation. Data reflects information observable at the time of assessment and may be incomplete, outdated, or subject to interpretation. It should not be relied upon as a definitive or current statement of any company's position.</p>
+  </div>
+
+  <div class="result-tier-row">
+    <span class="result-badge stage-l3">L3 · Operational</span>
+    <span class="result-tier-text">Stage 3 of 5 · AI Maturity Benchmark</span>
+  </div>
+  <div class="result-hero">
+    <div class="result-hero-left">
+      <h2 class="result-stage-name">Operational</h2>
+      <p class="result-tagline">AI is in production. The operating model has not caught up.</p>
+    </div>
+    <div class="result-hero-right">
+      <span class="result-big-score">3.01</span>
+      <span class="result-big-denom">/5.0</span>
+      <p class="result-score-label">AI Maturity Score</p>
+    </div>
+  </div>
+
+  <hr class="result-divider">
+
+  <p class="section-label">Maturity scale</p>
+  <div class="stage-scale">
+    <div class="stage-cell"><div class="stage-cell-level">L0</div><div class="stage-cell-name">Absent</div><div class="stage-cell-desc">AI not yet on the agenda</div></div>
+    <div class="stage-cell"><div class="stage-cell-level">L1</div><div class="stage-cell-name">Aware</div><div class="stage-cell-desc">Conversations only; nothing in production</div></div>
+    <div class="stage-cell"><div class="stage-cell-level">L2</div><div class="stage-cell-name">Active</div><div class="stage-cell-desc">Pilots exist; none compounding</div></div>
+    <div class="stage-cell active"><div class="stage-cell-level">L3 ← YOU</div><div class="stage-cell-name">Operational</div><div class="stage-cell-desc">AI in production; operating model lagging</div></div>
+    <div class="stage-cell"><div class="stage-cell-level">L4</div><div class="stage-cell-name">Systemic</div><div class="stage-cell-desc">Measurable EBITDA contributor</div></div>
+    <div class="stage-cell"><div class="stage-cell-level">L5</div><div class="stage-cell-name">Transform­ational</div><div class="stage-cell-desc">AI is the operating model and the moat</div></div>
+  </div>
+
+  <!-- Cohort score + stage distribution side by side -->
+  <div class="cohort-section">
+    <div class="cohort-comparison">
+      <div class="cohort-comparison-title">Your score vs the cohort · 54 PE-backed SaaS businesses</div>
+      <div class="cohort-row">
+        <span class="cohort-row-label">Your score</span>
+        <span class="cohort-row-score">3.01</span>
+        <div class="cohort-row-track"><div class="cohort-row-fill you" style="width:60.2%"></div></div>
+      </div>
+      <div class="cohort-row">
+        <span class="cohort-row-label">Cohort mean</span>
+        <span class="cohort-row-score">3.39</span>
+        <div class="cohort-row-track"><div class="cohort-row-fill cohort" style="width:67.8%"></div></div>
+      </div>
+      <div class="cohort-row">
+        <span class="cohort-row-label">75th percentile</span>
+        <span class="cohort-row-score">3.70</span>
+        <div class="cohort-row-track"><div class="cohort-row-fill cohort" style="width:74%"></div></div>
+      </div>
+      <p class="cohort-caption">You are 0.38 points below the cohort mean · 35th percentile overall.</p>
+    </div>
+    <div class="stage-dist">
+      <div class="stage-dist-title">Cohort by stage</div>
+      <div class="dist-bars">
+        <!-- Real data: L0=0, L1=0, L2=12, L3=33, L4=9, L5=0. Max=33 → heights=(n/33)*44px -->
+        <div class="dist-col"><span class="dist-count" style="opacity:0.3">0</span><div class="dist-bar" style="height:2px"></div></div>
+        <div class="dist-col"><span class="dist-count" style="opacity:0.3">0</span><div class="dist-bar" style="height:2px"></div></div>
+        <div class="dist-col"><span class="dist-count">12</span><div class="dist-bar" style="height:16px"></div></div>
+        <div class="dist-col"><span class="dist-count active">33</span><div class="dist-bar active" style="height:44px"></div></div>
+        <div class="dist-col"><span class="dist-count">9</span><div class="dist-bar" style="height:12px"></div></div>
+        <div class="dist-col"><span class="dist-count" style="opacity:0.3">0</span><div class="dist-bar" style="height:2px"></div></div>
+      </div>
+      <div class="dist-labels">
+        <div class="dist-label">L0</div>
+        <div class="dist-label">L1</div>
+        <div class="dist-label">L2</div>
+        <div class="dist-label active">L3</div>
+        <div class="dist-label">L4</div>
+        <div class="dist-label">L5</div>
+      </div>
+      <p class="dist-caption">61% of the cohort sits at L3. Only 17% have reached L4.</p>
+    </div>
+  </div>
+
+  <!-- Pillar bars -->
+  <div class="pillar-bars-header">
+    <p class="section-label" style="margin-bottom:0">Score by pillar vs cohort average</p>
+    <div class="cohort-legend"><div class="cohort-legend-line"></div> Cohort average</div>
+  </div>
+  <div class="pillar-bars">
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Strategy &amp; Leadership</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:72.6%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Data &amp; Knowledge Foundation</span>
+      <span class="pillar-bar-stage-pill stage-l2">L2</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:44%"></div><div class="pillar-bar-cohort-marker" style="left:67%"></div></div>
+      <span class="pillar-bar-score">2.2</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Use Cases &amp; Value Capture</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:72.6%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Talent &amp; Operating Model</span>
+      <span class="pillar-bar-stage-pill stage-l2">L2</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:40%"></div><div class="pillar-bar-cohort-marker" style="left:57.8%"></div></div>
+      <span class="pillar-bar-score">2.0</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Governance, Risk &amp; Trust</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:60%"></div><div class="pillar-bar-cohort-marker" style="left:65%"></div></div>
+      <span class="pillar-bar-score">3.0</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Infrastructure &amp; Tooling</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:70%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+  </div>
+
+  <!-- Peer analysis -->
+  <p class="section-label">Peer analysis</p>
+  <div class="peer-box">
+    <p class="peer-text">You are at the <strong>35th percentile</strong> of the 54-company cohort. <strong>Above cohort in one pillar:</strong> Infrastructure &amp; Tooling (+0.10). <strong>Below cohort in five pillars</strong>, with the largest gaps in Data &amp; Knowledge Foundation (−1.15) and Talent &amp; Operating Model (−0.89). Those two pillars carry a combined 35% of the overall score weighting, with Data at 15% and Talent at 20%. The stage distribution above shows how few businesses in the cohort have successfully made the L3→L4 transition.</p>
+  </div>
+
+  <div class="pdf-footer">
+    <span class="pdf-footer-left">nthlayer.co.uk/inflexion</span>
+    <span class="pdf-footer-right">© 2026 The Nth Layer</span>
+  </div>
+</div>
+
+<!-- ══ PAGE 2 ══ -->
+<div class="page page-2">
+
+  <p class="section-label" style="margin-bottom:6px">5 prioritised opportunities</p>
+  <div>
+
+    <div class="opp-item">
+      <span class="opp-num">01</span>
+      <div>
+        <div class="opp-header">
+          <span class="opp-title">Centralise your data estate</span>
+          <div class="opp-badges">
+            <span class="opp-badge-priority priority-1">Critical</span>
+          </div>
+        </div>
+        <p class="opp-why">Your largest absolute gap and the single highest-leverage opportunity. Data infrastructure is the rate-limiter for every other pillar; without centralised, governed data, use cases cannot compound and models cannot improve. This gap alone explains most of the distance from the cohort mean.</p>
+        <div class="opp-action-label">First move</div>
+        <p class="opp-action">Audit your top 3 data domains, assign a data owner, and centralise with lineage documentation within 60 days. Kill any AI tooling procurement until this is complete.</p>
+        <div class="opp-cohort-ref">
+          <div class="opp-cohort-ref-label">In the cohort</div>
+          <p class="opp-cohort-ref-text"><strong>Genesys (4.90)</strong><sup class="cit">1</sup>, <strong>SailPoint (4.80)</strong><sup class="cit">2</sup>, and <strong>Proofpoint (4.70)</strong><sup class="cit">3</sup> all score 5/5; each has built a publicly documented centralised data layer as the explicit foundation for all AI initiatives.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp-item">
+      <span class="opp-num">02</span>
+      <div>
+        <div class="opp-header">
+          <span class="opp-title">Define your AI operating model</span>
+          <div class="opp-badges">
+            <span class="opp-badge-priority priority-2">High</span>
+          </div>
+        </div>
+        <p class="opp-why">The single most common reason L3 businesses do not reach L4. Without a formal operating model (hub/spoke vs federated, named AI ownership, cross-functional squads), every new use case starts from scratch and CoE teams become bottlenecks rather than multipliers. The EBITDA is in the workflow redesign, not in the tools.</p>
+        <div class="opp-action-label">First move</div>
+        <p class="opp-action">Choose hub-and-spoke or federated model, assign a named AI owner with a budget line, and run one end-to-end workflow redesign sprint within 45 days.</p>
+        <div class="opp-cohort-ref">
+          <div class="opp-cohort-ref-label">In the cohort</div>
+          <p class="opp-cohort-ref-text"><strong>Genesys (4.90)</strong><sup class="cit">1</sup> operates a federated model with named BU owners and a published ethics framework; <strong>IFS (4.20)</strong><sup class="cit">4</sup> and <strong>Visma (4.10)</strong><sup class="cit">5</sup> both run publicly documented hub-and-spoke AI structures.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp-item">
+      <span class="opp-num">03</span>
+      <div>
+        <div class="opp-header">
+          <span class="opp-title">Formalise P&amp;L attribution for every AI initiative</span>
+          <div class="opp-badges">
+            <span class="opp-badge-priority priority-3">Medium</span>
+          </div>
+        </div>
+        <p class="opp-why">You are at cohort level on use cases but the gap to L4 in this pillar is not volume; it is measurement. Most L3 businesses have AI in production but cannot attribute EBITDA to it. Without formal P&amp;L lines, use cases cannot be prioritised, scaled, or defended at board level, and the programme stalls at L3 regardless of how many initiatives are running.</p>
+        <div class="opp-action-label">First move</div>
+        <p class="opp-action">Assign a finance owner to each production use case. Establish a P&amp;L line per initiative within 30 days. Report at every board cycle.</p>
+        <div class="opp-cohort-ref">
+          <div class="opp-cohort-ref-label">In the cohort</div>
+          <p class="opp-cohort-ref-text"><strong>Zendesk (4.25)</strong><sup class="cit">6</sup> attributes AI resolution rates to revenue in investor filings; <strong>Coupa (4.15)</strong><sup class="cit">7</sup> publishes per-customer AI savings data, creating a direct P&L link that has become a core sales asset.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp-item">
+      <span class="opp-num">04</span>
+      <div>
+        <div class="opp-header">
+          <span class="opp-title">Build a lightweight governance framework</span>
+          <div class="opp-badges">
+            <span class="opp-badge-priority priority-4">Low</span>
+          </div>
+        </div>
+        <p class="opp-why">You are below cohort but close. Governance is a hard gate for L4 classification; without it, the next deployment incident becomes a board conversation rather than a managed process. Businesses without a governance framework are also increasingly exposed to customer due diligence and regulatory scrutiny during exit processes.</p>
+        <div class="opp-action-label">First move</div>
+        <p class="opp-action">Classify all existing AI deployments by risk tier, draft an acceptable-use policy, and assign a named risk owner within 60 days.</p>
+        <div class="opp-cohort-ref">
+          <div class="opp-cohort-ref-label">In the cohort</div>
+          <p class="opp-cohort-ref-text"><strong>SailPoint (4.80)</strong><sup class="cit">2</sup> publishes AI governance principles and maintains an external ethics board; <strong>The Access Group (4.20)</strong><sup class="cit">8</sup> has documented acceptable-use frameworks across HR, healthcare, and legal products.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp-item">
+      <span class="opp-num">05</span>
+      <div>
+        <div class="opp-header">
+          <span class="opp-title">Formalise AI strategy with board-level KPIs</span>
+          <div class="opp-badges">
+            <span class="opp-badge-priority priority-5">Low</span>
+          </div>
+        </div>
+        <p class="opp-why">Strategy is broadly at cohort level but the transition to L4 requires more than informal ambition; a formal strategy document, exec accountability, and board-level KPIs. L3 strategies often dissipate when sponsors change; formalisation protects the programme.</p>
+        <div class="opp-action-label">First move</div>
+        <p class="opp-action">Publish a one-page AI strategy with a named exec sponsor, three-year targets, and quarterly board reporting. Due at next board cycle.</p>
+        <div class="opp-cohort-ref">
+          <div class="opp-cohort-ref-label">In the cohort</div>
+          <p class="opp-cohort-ref-text"><strong>IFS (4.20)</strong><sup class="cit">4</sup> publishes their IFS.ai strategy with a named exec owner and public roadmap; <strong>Visma (4.10)</strong><sup class="cit">5</sup> runs a group-wide AI strategy with per-company accountability across 170+ portfolio companies.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pdf-footer">
+    <span class="pdf-footer-left">nthlayer.co.uk/inflexion</span>
+    <span class="pdf-footer-right">© 2026 The Nth Layer · Confidential</span>
+  </div>
+
+</div>
+
+<!-- ══ PAGE 3 — 90-DAY ACTION PLAN ══ -->
+<div class="page page-2">
+
+  <p class="section-label" style="margin-bottom:18px">90-day action plan</p>
+
+  <div class="moves-section">
+    <div class="move-item">
+      <span class="move-num">01</span>
+      <div>
+        <div class="move-header">
+          <span class="move-title">Design your AI operating model</span>
+          <span class="move-timeline">30 DAYS</span>
+        </div>
+        <p class="move-desc">Hub-and-spoke or federated? Define who owns AI capability vs who deploys it. Most L3 companies have a CoE that is a bottleneck, not an enabler. Assign a named owner with a budget line and run one end-to-end workflow redesign sprint. The org structure must match the ambition.</p>
+      </div>
+    </div>
+    <div class="move-item">
+      <span class="move-num">02</span>
+      <div>
+        <div class="move-header">
+          <span class="move-title">Formalise P&amp;L attribution for every AI initiative</span>
+          <span class="move-timeline">60 DAYS</span>
+        </div>
+        <p class="move-desc">If you cannot measure it, you cannot manage it and you cannot defend it to the board. Finance needs to own the metric. Assign a P&amp;L line to each production use case and establish a reporting cadence. This is the single most common gap between L3 and L4 in the cohort.</p>
+      </div>
+    </div>
+    <div class="move-item">
+      <span class="move-num">03</span>
+      <div>
+        <div class="move-header">
+          <span class="move-title">Launch your governance framework</span>
+          <span class="move-timeline">90 DAYS</span>
+        </div>
+        <p class="move-desc">Risk classification, acceptable use, model validation sign-off. Without governance the next deployment incident becomes a hold-period story. With it, you have a defensible programme and a credible foundation for L4 classification.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What L4 looks like -->
+  <div class="next-step-box" style="background:rgba(0,0,0,0.025); border-left:3px solid var(--lime); border-radius:3px; padding:14px 18px; margin-bottom:32px;">
+    <p class="section-label" style="margin-bottom:7px">What L4 looks like</p>
+    <p style="font-size:13px; line-height:1.7; color:rgba(0,0,0,0.65);">At L4 (Systemic), AI is a measurable EBITDA contributor with formal P&amp;L attribution, a defined operating model, and a governance framework that survives management changes. The trap at L3 is treating AI as an IT project rather than an operating-model transformation. The 9 companies in the cohort that have reached L4 average 4.26 overall, versus 3.39 for the cohort. Their weakest pillar on average is Talent &amp; Operating Model (3.89), which is also the most common gap for L3 companies moving up. The structural difference between L3 and L4 is not ambition or tooling; it is operating model formalisation and measurable P&amp;L attribution.</p>
+  </div>
+
+  <div class="citations-section">
+    <div class="citations-label">Sources</div>
+    <p class="citation-item"><sup class="cit">1</sup> Genesys — AI platform and cloud architecture documentation. <a href="https://www.genesys.com/solutions/artificial-intelligence" target="_blank">genesys.com</a></p>
+    <p class="citation-item"><sup class="cit">2</sup> SailPoint — Atlas identity intelligence platform documentation. <a href="https://www.sailpoint.com/platform" target="_blank">sailpoint.com</a></p>
+    <p class="citation-item"><sup class="cit">3</sup> Proofpoint — Threat intelligence data fabric and AI capability documentation. <a href="https://www.proofpoint.com/us/products/threat-intelligence" target="_blank">proofpoint.com</a></p>
+    <p class="citation-item"><sup class="cit">4</sup> IFS — IFS.ai strategy and AI roadmap, publicly published. <a href="https://www.ifs.com/ai" target="_blank">ifs.com</a></p>
+    <p class="citation-item"><sup class="cit">5</sup> Visma — Group AI strategy and portfolio governance documentation. <a href="https://www.visma.com/about/artificial-intelligence" target="_blank">visma.com</a></p>
+    <p class="citation-item"><sup class="cit">6</sup> Zendesk — AI resolution rate attribution in investor and earnings materials. <a href="https://www.zendesk.com" target="_blank">zendesk.com</a></p>
+    <p class="citation-item"><sup class="cit">7</sup> Coupa — Community intelligence platform and per-customer AI savings reporting. <a href="https://www.coupa.com" target="_blank">coupa.com</a></p>
+    <p class="citation-item"><sup class="cit">8</sup> The Access Group — AI acceptable use frameworks across HR, healthcare, and legal product suite. <a href="https://www.theaccessgroup.com" target="_blank">theaccessgroup.com</a></p>
+  </div>
+
+  <div class="contact-banner">
+    <span class="contact-piece brand">Nth Layer</span>
+    <span class="contact-dot"></span>
+    <span class="contact-piece">nthlayer.co.uk</span>
+    <span class="contact-dot"></span>
+    <span class="contact-piece">+44 7572 879 043</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inflexion — AI Readiness Diagnostic | The Nth Layer</title>
+  <script>if(new URLSearchParams(window.location.search).get('modal')==='1'||window.location.pathname==='/inflexion/modal'||window.location.pathname==='/inflexion/modal/'){document.documentElement.classList.add('modal-mode');}</script>
+  <style>.modal-mode #launcher{display:none!important;}.modal-mode #diag{display:block!important;}</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0d0f0d;
+      --paper:   #fbfbf8;
+      --grey:    #e9e9e5;
+      --muted:   #666a62;
+      --lime:    #BFFF00;
+      --dark:    #0a0e0f;
+      --line:    rgba(0,0,0,0.08);
+      --line-w:  rgba(255,255,255,0.08);
+      --max-width: 1140px;
+      --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      --page-gutter: clamp(16px, 3.6vw, 40px);
+    }
+
+    html {
+      zoom: 0.8;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--paper);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: min(100% - (var(--page-gutter) * 2), var(--max-width));
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      height: 84px;
+      background: var(--paper);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      color: var(--black);
+      font-size: 0;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .nav-logo::after {
+      content: 'THE\A NTH\A LAYER';
+      white-space: pre;
+      font-size: 15px;
+      line-height: 0.88;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      color: var(--black);
+    }
+
+    .nav-logo svg {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(0,0,0,0.65);
+      font-size: 12px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-links a.nav-cta {
+      background: var(--lime);
+      color: var(--black);
+      padding: 18px 30px;
+      border-radius: 3px;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.26);
+      font-weight: 700;
+    }
+
+    /* ═══ SECTION LABEL ═══ */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 32px;
+      white-space: nowrap;
+    }
+
+    .section-label::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    /* ═══ LANDING PAGE ═══ */
+    #landing { display: block; background: var(--paper); color: var(--black); }
+    #landing.hidden { display: none; }
+
+    /* HERO */
+    .lp-hero {
+      padding: 88px 0 96px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.82), rgba(0,0,0,0.62)),
+        url('/images/slice-3.png') center / cover no-repeat;
+      color: #fff;
+    }
+
+    .lp-hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .lp-hero-left {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .lp-hero-divider {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--lime) 0%, var(--lime) 60%, transparent 100%);
+      border-radius: 2px;
+    }
+
+    .lp-eyebrow {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 20px;
+    }
+
+    .lp-h1 {
+      font-size: clamp(40px, 3.6vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .lp-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .lp-hero-body {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .lp-hero-body strong {
+      color: rgba(255,255,255,0.92);
+      font-weight: 600;
+    }
+
+    .lp-start-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 18px 32px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.26);
+      transition: opacity 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+
+    .lp-start-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .lp-start-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.02em;
+    }
+
+    /* WHAT YOU GET */
+    .lp-get {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-get-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-left: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+    }
+
+    .lp-get-item {
+      padding: 36px 32px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-get-num {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      color: rgba(0,0,0,0.22);
+      margin-bottom: 16px;
+    }
+
+    .lp-get-title {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .lp-get-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(0,0,0,0.52);
+    }
+
+    /* TIERS */
+    .lp-tiers {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-tiers-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    .lp-tiers-heading {
+      font-size: clamp(32px, 2.8vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+
+    .lp-tiers-sub {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(0,0,0,0.52);
+    }
+
+    .lp-tier-list {
+      border-left: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+    }
+
+    .lp-tier-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+
+    .lp-tier-row:hover { background: rgba(0,0,0,0.02); }
+
+    .lp-tier-left {
+      padding: 22px 24px;
+      border-right: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+    }
+
+    .lp-tier-badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 6px 12px;
+      border-radius: 3px;
+    }
+
+    .lp-tier-badge.t0 { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.4); border: 1px solid rgba(0,0,0,0.1); }
+    .lp-tier-badge.t1 { background: rgba(0,0,0,0.07); color: rgba(0,0,0,0.55); border: 1px solid rgba(0,0,0,0.12); }
+    .lp-tier-badge.t2 { background: rgba(191,255,0,0.18); color: #3a5c00; border: 1px solid rgba(191,255,0,0.5); }
+    .lp-tier-badge.t3 { background: rgba(191,255,0,0.26); color: #2a4400; border: 1px solid rgba(191,255,0,0.6); }
+    .lp-tier-badge.t4 { background: var(--lime); color: #1a2a00; }
+
+    .lp-tier-right {
+      padding: 22px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lp-tier-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .lp-tier-desc {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(0,0,0,0.48);
+    }
+
+    /* HOW IT WORKS */
+    .lp-how {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 36px;
+    }
+
+    .lp-step-num {
+      font-size: 36px;
+      font-family: var(--font-display);
+      color: rgba(0,0,0,0.1);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .lp-step-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .lp-step-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(0,0,0,0.5);
+    }
+
+    /* BOTTOM CTA */
+    .lp-cta {
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+
+    .lp-cta-heading {
+      font-size: clamp(34px, 3vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .lp-cta-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+
+    /* ═══ DIAGNOSTIC FLOW ═══ */
+    #diagnostic { display: none; }
+    #diagnostic.active { display: block; }
+
+    .diagnostic-wrap {
+      min-height: calc(100vh - 84px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 0;
+      background: var(--paper);
+    }
+
+    .diagnostic-inner {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--page-gutter);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* PROGRESS */
+    .progress-bar-wrap { margin-bottom: 40px; }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--lime);
+      border-radius: 1px;
+      transition: width 0.4s ease;
+    }
+
+    /* QUESTION */
+    .q-dimension {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.36);
+      margin-bottom: 14px;
+    }
+
+    .q-text {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.8vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      margin-bottom: 32px;
+    }
+
+    .q-options {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .q-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--paper);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 0.12s;
+      text-align: left;
+      width: 100%;
+      font-family: var(--font-body);
+      color: var(--black);
+    }
+
+    .q-option:hover { background: rgba(191,255,0,0.08); }
+
+    .q-option-letter {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--grey);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: rgba(0,0,0,0.4);
+      margin-top: 1px;
+    }
+
+    .q-option-text {
+      font-size: 15px;
+      line-height: 1.45;
+      color: rgba(0,0,0,0.75);
+    }
+
+    /* RESULT */
+    .result-tier-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .result-tier-badge.tier-l0 { background: #e5e5e5; color: #888; }
+    .result-tier-badge.tier-l1 { background: #e0e0e0; color: #666; }
+    .result-tier-badge.tier-l2 { background: rgba(191,255,0,0.2); color: #2e4800; border: 1px solid rgba(191,255,0,0.5); }
+    .result-tier-badge.tier-l3 { background: rgba(191,255,0,0.3); color: #233800; border: 1px solid rgba(191,255,0,0.6); }
+    .result-tier-badge.tier-l4 { background: var(--lime); color: #182900; }
+
+    .result-heading {
+      font-size: clamp(34px, 3.6vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
+
+    .result-score {
+      font-size: 13px;
+      color: rgba(0,0,0,0.38);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+    }
+
+    .result-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin-bottom: 28px;
+    }
+
+    .result-dimensions {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 36px;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .result-dim {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .result-dim-label {
+      padding: 16px 16px 16px 20px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.36);
+      border-right: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+    }
+
+    .result-dim-text {
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(0,0,0,0.65);
+    }
+
+    .result-next-label {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 12px;
+    }
+
+    .result-next-text {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(0,0,0,0.7);
+      margin-bottom: 36px;
+    }
+
+    .result-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 18px 28px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.26);
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .result-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .result-link {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(0,0,0,0.38);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .result-link:hover { color: rgba(0,0,0,0.65); }
+
+    .result-copy-confirm {
+      font-size: 12px;
+      color: #3a5200;
+      font-weight: 700;
+      display: none;
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .footer-inner {
+      padding: 28px 0;
+    }
+
+    #landing footer {
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.78)),
+        url('/images/slice-4.png') center / cover no-repeat;
+      overflow: hidden;
+    }
+
+    #landing footer .footer-inner {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 0;
+    }
+
+    #landing .footer-copy {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(0,0,0,0.28);
+    }
+
+    /* ═══ CONTACT MODAL ═══ */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: #f7f7f4;
+      color: var(--black);
+      width: min(840px, calc(100vw - 48px));
+      margin: 0 auto;
+      padding: 42px 40px 44px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.08);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.25s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 22px;
+      background: none; border: none;
+      font-size: 26px; line-height: 1;
+      cursor: pointer; color: rgba(0,0,0,0.35);
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--black); }
+
+    .modal-eyebrow {
+      font-size: 11px; font-weight: 900;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(0,0,0,0.4); margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 3.6vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      font-weight: 400;
+      color: var(--black);
+    }
+
+    .modal-subtitle {
+      font-size: 16px;
+      color: rgba(0,0,0,0.65); margin-bottom: 8px; line-height: 1.45;
+    }
+
+    .contact-note {
+      font-size: 14px;
+      color: rgba(0,0,0,0.4); margin-bottom: 28px; line-height: 1.45;
+    }
+
+    .form-group { margin-bottom: 0; }
+
+    .contact-row-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px; margin-bottom: 14px;
+    }
+
+    .contact-row-single { margin-bottom: 14px; }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 3px;
+      font-family: var(--font-body);
+      font-size: 14px; line-height: 1.4;
+      color: var(--black); background: #fff;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { outline: none; border-color: rgba(0,0,0,0.35); }
+
+    .form-group textarea { resize: vertical; min-height: 88px; }
+
+    .contact-actions { margin-top: 20px; }
+
+    .modal-submit {
+      background: var(--black); color: #fff;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 700;
+      padding: 14px 28px;
+      border: none; border-radius: 3px;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+
+    .modal-submit:hover { opacity: 0.82; }
+    .modal-submit:disabled { opacity: 0.45; cursor: default; }
+
+    /* APPROACH SECTION */
+    .lp-approach {
+      padding: 80px 0;
+      background: #0a0e0f;
+      position: relative;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .lp-approach::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: -15%;
+      width: 550px; height: 550px;
+      background-image: url('/Polygon 12.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.4;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .lp-approach::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; right: -5%;
+      width: 600px; height: 600px;
+      background-image: url('/Polygon 13.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.35;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .lp-approach .container { position: relative; z-index: 10; }
+
+    .lp-approach .section-label {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .lp-approach .section-label::after {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .lp-approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .lp-approach-left h2 {
+      font-size: clamp(28px, 2.4vw, 38px);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .lp-approach-left p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .lp-pillar-list {
+      border-left: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .lp-pillar-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: 16px 20px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lp-pillar-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .lp-pillar-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 400;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .lp-pillar-weight {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--lime);
+      background: rgba(191,255,0,0.12);
+      padding: 4px 10px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .lp-pillar-weight.dim { color: var(--lime); background: rgba(191,255,0,0.12); }
+
+    /* HOW WE SCORE */
+    .lp-score {
+      padding: 80px 0;
+      background: #0a0e0f;
+      position: relative;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .lp-score::before {
+      content: '';
+      position: absolute;
+      top: -10%; right: -10%;
+      width: 500px; height: 500px;
+      background-image: url('/Polygon 13.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.35;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .lp-score .container { position: relative; z-index: 10; }
+
+    .lp-score .section-label { color: rgba(255,255,255,0.35); }
+    .lp-score .section-label::after { background: rgba(255,255,255,0.08); }
+
+    .lp-score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 36px;
+      align-items: start;
+    }
+
+    .lp-score-left p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+    }
+
+    .lp-rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lp-rule {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+      padding: 14px 18px;
+      border-left: 3px solid var(--lime);
+      background: rgba(191,255,0,0.05);
+    }
+
+    .lp-rule strong {
+      color: rgba(255,255,255,0.85);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .lp-level-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .lp-level-row {
+      display: grid;
+      grid-template-columns: 80px 140px 1fr 120px;
+      align-items: center;
+      gap: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 0;
+    }
+
+    .lp-level-num {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      white-space: nowrap;
+    }
+
+    .lp-level-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .lp-level-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.38);
+    }
+
+    .lp-level-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+    }
+
+    .lp-level-bar-fill {
+      height: 6px;
+      background: var(--lime);
+      border-radius: 3px;
+    }
+
+    /* EVIDENCE */
+    .lp-evidence {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-evidence-intro {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(0,0,0,0.55);
+      margin-bottom: 36px;
+    }
+
+    .lp-evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-left: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+    }
+
+    .lp-evidence-item {
+      padding: 32px 28px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-evidence-tier {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      color: #1a2800;
+      background: var(--lime);
+      border: 1px solid var(--lime);
+      padding: 3px 8px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .lp-evidence-tier.not-credited {
+      color: #1a2a00;
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .lp-evidence-item.dimmed { opacity: 0.55; }
+
+    .lp-evidence-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .lp-evidence-body {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.5);
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ENGAGEMENT SHAPES */
+    .lp-engagement {
+      padding: 80px 0;
+      background: #0a0e0f;
+      position: relative;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .lp-engagement::before {
+      content: '';
+      position: absolute;
+      bottom: -15%; left: -10%;
+      width: 500px; height: 500px;
+      background-image: url('/Polygon 12.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.35;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .lp-engagement .container { position: relative; z-index: 10; }
+
+    .lp-engagement .section-label { color: rgba(255,255,255,0.35); }
+    .lp-engagement .section-label::after { background: rgba(255,255,255,0.08); }
+
+    .lp-engagement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .lp-engagement-card {
+      padding: 36px 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+
+    .lp-engagement-label {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 12px;
+    }
+
+    .lp-engagement-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+    }
+
+    .lp-engagement-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.42);
+    }
+
+    .lp-engagement-card.featured {
+      border-color: rgba(191,255,0,0.4);
+      background: rgba(191,255,0,0.04);
+    }
+
+    .lp-engagement-card.featured .lp-engagement-label {
+      color: rgba(191,255,0,0.7);
+    }
+
+    .lp-start-btn-disabled {
+      background: rgba(191,255,0,0.12);
+      color: rgba(191,255,0,0.38);
+      cursor: not-allowed;
+      border: 1px solid rgba(191,255,0,0.2);
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .lp-start-btn-lime {
+      background: var(--lime);
+      color: var(--black);
+      border: none;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.26);
+    }
+    .lp-start-btn-lime:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ═══ DIAGNOSTIC OVERLAY ═══ */
+    #diag {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--black);
+      z-index: 2000;
+      overflow-y: auto;
+    }
+
+    .diag-close-btn {
+      position: fixed;
+      top: 20px; right: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4);
+      font-size: 22px;
+      line-height: 1;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      z-index: 10;
+      font-family: var(--font-body);
+    }
+    .diag-close-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+
+    .diag-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px var(--page-gutter) 96px;
+    }
+
+    .diag-inner {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    #diag .q-options {
+      display: flex;
+      flex-direction: column;
+      border: none;
+    }
+
+    #diag .q-option {
+      display: block;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      color: rgba(0,0,0,0.72);
+      font-size: 14px;
+      line-height: 1.55;
+      padding: 16px 20px;
+      text-align: left;
+      width: 100%;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    #diag .q-option:hover { background: rgba(191,255,0,0.1); border-color: rgba(120,180,0,0.4); color: rgba(0,0,0,0.85); }
+    #diag .q-option.selected { background: rgba(191,255,0,0.18); border-color: #7ab000; color: var(--black); font-weight: 600; }
+
+    #diag .progress-bar-wrap { margin-bottom: 40px; }
+    #diag .progress-meta { color: rgba(255,255,255,0.3); }
+    #diag .progress-track { background: rgba(255,255,255,0.18); }
+
+    #diag .q-dimension {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+
+    #diag .q-text {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 28px;
+    }
+
+    .diag-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      align-items: center;
+    }
+
+    .diag-btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 26px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .diag-btn-primary { background: var(--lime); color: var(--black); }
+    .diag-btn-primary:hover { opacity: 0.88; }
+    .diag-btn-primary:disabled { opacity: 0.35; cursor: default; }
+    .diag-btn-secondary { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); }
+    .diag-btn-secondary:hover { opacity: 0.8; }
+    .diag-btn-secondary:disabled { opacity: 0.3; cursor: default; }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .stage-l0 { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.38); }
+    .stage-l1 { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+    .stage-l2 { background: rgba(191,255,0,0.1); color: rgba(191,255,0,0.7); border: 1px solid rgba(191,255,0,0.2); }
+    .stage-l3 { background: rgba(191,255,0,0.15); color: rgba(191,255,0,0.85); border: 1px solid rgba(191,255,0,0.3); }
+    .stage-l4 { background: rgba(191,255,0,0.22); color: var(--lime); border: 1px solid rgba(191,255,0,0.4); }
+    .stage-l5 { background: var(--lime); color: var(--black); }
+
+    #diag .result-heading {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.6vw, 40px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+
+    #diag .result-score {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 32px;
+    }
+
+    .pillar-grid {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    .pillar-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 130px 76px;
+      gap: 8px;
+      padding: 13px 18px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+    }
+
+    .pillar-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .pillar-score { font-size: 15px; font-weight: 800; color: rgba(255,255,255,0.92); text-align: right; }
+    .pillar-delta { font-size: 12px; font-weight: 700; text-align: right; }
+    .pillar-stage { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: rgba(255,255,255,0.3); text-align: right; }
+
+    .result-next-section-label {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+
+    #diag .result-next-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    #diag .result-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+    #diag .result-link {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+      padding: 0;
+    }
+    #diag .result-link:hover { color: rgba(255,255,255,0.7); }
+
+    #diag .result-copy-confirm { font-size: 12px; color: var(--lime); font-weight: 700; }
+
+    /* ─── Result hero ─── */
+    .result-hero {
+      display: grid;
+      grid-template-columns: 1fr 148px;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .result-tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .result-tier-text { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .result-stage-name {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.92);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .result-tagline { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.55); max-width: 480px; }
+    .result-hero-right { text-align: right; padding-top: 6px; }
+    .result-big-score { display: block; font-family: var(--font-display); font-size: clamp(52px, 7vw, 88px); font-weight: 400; line-height: 1; color: rgba(255,255,255,0.92); }
+    .result-big-denom { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.3); }
+    .result-score-label { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 8px; }
+    .result-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0 0 28px; }
+
+    /* ─── Pillar bars ─── */
+    .pillar-bars { margin-bottom: 32px; }
+    .pillar-bar-row {
+      display: grid;
+      grid-template-columns: 1fr 42px minmax(120px, 260px) 38px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pillar-bar-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .pillar-bar-stage-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border-radius: 20px;
+      padding: 3px 6px;
+      border: 1px solid currentColor;
+      font-family: var(--font-body);
+    }
+    .pillar-bar-track {
+      position: relative;
+      height: 7px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: visible;
+    }
+    .pillar-bar-fill { height: 100%; background: var(--lime); border-radius: 4px; transition: width 0.5s ease; }
+    .pillar-bar-cohort-marker {
+      position: absolute;
+      top: -4px;
+      width: 2px;
+      height: 15px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 1px;
+      transform: translateX(-50%);
+    }
+    .pillar-bar-score { font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.92); text-align: right; }
+
+    /* ─── Recommended moves ─── */
+    .moves-section { margin-bottom: 32px; }
+    .move-item { display: grid; grid-template-columns: 36px 1fr; gap: 16px; margin-bottom: 28px; }
+    .move-num { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.18); line-height: 1.2; padding-top: 1px; }
+    .move-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 7px; }
+    .move-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); line-height: 1.3; }
+    .move-timeline { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.15); border-radius: 3px; padding: 4px 8px; color: rgba(255,255,255,0.35); white-space: nowrap; flex-shrink: 0; }
+    .move-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.5); margin: 0; }
+
+    /* ─── Result gate ─── */
+    .result-gate {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 4px;
+      padding: 32px;
+      margin: 36px 0 0;
+    }
+    .gate-heading { font-family: var(--font-display); font-size: 24px; color: var(--black); margin-bottom: 8px; font-weight: 400; line-height: 1.15; }
+    .gate-sub { font-size: 14px; color: rgba(0,0,0,0.5); margin-bottom: 24px; line-height: 1.6; }
+    .gate-form { display: flex; flex-direction: column; gap: 10px; }
+    .gate-input {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 13px 16px;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 3px;
+      background: #fff;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .gate-input:focus { border-color: rgba(0,0,0,0.4); }
+    .gate-input::placeholder { color: rgba(0,0,0,0.32); }
+    .gate-error { font-size: 13px; color: #c0392b; margin-top: 6px; }
+
+    /* ── Report modal overlay ── */
+    .report-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,0.88);
+      flex-direction: column;
+    }
+    .report-modal-overlay.open { display: flex; }
+    .report-modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      background: var(--black);
+      flex-shrink: 0;
+    }
+    .report-modal-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; text-transform: uppercase; }
+    .report-modal-close {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      font-size: 18px;
+      width: 36px; height: 36px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body);
+    }
+    .report-modal-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    .report-modal-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    /* ─── Full report ─── */
+    .report-peer-context {
+      margin-bottom: 28px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .report-peer-text { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0; }
+    .report-peer-text strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+    .report-gaps { margin-bottom: 32px; }
+    .gap-item {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.03);
+    }
+    .gap-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; gap: 12px; }
+    .gap-item-pillar { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); }
+    .gap-item-score { font-size: 13px; font-weight: 700; color: #ff6b6b; flex-shrink: 0; }
+    .gap-item-vs { font-weight: 500; color: rgba(255,255,255,0.3); }
+    .gap-item-action { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.5); margin: 0; }
+
+    /* ═══ HAMBURGER MENU ═══ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      color: var(--black);
+      margin-left: auto;
+      z-index: 400;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 290;
+      backdrop-filter: blur(4px);
+    }
+    .mobile-overlay.open { display: block; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(280px, 85vw);
+      height: 100vh;
+      background: #0a0e0f;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 300;
+      padding: 80px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      display: block;
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-menu .mobile-cta {
+      border-bottom: none;
+      margin-top: 12px;
+      background: var(--lime);
+      color: var(--black) !important;
+      padding: 16px 24px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      html { zoom: 1; }
+      .hamburger { display: flex !important; }
+      .nav-links { display: none !important; }
+      .nav-inner { flex-wrap: nowrap !important; }
+      .lp-hero .container { grid-template-columns: 1fr; gap: 40px; }
+      .lp-hero { padding: 56px 0 64px; }
+      .lp-h1 { font-size: clamp(32px, 8vw, 44px); }
+      .lp-get-grid { grid-template-columns: 1fr; }
+      .lp-tiers-intro { grid-template-columns: 1fr; gap: 20px; }
+      .lp-tiers-heading { font-size: clamp(28px, 7vw, 38px); }
+      .lp-how-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-row-two { grid-template-columns: 1fr; }
+      .modal-content { padding: 24px 18px 28px; border-radius: 4px; }
+      .modal-title { font-size: clamp(32px, 8vw, 44px); }
+      .lp-approach-grid { grid-template-columns: 1fr; gap: 32px; }
+      .lp-level-list { grid-template-columns: 1fr 1fr; }
+      .lp-evidence-grid, .lp-engagement-grid { grid-template-columns: 1fr; }
+      .lp-cta-heading { font-size: clamp(28px, 7vw, 40px); }
+      .pillar-row { grid-template-columns: 1fr auto; gap: 12px; }
+      .pillar-score { font-size: 13px; }
+      .pillar-delta { display: none; }
+      .pillar-stage { display: none; }
+      .diag-wrap { padding: 48px 16px 80px; }
+      .diag-inner { max-width: 100%; }
+      #diag .q-text { font-size: clamp(18px, 5vw, 26px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/>
+        <rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/>
+        <rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/>
+        <rect x="35" y="35" width="10" height="10" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="/inflexion/" class="inflexion-nav-link">Inflexion</a>
+      <a href="/#contact" class="nav-cta" onclick="openContactModal(event)">Get in Touch →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/inflexion/" onclick="toggleMobileMenu()">Inflexion</a>
+  <a href="/#contact" class="mobile-cta" onclick="openContactModal(null); toggleMobileMenu()">Get in Touch →</a>
+</div>
+
+<!-- ═══ LANDING PAGE ═══ -->
+<div id="landing">
+
+  <!-- HERO -->
+  <section class="lp-hero">
+    <div class="container">
+      <div class="lp-hero-left">
+        <span class="lp-hero-divider" aria-hidden="true"></span>
+        <p class="lp-eyebrow">The Nth Layer — AI Maturity Index</p>
+        <h1 class="lp-h1">AI Maturity benchmarking purpose-built for private equity</h1>
+      </div>
+      <div class="lp-hero-right">
+        <p class="lp-hero-body">
+          Most AI maturity frameworks are built for generic enterprises. This one is built for private equity — hold-period economics, portco context, and value creation tied to EBITDA.
+        </p>
+        <p class="lp-hero-body">
+          Six pillar scores, a weighted overall score, a maturity stage, and peer comparisons from 54 sponsor-owned B2B SaaS companies. Plus a 90-day action plan to close the gaps.
+        </p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:4px;">
+          <button class="lp-start-btn" onclick="openContactModal(event)">Get in Touch →</button>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <button class="lp-start-btn lp-start-btn-disabled" disabled>AI Maturity Assessment → <span style="font-size:11px;font-weight:400;opacity:0.6;margin-left:4px;">(Coming Soon)</span></button>
+            <span style="font-size:11px; color:rgba(0,0,0,0.35); font-weight:500; letter-spacing:0.02em;">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="lp-get">
+    <div class="container">
+      <p class="section-label">What you get</p>
+      <div class="lp-get-grid">
+        <div class="lp-get-item">
+          <p class="lp-get-num">01</p>
+          <h3 class="lp-get-title">Six Pillar Scores</h3>
+          <p class="lp-get-body">A weighted overall score, a maturity stage, and a radar profile across Strategy &amp; Leadership, Data &amp; Knowledge Foundation, Use Cases &amp; Value Capture, Talent &amp; Operating Model, Governance &amp; Risk, and Infrastructure &amp; Tooling.</p>
+        </div>
+        <div class="lp-get-item">
+          <p class="lp-get-num">02</p>
+          <h3 class="lp-get-title">Named Peer Comparisons</h3>
+          <p class="lp-get-body">Every result is benchmarked against a reference library of 54 sponsor-owned B2B SaaS companies. Every score is supported by public evidence with a clickable source link. The library is unique to Nth Layer.</p>
+        </div>
+        <div class="lp-get-item">
+          <p class="lp-get-num">03</p>
+          <h3 class="lp-get-title">A 90 Day Roadmap</h3>
+          <p class="lp-get-body">A prioritised action list and a 90-day execution roadmap with EBITDA uplift modelling — tied to specific value creation levers, not generic AI best practice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR APPROACH -->
+  <section class="lp-approach">
+    <div class="container">
+      <p class="section-label">Our approach</p>
+      <div class="lp-approach-grid">
+        <div class="lp-approach-left">
+          <h2>Six pillars. Weighted to reflect where EBITDA is created.</h2>
+          <p>The Index synthesises the leading public AI maturity frameworks — Gartner, McKinsey, MIT, BCG, Cisco, Accenture, Deloitte, KPMG — and recalibrates for sponsor-backed value creation.</p>
+        </div>
+        <div class="lp-pillar-list">
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">Strategy &amp; Leadership</div>
+            <div class="lp-pillar-weight dim">20%</div>
+          </div>
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">Data &amp; Knowledge Foundation</div>
+            <div class="lp-pillar-weight dim">15%</div>
+          </div>
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">
+              Use Cases, Product &amp; Value Capture
+            </div>
+            <div class="lp-pillar-weight">25%</div>
+          </div>
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">Talent, Operating Model &amp; Workflow</div>
+            <div class="lp-pillar-weight dim">20%</div>
+          </div>
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">Governance, Risk &amp; Trust</div>
+            <div class="lp-pillar-weight dim">10%</div>
+          </div>
+          <div class="lp-pillar-row">
+            <div class="lp-pillar-name">Infrastructure &amp; Tooling</div>
+            <div class="lp-pillar-weight dim">10%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="lp-get">
+    <div class="container">
+      <p class="section-label">Methodology</p>
+      <div class="lp-get-grid">
+        <div class="lp-get-item">
+          <p class="lp-get-num">01</p>
+          <h3 class="lp-get-title">Sponsor-Controlled</h3>
+          <p class="lp-get-body">Majority PE ownership at time of scoring. The reference library is built for the hold-period context, not public-company benchmarks. AI maturity in a portco is a different question from AI maturity in a listed or founder-run business.</p>
+        </div>
+        <div class="lp-get-item">
+          <p class="lp-get-num">02</p>
+          <h3 class="lp-get-title">At Scale</h3>
+          <p class="lp-get-body">Companies at scale, with enough operational surface area for AI to have meaningful impact on EBITDA, workflows, and product. The cohort spans £50m to £2bn revenue, across multiple geographies or product lines.</p>
+        </div>
+        <div class="lp-get-item">
+          <p class="lp-get-num">03</p>
+          <h3 class="lp-get-title">Public Evidence Only</h3>
+          <p class="lp-get-body">Scoring relies entirely on public evidence: sponsor disclosures, audited filings, earnings calls, named case studies, and corroborating trade press. No insider information. Every score has a cited source.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE SCORE -->
+  <section class="lp-score">
+    <div class="container">
+      <p class="section-label">How we score</p>
+      <div class="lp-score-grid">
+        <div class="lp-score-left">
+          <p>The 0 to 5 scale runs from Absent to Transformational. Three rules preserve scoring integrity.</p>
+          <div class="lp-rule-list">
+            <div class="lp-rule">
+              <strong>Cumulative-stage rule</strong>
+              A company cannot score Level N without evidence for Level N minus 1.
+            </div>
+            <div class="lp-rule">
+              <strong>Conservative-bias rule</strong>
+              Defaults to the lower score when judgement is required.
+            </div>
+            <div class="lp-rule">
+              <strong>N/A rule</strong>
+              Prefers an absent score to a guessed one.
+            </div>
+          </div>
+        </div>
+        <div class="lp-level-list">
+          <div class="lp-level-row">
+            <div class="lp-level-num">LEVEL 0</div>
+            <div class="lp-level-name">Absent</div>
+            <div class="lp-level-desc">No evidence of AI activity in this pillar.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:8%"></div></div>
+          </div>
+          <div class="lp-level-row">
+            <div class="lp-level-num">LEVEL 1</div>
+            <div class="lp-level-name">Aware</div>
+            <div class="lp-level-desc">Strategy or investment announced. No production output.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:25%"></div></div>
+          </div>
+          <div class="lp-level-row">
+            <div class="lp-level-num">LEVEL 2</div>
+            <div class="lp-level-name">Operational</div>
+            <div class="lp-level-desc">AI in production in at least one core workflow with measurable ROI.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:50%"></div></div>
+          </div>
+          <div class="lp-level-row">
+            <div class="lp-level-num">LEVEL 3</div>
+            <div class="lp-level-name">Systemic</div>
+            <div class="lp-level-desc">AI across most priority workflows. &gt;2% EBIT impact. Governed agents.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:75%"></div></div>
+          </div>
+          <div class="lp-level-row">
+            <div class="lp-level-num">LEVEL 4</div>
+            <div class="lp-level-name">Transformational</div>
+            <div class="lp-level-desc">AI is the operating model. &gt;5% EBIT directly attributable.</div>
+            <div class="lp-level-bar"><div class="lp-level-bar-fill" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE EVALUATE EVIDENCE -->
+  <section class="lp-evidence">
+    <div class="container">
+      <p class="section-label">How we evaluate evidence</p>
+      <p class="lp-evidence-intro">Every score is supported by evidence categorised on a four-tier hierarchy. A sponsor partner, LP, or acquirer can interrogate any cell, click through to the underlying source, and form an independent view.</p>
+      <div class="lp-evidence-grid">
+        <div class="lp-evidence-item">
+          <span class="lp-evidence-tier">Tier 1</span>
+          <div class="lp-evidence-title">Audited Financial Disclosures</div>
+          <div class="lp-evidence-body">Annual reports, earnings releases, IPO filings. CFO-attested. The strongest form of evidence.</div>
+        </div>
+        <div class="lp-evidence-item">
+          <span class="lp-evidence-tier">Tier 2</span>
+          <div class="lp-evidence-title">Named Customer References</div>
+          <div class="lp-evidence-body">Sponsor case studies and named references with quantified outcomes. Strong, but not formally audited.</div>
+        </div>
+        <div class="lp-evidence-item">
+          <span class="lp-evidence-tier">Tier 3</span>
+          <div class="lp-evidence-title">Corroborating Trade Press</div>
+          <div class="lp-evidence-body">Independent confirmation of Tier 1 or 2 facts. Useful in support, insufficient in isolation.</div>
+        </div>
+        <div class="lp-evidence-item dimmed">
+          <span class="lp-evidence-tier not-credited">Tier 4 — Not credited</span>
+          <div class="lp-evidence-title">Generic Marketing Claims</div>
+          <div class="lp-evidence-body">'AI-powered' positioning without quantified outcomes. We do not credit Tier 4 as evidence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="lp-cta">
+      <div class="container">
+        <h2 class="lp-cta-heading">Ready for a Diagnostic</h2>
+        <p class="lp-cta-sub">A 90-day action plan to close the gaps.</p>
+        <button class="lp-start-btn" onclick="openContactModal(event)">Get in Touch →</button>
+      </div>
+    </div>
+    <div class="footer-inner container">
+      <span class="footer-copy">Copyright 2026 The Nth Layer. All rights reserved.</span>
+    </div>
+  </footer>
+
+</div><!-- /landing -->
+
+
+<!-- ═══ CONTACT MODAL ═══ -->
+<div class="modal" id="contactModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeContactModal()">×</button>
+    <div class="modal-eyebrow">Get in touch</div>
+    <h2 class="modal-title">Let's talk</h2>
+    <p class="modal-subtitle">If AI is on your agenda and you want it to actually deliver, the form takes 30 seconds.</p>
+    <p class="contact-note">Every engagement starts with a 30-minute call. No deck. Just the right questions.</p>
+    <form id="contactModalForm" onsubmit="submitContact(event)">
+      <div class="contact-row-two">
+        <div class="form-group">
+          <input type="text" id="contactName" name="name" required placeholder="Name *">
+        </div>
+        <div class="form-group">
+          <input type="text" id="contactCompany" name="company" required placeholder="Company *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <input type="text" id="contactJobTitle" name="jobtitle" required placeholder="Job title *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <input type="email" id="contactEmail" name="email" required placeholder="Email *">
+        </div>
+      </div>
+      <div class="contact-row-single">
+        <div class="form-group">
+          <textarea id="contactMessage" name="message" placeholder="Anything you want us to know (optional)"></textarea>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <button type="submit" class="modal-submit">Send message →</button>
+      </div>
+    </form>
+    <div id="contactModalSuccess" class="modal-subtitle" style="display:none; margin-top:12px;">Thank you. We will be in touch shortly.</div>
+  </div>
+</div>
+
+<!-- dummy launcher anchor (used by diagnostic JS) -->
+<div id="launcher" style="display:none"></div>
+
+<!-- ═══ DIAGNOSTIC OVERLAY ═══ -->
+<div id="diag">
+  <button class="diag-close-btn" onclick="closeDiag()">×</button>
+  <div class="diag-wrap">
+    <div class="diag-inner">
+
+      <!-- QUESTION SCREEN -->
+      <div id="screen-question" style="display:none">
+        <div class="progress-bar-wrap">
+          <div class="progress-meta">
+            <span id="progress-label">Question 1 of 30</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+        <span class="q-dimension" id="q-pillar"></span>
+        <p class="q-text" id="q-text"></p>
+        <div class="q-options" id="q-options"></div>
+        <div class="diag-nav">
+          <button class="diag-btn diag-btn-secondary" id="btn-back" onclick="prevQuestion()" disabled>← Back</button>
+          <button class="diag-btn diag-btn-primary" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- RESULT SCREEN -->
+      <div id="screen-result" style="display:none">
+
+        <!-- Hero: stage + score -->
+        <div class="result-hero">
+          <div class="result-hero-left">
+            <div class="result-tier-row">
+              <span id="result-badge" class="result-badge"></span>
+              <span class="result-tier-text" id="result-tier-text"></span>
+            </div>
+            <h2 class="result-stage-name" id="result-stage-name"></h2>
+            <p class="result-tagline" id="result-heading"></p>
+          </div>
+          <div class="result-hero-right">
+            <span class="result-big-score" id="result-big-score"></span>
+            <span class="result-big-denom">/5.0</span>
+            <p class="result-score-label">NL-AIMI Score</p>
+          </div>
+        </div>
+
+        <hr class="result-divider" />
+
+        <!-- Pillar bars -->
+        <div class="pillar-bars" id="pillar-bars"></div>
+
+        <!-- Email gate -->
+        <div class="result-gate" id="result-gate">
+          <p class="gate-heading">Get your full report</p>
+          <p class="gate-sub">Peer comparisons from 54 PE portcos, gap analysis, and a 90-day roadmap — sent to you immediately.</p>
+          <div class="gate-form">
+            <input class="gate-input" type="email" id="gate-email" placeholder="Work email" autocomplete="email" />
+            <button class="diag-btn diag-btn-primary" onclick="submitGate()">Get the full report →</button>
+          </div>
+          <p id="gate-error" class="gate-error" style="display:none"></p>
+        </div>
+
+        <!-- Full report: revealed after gate submit -->
+        <div id="result-full" style="display:none">
+          <div class="report-peer-context" id="report-peer"></div>
+          <div class="report-gaps" id="report-gaps"></div>
+          <p class="result-next-section-label">Recommended moves</p>
+          <div class="moves-section" id="moves-section"></div>
+          <div class="result-actions">
+            <button class="diag-btn diag-btn-primary" onclick="openReportModal('full')">Full report →</button>
+            <button class="diag-btn diag-btn-secondary" onclick="openReportModal('preview')">Quick report →</button>
+            <button class="diag-btn diag-btn-secondary" onclick="openContactModal(null)">Get in touch</button>
+            <button class="result-link" onclick="retake()">Retake</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Report modal overlay -->
+<div class="report-modal-overlay" id="report-modal">
+  <div class="report-modal-bar">
+    <span class="report-modal-label" id="report-modal-label">Report</span>
+    <button class="report-modal-close" onclick="closeReportModal()">✕</button>
+  </div>
+  <iframe class="report-modal-frame" id="report-modal-frame" src=""></iframe>
+</div>
+
+<script>
+  const PILLAR_NAMES = {
+    P1: 'Strategy & Leadership',
+    P2: 'Data & Knowledge Foundation',
+    P3: 'Use Cases & Value Capture',
+    P4: 'Talent & Operating Model',
+    P5: 'Governance, Risk & Trust',
+    P6: 'Infrastructure & Tooling'
+  };
+
+  const PILLAR_WEIGHTS = { P1: 0.20, P2: 0.15, P3: 0.25, P4: 0.20, P5: 0.10, P6: 0.10 };
+  const COHORT_AVGS   = { P1: 3.63, P2: 3.35, P3: 3.63, P4: 2.89, P5: 3.25, P6: 3.50 };
+  const COHORT_MEAN   = 3.37;
+
+  const STAGE_MOVES = {
+    L0: [
+      { days: 30, title: 'Get AI on the board agenda.', desc: 'Commission a CEO-led strategy sprint — one question: is AI a value-creation lever for this hold period? Without an explicit decision, nothing downstream will stick. Most boards are ready for this conversation.' },
+      { days: 60, title: 'Map your 3 highest-EBITDA-leverage workflows.', desc: 'Before any tooling decision, map where time is spent and where AI could displace cost or create revenue. The answer is almost always in sales, support, or core operational processing — not in admin.' },
+      { days: 90, title: 'Fund one scoped pilot with kill criteria.', desc: 'Pick the best workflow, assign one owner with authority to spend, define what success looks like at 90 days. If it fails, you will have learned more than any consultant can sell you.' }
+    ],
+    L1: [
+      { days: 30, title: 'Fund 2–3 pilots with a clear P&L line.', desc: 'Assign an owner to each with authority to spend and a 90-day kill-or-scale decision date. The trap is endless exploration. The fix is a deadline.' },
+      { days: 60, title: 'Kill pilots without a clear outcome signal.', desc: 'Proliferation is the trap at this stage. At 60 days, force a review: which pilots have a measurable signal? Kill the rest and reallocate. Conviction beats coverage.' },
+      { days: 90, title: 'Productionise your single strongest pilot.', desc: 'The jump from pilot to production is where most companies stall. The difference is workflow redesign — not just the tool on top of an existing process. Make this your single priority for the quarter.' }
+    ],
+    L2: [
+      { days: 30, title: 'Audit your pilot portfolio and force a kill decision.', desc: 'Which 1–2 pilots have the strongest P&L signal? These get all the resources. The rest get killed. Every week on a low-signal pilot is a week not spent closing the gap to L3.' },
+      { days: 60, title: 'Productionise and redesign — not just deploy.', desc: 'Take your top pilot and redesign the workflow end-to-end. Not the tool on top of the old process. The before/after productivity measurement starts here.' },
+      { days: 90, title: 'Publish the internal P&L impact.', desc: 'Nothing accelerates adoption faster than a true story with numbers from a peer team. Write it up, share it with the exec team, and use it in the next board update.' }
+    ],
+    L3: [
+      { days: 30, title: 'Design your AI operating model.', desc: 'Hub-and-spoke or federated? Define who owns AI capability vs who deploys it. Most L3 companies have a CoE that is a bottleneck, not an enabler. The org structure needs to match the ambition.' },
+      { days: 60, title: 'Formalise P&L attribution for every AI initiative.', desc: 'If you cannot measure it, you cannot manage it and you cannot defend it to the board. Finance needs to own the metric. This is the single most common gap between L3 and L4.' },
+      { days: 90, title: 'Launch your governance framework.', desc: 'Risk classification, acceptable use, model validation sign-off. Without governance the next deployment incident becomes a hold-period story. With it, you have a defensible programme.' }
+    ],
+    L4: [
+      { days: 30, title: 'Productise AI for customers.', desc: 'The gap from L4 to L5 is almost always external. What AI capability can you put in the product that customers will pay for or retain because of? This is the question that unlocks the next stage.' },
+      { days: 60, title: 'Disclose AI-driven revenue in investor materials.', desc: 'Naming it makes it real and creates accountability that sustains the programme through management changes. Your sponsor should be citing AI-driven EBITDA in every portfolio update.' },
+      { days: 90, title: 'Commission an external audit of your AI governance.', desc: 'L5 requires defensibility. An independent review now will surface the gaps before a regulator, customer security team, or acquirer does. It is also your most credible proof point.' }
+    ],
+    L5: [
+      { days: 30, title: 'Audit your data flywheel.', desc: 'Is proprietary data measurably improving model performance over time? If not, you are one foundation model upgrade away from losing your moat. The flywheel must be quantifiable.' },
+      { days: 60, title: 'Review your AI talent magnetism.', desc: 'Are AI-native candidates choosing you over competitors? If not, your employer brand has not caught up with your capability. The best AI operators choose by mission and moat — both must be externally visible.' },
+      { days: 90, title: 'Publish a transparency report.', desc: 'The companies that stay at L5 treat it as a moving target. Public commitments — governance disclosures, trust centres, external audits published — create the accountability to keep moving.' }
+    ]
+  };
+
+  const GAP_ACTIONS = {
+    P1: 'Assign a named exec owner with a budget line and quarterly board reporting. The typical trap is diffuse curiosity with no accountability. Start with a 90-day sprint: one sponsor, one P&L owner, one measurable target.',
+    P2: 'Audit your data estate before touching any AI tooling. The most common gap is fragmented source systems with no centralised layer. Pick the 3 highest-value data domains, centralise them, document lineage — then let models near them.',
+    P3: 'Run a portfolio kill. The most common gap is multiple pilots with nothing in production. Force a decision: which 1–2 pilots have a clear P&L line? Productionise those. Kill the rest and reallocate the budget.',
+    P4: 'Redesign one core workflow end-to-end around AI before scaling. The gap is almost always AI bolted onto existing processes with no measurable gain. A focused 6-week workflow redesign sprint — cross-functional, output-obsessed — typically closes two levels.',
+    P5: 'Classify your existing AI deployments by risk and draft a use policy before the next release. The gap is almost always ad-hoc deployment with no accountability. Two-week sprint: inventory, risk-classify, draft policy, assign a named risk owner.',
+    P6: 'Run a tooling audit and implement a model gateway. The gap is shadow AI spend with no oversight — teams using multiple LLM tools with no security or cost controls. One gateway, one budget line, one log.'
+  };
+
+  const STAGES = [
+    { level: 'L0', label: 'Absent', tagline: 'AI is not yet on the agenda.', next: 'The right next move is a focused strategy sprint with the CEO and exec team to define whether AI is a value-creation lever for this hold period. Without that decision, no other move will stick. The risk is not moving too fast — it is watching competitors build durable AI advantages while you are still in the awareness phase.' },
+    { level: 'L1', label: 'Aware', tagline: 'Conversations are happening. Nothing is in production.', next: 'The next move is to fund 2–3 deeply-scoped pilots in the highest-EBITDA-leverage workflows, with clear kill criteria at 90 days. The trap at this stage is buying enterprise AI platforms before you have a workflow to apply them to. Pick the workflow first, then the tool.' },
+    { level: 'L2', label: 'Active', tagline: 'Pilots exist. None are compounding.', next: 'The next move is to industrialise: pick the 1–2 pilots with the strongest signal, redesign the workflow around them, and publish the results internally. The trap at this stage is having 20 pilots and zero in production — proliferation without conviction. Pick winners and kill the rest.' },
+    { level: 'L3', label: 'Operational', tagline: 'AI is in production. The operating model has not caught up.', next: 'The next move is to formalise the operating model — CoE design, cross-functional squads, governance framework — and to start measuring P&L attribution. The trap at this stage is treating AI as an IT project rather than an operating-model transformation. The EBITDA is in the redesign, not the tooling.' },
+    { level: 'L4', label: 'Systemic', tagline: 'AI is a measurable EBITDA contributor.', next: 'The next move is to push to Level 5 by externalising — productising AI for customers, disclosing AI-driven revenue, externally auditing governance. The trap at this stage is internal complacency: the gap from Level 4 to Level 5 is much wider than from 3 to 4. Most companies stop here.' },
+    { level: 'L5', label: 'Transformational', tagline: 'AI is the operating model and the moat.', next: 'The next move is defending the moat — proprietary data flywheels, regulatory leadership, talent magnetism. The trap at this stage is hubris: every market leader thinks they are ahead until they are not. The businesses that stay here treat it as a moving target, not a destination.' }
+  ];
+
+  const QUESTIONS = [
+    // P1
+    { pillar:'P1', text:'Does the CEO publicly own the AI agenda?', options:[
+      'There is no public statement, interview, or published content where the CEO addresses AI',
+      'We can point to internal town hall recordings or all-hands notes where the CEO mentioned AI — nothing external exists',
+      'There is at least one external interview, article, or event where the CEO discussed AI exploration — no specific programme or metric was named',
+      'We can link to a specific external source — earnings call, investor day, podcast, or press release — where the CEO named an AI programme and committed to a timeline',
+      'In multiple external forums in the last 12 months the CEO has named AI as a top-3 priority with specific programmes referenced by name — we can point to these',
+      'We can point to public quantified AI commitments from the CEO with specific metrics, timelines, and board-tracked evidence of delivery against those commitments'
+    ]},
+    { pillar:'P1', text:'Is AI explicitly part of the value-creation plan or hold-period thesis?', options:[
+      'There is no written reference to AI in any strategy document, board paper, or sponsor review we can point to',
+      'AI has been raised in strategy conversations but there is no written plan, named owner, or milestone in any formal document',
+      'There is a document — board paper, strategy deck, or VCP — that names an AI workstream with an owner, but no budget line or KPIs are attached',
+      'We can show a document with an AI workstream, named owner, budget line, and defined KPIs — approved by the exec team or board',
+      'We can show board papers from the last four quarters with AI KPI tracking and a budget line representing over 5% of operating capex',
+      'AI is the headline thesis in sponsor-facing materials — we can point to a pitch deck or investor review where AI-driven EBITDA uplift is the central argument, with audited or board-tracked delivery evidence'
+    ]},
+    { pillar:'P1', text:'Is there dedicated AI capital allocation visible in the budget?', options:[
+      'There is no AI line item in any budget or financial plan we can point to',
+      'We can identify some SaaS spend that includes AI features but there is no dedicated AI team, programme budget, or cost centre',
+      'There is a budget line or cost centre for AI under 1% of opex covering licences and tooling — we can show this in a management account or finance report',
+      'We can show a dedicated AI cost centre covering people, infrastructure, and build at 1–3% of opex, approved in the annual budget cycle',
+      'We can show a multi-year AI plan at 3–7% of opex with named programmes — approved by the board and tracked quarterly',
+      'We can show over 7% of opex committed to AI with explicit ROI tracking per programme, regular reallocation decisions, and a documented framework for what gets funded and what gets cut'
+    ]},
+    { pillar:'P1', text:'Does the board review AI progress on a regular cadence?', options:[
+      'There is no record of AI appearing on any board agenda',
+      'We can point to one or two board updates where AI was raised, triggered by a specific event rather than a standing item',
+      'AI appears as a standing agenda item at least once per year — we can point to a board paper or minute that evidences this',
+      'We can show board papers from each of the last four quarters with AI KPIs — AI is a standing quarterly item with documented metrics',
+      'There is a named board sub-committee or working group for AI with a chair, meeting cadence, and audited metrics we can show',
+      'We can point to public disclosures or investor materials that reference board-level AI oversight — the governance structure is externally visible, not just internal'
+    ]},
+    { pillar:'P1', text:'Is the executive team AI-literate with named accountability?', options:[
+      'No exec has AI in their job title or documented remit and there is no evidence of exec-level AI literacy we can point to',
+      'The CEO or CTO has spoken about AI interest publicly or internally but there is no formal accountability structure or role definition',
+      'There is a job description or org chart showing AI within a CTO or CIO remit alongside other priorities — we can point to this',
+      'We can point to a LinkedIn profile, org chart, or press release showing a dedicated AI lead reporting to the CEO or sitting on the exec team',
+      'We can show a role definition or board paper where the AI lead has explicit P&L accountability for AI outcomes — not just delivery responsibility',
+      'We can show multiple exec job descriptions or public bios where AI is a primary accountability — cross-functional AI ownership is embedded across the leadership team, not concentrated in one role'
+    ]},
+    // P2
+    { pillar:'P2', text:'Is your customer, operational, and transactional data centralised in a governed data platform?', options:[
+      'Data lives in legacy systems — we cannot point to any centralisation effort or plan',
+      'We can show a scoped plan or project charter for centralisation but nothing has been deployed',
+      'We can demonstrate at least one centralised domain in production, but legacy fragmentation persists across most of the business with no committed remediation plan',
+      'We can show a production data lake or warehouse serving the majority of business domains — accessible to engineering and analytics teams',
+      'We can demonstrate over 80% of business-critical data centralised with documented schemas and named data ownership — queryable and governed',
+      'We can point to a single source of truth across all domains with real-time pipelines, a vector store for AI workloads, and explicit data products served via documented contracts'
+    ]},
+    { pillar:'P2', text:'Do you have documented data lineage and quality controls?', options:[
+      'There is no lineage documentation and no quality process — issues are fixed reactively when they surface',
+      'Lineage knowledge exists informally with individual engineers — there is no written documentation or systematic quality process',
+      'We can show documented lineage for at least some core systems and basic quality SLAs on key tables',
+      'We can demonstrate end-to-end lineage tooling in production covering the majority of analytical assets with documented quality SLAs and named owners',
+      'We can show automated lineage and quality monitoring across all production pipelines with alerting, ownership assignment, and a track record of quality incidents resolved',
+      'We can demonstrate continuous data observability with ML-driven anomaly detection, full lineage from source to model output, and an audit trail we could show to a regulator today'
+    ]},
+    { pillar:'P2', text:'Do you have proprietary labelled datasets that competitors cannot easily replicate?', options:[
+      'All training and grounding data used is publicly available — we cannot point to any proprietary data asset',
+      'We can identify proprietary data we hold but it is unlabelled and there is no active labelling programme',
+      'We can show a proprietary data corpus in storage but it is underutilised — labelling has only happened ad hoc for specific projects with no ongoing programme',
+      'We can demonstrate a proprietary labelled dataset for at least one core use case that is actively used to fine-tune or ground a production AI system',
+      'We can show multiple proprietary labelled datasets across business domains with active labelling pipelines and documented feedback loops improving them over time',
+      'We can demonstrate that proprietary labelled data is a measurable performance advantage — model evaluations show improvement over time and we can show competitors cannot replicate the dataset'
+    ]},
+    { pillar:'P2', text:'Is your data governance integrated with your AI governance?', options:[
+      'There is no data governance programme and no AI governance — we cannot point to any formal process',
+      'We can show a data governance programme that exists for compliance purposes — AI is not in scope and there is no AI governance document',
+      'We can show a data governance programme with a written note that AI will be added — but there is no AI governance in force today',
+      'We can show data governance documentation that explicitly covers AI training data and model inputs, and a basic AI risk register with at least some entries',
+      'We can demonstrate a unified data and AI governance framework with risk classification, model cards, documented approval workflows, and an audit trail we could show to a third party',
+      'We can point to an ISO 42001 certification or equivalent external audit sign-off — governance is a productised and externally verifiable capability'
+    ]},
+    { pillar:'P2', text:'Can you trace any AI-driven decision back to the underlying data and model that produced it?', options:[
+      'AI outputs are opaque — we cannot trace any decision back to the data or model that produced it',
+      'We have some logs of model API calls but there is no link back to training data, model version, or the downstream action taken',
+      'We can show model version tracking and partial logging of inputs and outputs for at least some production systems',
+      'We can demonstrate a full audit trail for production models covering input data, model version, output, and downstream action — retrievable on demand',
+      'We can show an audit trail with an explainability layer for high-stakes decisions — we can reconstruct and explain any flagged decision on demand',
+      'We can demonstrate continuous traceability tooling where outputs remain re-explainable months after the fact, integrated with regulatory and customer audit processes — we have done this in practice'
+    ]},
+    // P3
+    { pillar:'P3', text:'How many AI use cases are running in production today?', options:[
+      'We have no AI use cases in production — we can point to nothing live',
+      'We can demonstrate one AI use case in production, peripheral to core revenue or operations',
+      'We can demonstrate 2–4 AI use cases in production, mostly internal productivity tools',
+      'We can demonstrate 5–10 AI use cases in production including at least one embedded in a core revenue or operational workflow',
+      'We can point to 10–25 AI use cases in production across multiple business functions — at least some have documented impact metrics',
+      'We can demonstrate 25+ AI use cases in production — AI is the default way of working across most functions, not a separate initiative'
+    ]},
+    { pillar:'P3', text:'What measurable P&L impact has AI delivered in the last 12 months?', options:[
+      'We have no measurement of AI P&L impact — we cannot point to any figure',
+      'We have anecdotal claims of value internally but no measurement framework or documented number',
+      'We can show a measured impact figure for a single workflow but it has not been rolled up to a P&L line',
+      'We can show a finance-owned document attributing under 2% EBIT impact to specific AI initiatives — traceable to named workflows',
+      'We can show finance-validated documentation of 2–5% EBIT impact from AI, reviewed at board level — we can point to the board paper',
+      'We can show over 5% EBIT impact from AI that has been externally audited or disclosed in investor or sponsor materials — publicly or formally attributable'
+    ]},
+    { pillar:'P3', text:'Are AI features driving customer-facing revenue, retention, or pricing power?', options:[
+      'There are no customer-facing AI features in the product — we cannot point to anything shipped',
+      'We can show a product roadmap with AI features planned but nothing has shipped to customers yet',
+      'We can demonstrate AI features shipped to customers but we have no usage data or revenue attribution to point to',
+      'We can show usage data, customer quotes, or win/loss analysis where AI features are a measurable driver of engagement or a stated purchase reason',
+      'We can show documented retention uplift or pricing data — a premium AI SKU with adoption metrics or renewal data attributing retention to AI features',
+      'We can point to disclosed revenue figures or investor materials where AI-derived revenue is a named line — pricing power improvement is externally attributable to AI'
+    ]},
+    { pillar:'P3', text:'Have you killed AI initiatives that did not work?', options:[
+      'We have not started enough AI initiatives for killing to have been a decision — there is nothing to point to',
+      'AI initiatives have been started but none have been formally ended — they are alive or quietly abandoned with no documented decision',
+      'We can point to at least one AI initiative that was formally stopped, but the post-mortem was a conversation rather than a written document',
+      'We can show a written post-mortem for at least one killed AI initiative with a documented reallocation of the freed budget',
+      'We can show a quarterly portfolio review process with records of formal kill, scale, or pivot decisions and budget reallocation documented in each cycle',
+      'We can demonstrate a continuous portfolio management process with a tracked kill rate, written learnings shared cross-functionally, and evidence that fast failure is treated as a signal of good portfolio discipline'
+    ]},
+    { pillar:'P3', text:'What is the velocity of AI deployment — from idea to production?', options:[
+      'We have no AI deployments to measure — nothing has reached production',
+      'We can point to at least one production deployment that took over 12 months from initial idea to go-live',
+      'We can show at least one production deployment completed in 6–12 months — this represents our typical cycle',
+      'We can demonstrate at least one production deployment completed in 3–6 months and this is broadly repeatable across teams',
+      'We can show multiple production deployments completed in under 3 months across different teams — this is the standard, not the exception',
+      'We can demonstrate a platform-driven deployment process where new use cases ship in days to weeks — we can show a monthly deployment cadence with evidence'
+    ]},
+    // P4
+    { pillar:'P4', text:'Do you have a documented AI operating model?', options:[
+      'AI work is done ad hoc by individuals — there is no operating model or team structure we can point to',
+      'A group of people work on AI informally but there is no written charter, defined remit, or documented structure',
+      'We can show an org chart with a central AI team or CoE, but it is a bottleneck — business units cannot operate AI independently',
+      'We can show a documented operating model with defined handoffs between a central AI team and business units — roles and responsibilities are written down',
+      'We can show an org chart with a hub-and-spoke or federated structure — a central platform team and embedded AI engineers in business units, with a documented governance layer',
+      'We can point to a published or board-reviewed operating model where AI capability is distributed, the central team governs platforms rather than delivery, and every function has documented AI accountability'
+    ]},
+    { pillar:'P4', text:'Have core workflows been redesigned around AI rather than AI bolted onto existing workflows?', options:[
+      'AI has been added on top of existing workflows with no redesign — we cannot point to any workflow that has been restructured',
+      'Workflow redesign has been discussed in planning sessions but nothing has been executed or documented',
+      'We can show at least one peripheral workflow that has been redesigned — this is not a core revenue or operational process',
+      'We can demonstrate a redesigned core workflow with documented before/after process maps and a measurable productivity uplift figure',
+      'We can show redesigned process documentation across the majority of priority workflows with org structure changes that reflect the new way of working',
+      'We can demonstrate that every priority workflow has been redesigned around human and agent collaboration — the operating model is AI-native by design, not by retrofit'
+    ]},
+    { pillar:'P4', text:'Do you have human and agent squads in production, or only humans assisted by tools?', options:[
+      'AI is used purely as a productivity tool — there is no agent concept in any workflow and nothing to point to',
+      'We can show proof-of-concept work with agent frameworks but nothing is in production',
+      'We can demonstrate at least one agent in production handling a narrow single-step task with logging and oversight',
+      'We can demonstrate multi-step agents in production for at least one workflow with documented outcomes and human oversight checkpoints',
+      'We can show a defined operating unit where human and agent responsibilities are named, SLAs are documented, and this is the standard way of working for at least one business function',
+      'We can point to an org chart or operating model document where agents are first-class workers across multiple functions — performance management covers both human and digital workers'
+    ]},
+    { pillar:'P4', text:'What proportion of staff have completed structured AI training?', options:[
+      'There is no structured AI training programme — we cannot point to any curriculum, enrolment, or completion data',
+      'We can show a training programme exists and is available but completion is under 10% and participation is voluntary',
+      'We can show completion data for at least some roles with mandatory training — overall completion is in the 10–30% range',
+      'We can show completion records demonstrating over 50% of all knowledge workers have completed a mandatory baseline AI training programme',
+      'We can show role-specific training curricula with over 75% completion plus records of external certifications achieved by staff',
+      'We can show a continuous learning programme with role-specific tracks, external certification records, and evidence that AI fluency is assessed in the hiring process — job descriptions and interview scorecards confirm this'
+    ]},
+    { pillar:'P4', text:'Is AI fluency built into hiring, performance management, and promotion?', options:[
+      'AI is not mentioned in any job description, performance review template, or promotion criteria — we cannot point to any people process that includes it',
+      'We can show job descriptions that mention AI but it is not assessed in interviews or performance reviews',
+      'We can show interview scorecards or job descriptions where AI fluency is assessed for technical roles — it does not apply to non-technical hiring',
+      'We can show job descriptions and performance review templates across most roles that include AI fluency as an assessed criterion',
+      'We can point to a competency framework document where AI fluency is a formal criterion across hiring, performance management, and promotion — it applies org-wide',
+      'We can show a published AI competency framework, senior promotion criteria that include AI fluency, and hiring filters that explicitly screen for AI-native operators — this is externally referenceable'
+    ]},
+    // P5
+    { pillar:'P5', text:'Do you have a documented AI policy covering acceptable use, data handling, and model risk?', options:[
+      'There is no AI policy — we cannot point to any document covering acceptable use, data handling, or model risk',
+      'We can show a draft AI policy that has not yet been approved by the exec team or board',
+      'We can show an approved AI policy covering acceptable use but it has material gaps on data handling and model risk',
+      'We can show a comprehensive AI policy approved by the exec team covering acceptable use, data handling, and model risk — a single document with named owners',
+      'We can show a board-approved AI policy reviewed in the last 12 months, communicated to all staff with completion records, and covering third-party AI tools and customer-facing AI',
+      'We can point to an AI policy aligned to a recognised standard — ISO 42001 or equivalent — that has been externally audited and is publicly disclosed or available to customers on request'
+    ]},
+    { pillar:'P5', text:'Is there a model validation process before any AI is deployed to customers or revenue-critical workflows?', options:[
+      'There is no validation process — engineers deploy AI to production as they see fit with no documented gate',
+      'Deployments get an informal peer review but there is no written checklist, approval record, or named approver',
+      'We can show a checklist used before production deployment but it is not consistently applied and there is no formal sign-off record',
+      'We can show a documented validation process with a named approver covering accuracy, bias, and security — we have records of this being applied to production deployments',
+      'We can show a multi-stage validation process with documented sign-offs, an explainability assessment, and an ongoing monitoring plan that triggers on defined conditions',
+      'We can demonstrate an independent validation function with veto authority over deployments, aligned to a regulatory framework, with evidence of monitoring for drift and re-validation having been triggered in practice'
+    ]},
+    { pillar:'P5', text:'How do you handle AI-related incidents — hallucinations, biased outputs, customer complaints?', options:[
+      'There is no process for AI incidents — we cannot point to any logging, escalation path, or response procedure',
+      'AI incidents are handled ad hoc when they escalate — there is no written process or consistent approach',
+      'We can show an incident log where AI issues have been recorded but there is no formal response framework or severity triage',
+      'We can show a documented AI incident response process with a named owner, severity triage criteria, and records of it being followed for at least one real incident',
+      'We can show AI incident response integrated into the broader security framework — root cause analysis records, documented learnings, and evidence of at least one table-top exercise having been run',
+      'We can point to a mature incident framework with a public-facing disclosure protocol, a regulator notification procedure, a customer communication template, and evidence that post-incident model retraining has occurred'
+    ]},
+    { pillar:'P5', text:'Are you compliant with AI-relevant regulation in your operating jurisdictions?', options:[
+      'We have not identified any AI-specific regulation applicable to our business — there is no documented awareness or monitoring process',
+      'We can show that relevant AI regulation has been identified but no compliance assessment has been started',
+      'We can show a completed gap analysis document — a remediation plan exists in draft but has not been approved or resourced',
+      'We can show a completed gap analysis with a remediation plan in active delivery — we can demonstrate high-risk AI systems have been classified',
+      'We can show a closed remediation log and an evidence pack we could provide to a regulator today — compliance is maintained and tracked',
+      'We can point to published transparency reports, a customer-facing trust centre with AI compliance evidence, and a documented record of proactive regulator engagement'
+    ]},
+    { pillar:'P5', text:'Can you defend your AI deployments to a sceptical regulator, customer security team, or auditor today?', options:[
+      'We have no documentation that would allow us to defend any AI deployment — we could not respond to a regulator or auditor',
+      'Some documentation exists but it would require weeks of preparation to mount a credible defence of any specific deployment',
+      'We can defend our general approach and principles but cannot point to documentation that explains specific model behaviour or decisions',
+      'We can show documentation for high-risk systems that would allow us to mount a defence within one week — lower-risk systems have partial coverage',
+      'We can demonstrate that any deployment could be defended within 24 hours — documentation is continuously maintained and we can point to at least one passed external audit',
+      'We can show audit-grade documentation across all deployments, multiple external audit records, and evidence that trust and defensibility are marketed to customers as a product feature'
+    ]},
+    // P6
+    { pillar:'P6', text:'Is your underlying compute and data infrastructure cloud-native and AI-ready?', options:[
+      'Infrastructure is mostly on-premises — we cannot point to a cloud strategy or migration plan',
+      'We can show some cloud workloads but legacy core systems remain on-premises with no committed migration timeline',
+      'We can show a cloud-first policy for new development and a documented legacy migration roadmap',
+      'We can demonstrate that the majority of workloads including AI and ML are on managed cloud services — we can show the architecture diagram',
+      'We can demonstrate fully cloud-native infrastructure with multi-region GPU capacity, auto-scaling evidence, and documented data residency handling at platform level',
+      'We can show cloud-native infrastructure with private inference clusters for sensitive workloads — capacity has never been the bottleneck for an AI deployment and we can evidence this'
+    ]},
+    { pillar:'P6', text:'Do you have a model gateway that governs LLM and AI model usage across the organisation?', options:[
+      'Teams access foundation models directly via individual API keys — there is no gateway or centralised control we can point to',
+      'We have shared API keys used informally but there is no documented gating process or usage visibility',
+      'We can show an internal proxy that provides cost and usage tracking — there is no governance layer or approval workflow',
+      'We can demonstrate a model gateway in production with cost tracking, rate limiting, and audit logging — we can show these logs',
+      'We can show a model gateway with multi-model routing, semantic caching, prompt management, a governance layer, and per-team chargeback — all in production',
+      'We can demonstrate that the model gateway is the only authorised path to AI in the organisation — integrated with identity, DLP, observability, evaluation, and FinOps with evidence of each'
+    ]},
+    { pillar:'P6', text:'Do you have an agent runtime — infrastructure to run multi-step agents safely in production?', options:[
+      'There is no agent infrastructure — we cannot point to any runtime, framework, or deployment for multi-step agents',
+      'We can show agent framework experimentation in development environments — nothing has been deployed to production',
+      'We can demonstrate a single agent in production with documented tool access scope and basic oversight',
+      'We can show a multi-agent orchestration platform in production with logging, tracing, and human-in-the-loop checkpoints — we can demonstrate these controls are active',
+      'We can demonstrate a production-grade agent runtime with observability dashboards, rollback capability, sandboxed tool access, and an evaluation harness — all in active use',
+      'We can point to a productised internal agent platform with published SDKs, governance documentation, audit trails, MCP server integration, and evidence of both internal and customer-facing agents running on it'
+    ]},
+    { pillar:'P6', text:'Do you have evaluation, observability, and continuous-improvement tooling for AI in production?', options:[
+      'There is no evaluation or observability tooling — we cannot point to any logging, monitoring, or assessment of AI outputs in production',
+      'Model outputs are checked manually and sporadically — there is no systematic logging or evaluation framework',
+      'We can show that inputs and outputs are logged but evaluation only happens reactively when complaints or issues arise',
+      'We can demonstrate continuous logging of inputs and outputs with an evaluation harness used for periodic regression testing — we can show regression test results',
+      'We can show a production observability stack with continuous evaluation, drift detection alerts, and documented feedback loops that have influenced model updates',
+      'We can demonstrate a closed-loop continuous improvement process — production data flows into eval, eval informs retraining decisions, retraining flows into release, and we can show leadership reviewing metrics on a weekly cadence'
+    ]},
+    { pillar:'P6', text:'Do you have a clear build-vs-buy discipline — foundation models bought, differentiation built?', options:[
+      'Build and buy decisions are made ad hoc — there is no framework or documented rationale we can point to',
+      'We can observe a pattern of mostly building or mostly buying but it reflects internal bias rather than a documented discipline',
+      'We can show some build-vs-buy decisions that followed a framework but it is applied inconsistently and not documented as policy',
+      'We can show a documented build-vs-buy framework where foundation model capability is bought and a custom differentiation layer is built — we can point to decisions made under this framework',
+      'We can demonstrate a clear and consistently applied pattern across our AI portfolio: foundation models bought, orchestration bought or open-source, vertical differentiation built on proprietary data — each decision is documented',
+      'We can show quarterly capital allocation reviews with explicit build-vs-buy decisions recorded — the differentiation layer is protected as a strategic asset and we can evidence decisions to buy commodities and build moats over multiple review cycles'
+    ]}
+  ];
+
+  // State
+  let currentQ = 0;
+  let answers = new Array(QUESTIONS.length).fill(null);
+  let finalStage = null, finalOverall = 0, finalPillarScores = {};
+
+  function getStage(score) {
+    if (score < 1.0) return STAGES[0];
+    if (score < 2.0) return STAGES[1];
+    if (score < 3.0) return STAGES[2];
+    if (score < 4.0) return STAGES[3];
+    if (score < 5.0) return STAGES[4];
+    return STAGES[5];
+  }
+
+  function calcResults(ans) {
+    const pillars = ['P1','P2','P3','P4','P5','P6'];
+    const pillarScores = {};
+    pillars.forEach((p, pi) => {
+      const slice = ans.slice(pi * 5, (pi + 1) * 5);
+      const valid = slice.filter(v => v !== null);
+      const avg = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : 0;
+      pillarScores[p] = Math.round(avg * 10) / 10;
+    });
+    const overall = pillars.reduce((sum, p) => sum + pillarScores[p] * PILLAR_WEIGHTS[p], 0);
+    return { pillarScores, overall: Math.round(overall * 100) / 100 };
+  }
+
+  function startDiagnostic() {
+    currentQ = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    document.getElementById('launcher').style.display = 'none';
+    document.getElementById('diag').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('screen-question').style.display = 'block';
+    document.getElementById('screen-result').style.display = 'none';
+    renderQuestion();
+  }
+
+  function closeDiag() {
+    document.getElementById('diag').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[currentQ];
+    const total = QUESTIONS.length;
+    const pct = Math.round((currentQ / total) * 100);
+    document.getElementById('progress-label').textContent = `Question ${currentQ + 1} of ${total}`;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('q-pillar').textContent = `${q.pillar} — ${PILLAR_NAMES[q.pillar]}`;
+    document.getElementById('q-text').textContent = q.text;
+    const optionsEl = document.getElementById('q-options');
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-option' + (answers[currentQ] === i ? ' selected' : '');
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(i);
+      optionsEl.appendChild(btn);
+    });
+    document.getElementById('btn-back').disabled = currentQ === 0;
+    document.getElementById('btn-next').disabled = answers[currentQ] === null;
+    document.getElementById('btn-next').textContent = currentQ === total - 1 ? 'See results →' : 'Next →';
+  }
+
+  function selectAnswer(score) {
+    answers[currentQ] = score;
+    document.querySelectorAll('#q-options .q-option').forEach((b, i) => {
+      b.className = 'q-option' + (i === score ? ' selected' : '');
+    });
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  function nextQuestion() {
+    if (answers[currentQ] === null) return;
+    if (currentQ < QUESTIONS.length - 1) {
+      currentQ++;
+      fade(renderQuestion);
+    } else {
+      showResult();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQ > 0) { currentQ--; fade(renderQuestion); }
+  }
+
+  function fade(fn) {
+    const el = document.getElementById('screen-question');
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.15s ease';
+    setTimeout(() => { fn(); el.style.opacity = '1'; }, 150);
+  }
+
+  function showResult() {
+    const results = calcResults(answers);
+    finalOverall = results.overall;
+    finalPillarScores = results.pillarScores;
+    finalStage = getStage(finalOverall);
+
+    // Hero: tier badge + stage name + tagline + big score
+    const badge = document.getElementById('result-badge');
+    badge.textContent = finalStage.level;
+    badge.className = `result-badge stage-${finalStage.level.toLowerCase()}`;
+    document.getElementById('result-tier-text').textContent = `STAGE ${finalStage.level} OF L0–L5`;
+    document.getElementById('result-stage-name').textContent = finalStage.label;
+    document.getElementById('result-heading').textContent = finalStage.tagline;
+    document.getElementById('result-big-score').textContent = finalOverall.toFixed(2);
+
+    // Pillar bar rows
+    const barsEl = document.getElementById('pillar-bars');
+    barsEl.innerHTML = '';
+    ['P1','P2','P3','P4','P5','P6'].forEach(p => {
+      const score = finalPillarScores[p];
+      const cohort = COHORT_AVGS[p];
+      const pStage = getStage(score);
+      const fillPct = (score / 5) * 100;
+      const cohortPct = (cohort / 5) * 100;
+      const row = document.createElement('div');
+      row.className = 'pillar-bar-row';
+      row.innerHTML = `
+        <span class="pillar-bar-name">${PILLAR_NAMES[p]}</span>
+        <span class="pillar-bar-stage-pill stage-${pStage.level.toLowerCase()}">${pStage.level}</span>
+        <div class="pillar-bar-track">
+          <div class="pillar-bar-fill" style="width:${fillPct.toFixed(1)}%"></div>
+          <div class="pillar-bar-cohort-marker" style="left:${cohortPct.toFixed(1)}%"></div>
+        </div>
+        <span class="pillar-bar-score">${score.toFixed(1)}</span>`;
+      barsEl.appendChild(row);
+    });
+
+    buildFullReport();
+
+    // Reset gate
+    document.getElementById('result-gate').style.display = 'block';
+    document.getElementById('result-full').style.display = 'none';
+    document.getElementById('gate-email').value = '';
+    document.getElementById('gate-error').style.display = 'none';
+
+    try { localStorage.setItem('nl_aimi_last_result', JSON.stringify({ overall: finalOverall, pillarScores: finalPillarScores, stage: finalStage.level, label: finalStage.label, date: new Date().toISOString() })); } catch(e) {}
+
+    document.getElementById('screen-question').style.display = 'none';
+    document.getElementById('screen-result').style.display = 'block';
+    document.getElementById('diag').scrollTop = 0;
+  }
+
+  function retake() {
+    currentQ = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    document.getElementById('screen-result').style.display = 'none';
+    document.getElementById('result-gate').style.display = 'block';
+    document.getElementById('result-full').style.display = 'none';
+    document.getElementById('gate-email').value = '';
+    document.getElementById('screen-question').style.display = 'block';
+    renderQuestion();
+    document.getElementById('diag').scrollTop = 0;
+  }
+
+  function buildFullReport() {
+    // Peer context
+    const aboveCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] >= COHORT_AVGS[p]);
+    const belowCohort = ['P1','P2','P3','P4','P5','P6'].filter(p => finalPillarScores[p] < COHORT_AVGS[p]);
+    const overallDelta = finalOverall - COHORT_MEAN;
+    const PILLAR_SHORT = { P1: 'Strategy', P2: 'Data', P3: 'Use Cases', P4: 'Talent', P5: 'Governance', P6: 'Infrastructure' };
+    const aboveText = aboveCohort.length ? `Above cohort: ${aboveCohort.map(p => PILLAR_SHORT[p]).join(', ')}.` : '';
+    const belowText = belowCohort.length ? `Below cohort: ${belowCohort.map(p => PILLAR_SHORT[p]).join(', ')}.` : '';
+    document.getElementById('report-peer').innerHTML = `<p class="report-peer-text">You scored <strong>${finalOverall.toFixed(2)}</strong> against a PE portco cohort mean of <strong>${COHORT_MEAN}</strong> (${overallDelta >= 0 ? '+' : ''}${overallDelta.toFixed(2)}). ${aboveText} ${belowText}</p>`;
+
+    // Two weakest pillars
+    const gapEl = document.getElementById('report-gaps');
+    gapEl.innerHTML = '<p class="result-next-section-label">Biggest gaps to close</p>';
+    ['P1','P2','P3','P4','P5','P6']
+      .map(p => ({ p, score: finalPillarScores[p], gap: COHORT_AVGS[p] - finalPillarScores[p] }))
+      .sort((a, b) => b.gap - a.gap)
+      .slice(0, 2)
+      .forEach(({ p, score }) => {
+        const div = document.createElement('div');
+        div.className = 'gap-item';
+        div.innerHTML = `<div class="gap-item-header"><span class="gap-item-pillar">${PILLAR_NAMES[p]}</span><span class="gap-item-score">${score.toFixed(1)} <span class="gap-item-vs">vs cohort ${COHORT_AVGS[p]}</span></span></div><p class="gap-item-action">${GAP_ACTIONS[p]}</p>`;
+        gapEl.appendChild(div);
+      });
+
+    // Numbered 90-day moves
+    const movesEl = document.getElementById('moves-section');
+    movesEl.innerHTML = '';
+    (STAGE_MOVES[finalStage.level] || []).forEach((move, i) => {
+      const div = document.createElement('div');
+      div.className = 'move-item';
+      div.innerHTML = `<div class="move-num">0${i + 1}</div><div class="move-body"><div class="move-header"><span class="move-title">${move.title}</span><span class="move-timeline">${move.days} DAYS</span></div><p class="move-desc">${move.desc}</p></div>`;
+      movesEl.appendChild(div);
+    });
+  }
+
+  async function submitGate() {
+    const email = document.getElementById('gate-email').value.trim();
+    const errEl = document.getElementById('gate-error');
+    if (!email) {
+      errEl.textContent = 'Please enter your work email.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: '', company: '', email, jobtitle: '',
+        message: 'Diagnostic full report request',
+        audience: 'Inflexion', sourcePage: 'inflexion',
+        inflexionScore: finalOverall,
+        inflexionTier: finalStage ? `${finalStage.level} — ${finalStage.label}` : null
+      })
+    }).catch(() => {});
+    document.getElementById('result-gate').style.display = 'none';
+    document.getElementById('result-full').style.display = 'block';
+    document.getElementById('diag').scrollTop = 0;
+  }
+
+  function copyResult() {
+    if (!finalStage) return;
+    const pillarLines = ['P1','P2','P3','P4','P5','P6'].map(p => {
+      const score = finalPillarScores[p];
+      const delta = score - COHORT_AVGS[p];
+      return `${p} ${PILLAR_NAMES[p]}: ${score.toFixed(1)} (${delta >= 0 ? '+' : ''}${delta.toFixed(2)} vs cohort)`;
+    });
+    const text = ['NL-AIMI Diagnostic — Nth Layer', '', `Result: ${finalStage.level} — ${finalStage.label}`, `Overall score: ${finalOverall.toFixed(2)} / 5.0`, '', finalStage.tagline, '', 'Pillar scores:', ...pillarLines, '', 'What happens next:', finalStage.next, '', 'Diagnostic by The Nth Layer — nthlayer.co.uk/inflexion'].join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const c = document.getElementById('copy-confirm');
+      c.style.display = 'inline';
+      setTimeout(() => { c.style.display = 'none'; }, 2000);
+    }).catch(() => {});
+  }
+
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('mobileMenu');
+      if (menu && menu.classList.contains('open')) toggleMobileMenu();
+    }
+  });
+
+  function openContactModal(e) {
+    if (e) e.preventDefault();
+    const form = document.getElementById('contactModalForm');
+    const success = document.getElementById('contactModalSuccess');
+    if (form && success) { form.style.display = 'block'; success.style.display = 'none'; }
+    document.getElementById('contactModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  async function submitContact(e) {
+    e.preventDefault();
+    const formEl = e.target;
+    const form = document.getElementById('contactModalForm');
+    const success = document.getElementById('contactModalSuccess');
+    const submitButton = formEl.querySelector('.modal-submit');
+    const originalLabel = submitButton.textContent;
+    const payload = { name: document.getElementById('contactName').value.trim(), company: document.getElementById('contactCompany').value.trim(), jobtitle: document.getElementById('contactJobTitle').value.trim(), email: document.getElementById('contactEmail').value.trim(), message: document.getElementById('contactMessage').value.trim(), audience: 'Inflexion', sourcePage: 'inflexion', inflexionScore: finalOverall || null, inflexionTier: finalStage ? `${finalStage.level} — ${finalStage.label}` : null };
+    submitButton.disabled = true; submitButton.textContent = 'Sending...';
+    try {
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!response.ok) throw new Error('Failed');
+      form.style.display = 'none'; success.style.display = 'block'; formEl.reset();
+    } catch (error) { alert('Message failed to send. Please try again.'); }
+    finally { submitButton.disabled = false; submitButton.textContent = originalLabel; }
+  }
+
+  document.getElementById('contactModal').addEventListener('click', function(e) { if (e.target === this) closeContactModal(); });
+
+  function openReportModal(type) {
+    const overlay = document.getElementById('report-modal');
+    const frame = document.getElementById('report-modal-frame');
+    const label = document.getElementById('report-modal-label');
+    if (type === 'full') {
+      frame.src = '/report-full';
+      label.textContent = 'AI Maturity Benchmark — Full Report';
+    } else {
+      frame.src = '/report-preview';
+      label.textContent = 'AI Maturity Benchmark — Results Summary';
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReportModal() {
+    const overlay = document.getElementById('report-modal');
+    overlay.classList.remove('open');
+    document.getElementById('report-modal-frame').src = '';
+    document.body.style.overflow = 'hidden'; // keep diag scroll locked
+  }
+
+  // Hidden link: nthlayer.co.uk/inflexion/modal
+  if (new URLSearchParams(window.location.search).get('modal') === '1' || window.location.pathname === '/inflexion/modal' || window.location.pathname === '/inflexion/modal/') {
+    startDiagnostic();
+  }
+
+  // Example report: nthlayer.co.uk/inflexion/example or /inflexion/modal/example
+  if (['/inflexion/example', '/inflexion/example/', '/inflexion/modal/example', '/inflexion/modal/example/'].includes(window.location.pathname)) {
+    window.location.replace('/inflexion-example');
+  }
+</script>
+
+</body>
+</html>
