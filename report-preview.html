@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Maturity Benchmark — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0d0f0d; --paper: #fbfbf8; --lime: #BFFF00;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-display: 'DM Serif Display', Georgia, serif;
+  }
+  body { font-family: var(--font-body); background: #fff; color: var(--black); -webkit-font-smoothing: antialiased; width: 794px; margin: 0 auto; }
+  @page { size: A4; margin: 0; }
+  @media print { body { width: 210mm; } }
+
+  .page { width: 794px; min-height: 1123px; padding: 44px 52px 44px; background: #fff; display: flex; flex-direction: column; }
+
+  /* Print UI */
+  .print-ui { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: #0d0f0d; display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; }
+  .print-ui-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+  .print-ui-btn { background: var(--lime); color: var(--black); border: none; padding: 9px 18px; font-family: var(--font-body); font-size: 12px; font-weight: 800; border-radius: 3px; cursor: pointer; }
+  @media print { .print-ui { display: none; } }
+
+  /* Header */
+  .pdf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; padding-bottom: 18px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-wrap svg { width: 30px; height: 30px; }
+  .logo-text { font-size: 10px; font-weight: 900; letter-spacing: 0.06em; line-height: 1.3; color: var(--black); text-transform: uppercase; }
+  .report-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(0,0,0,0.32); }
+
+  /* Benchmark intro */
+  .benchmark-intro { background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; padding: 14px 18px; margin-bottom: 24px; }
+  .benchmark-intro-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 6px; }
+  .benchmark-intro-text { font-size: 12px; color: rgba(0,0,0,0.6); line-height: 1.65; }
+
+  /* Stage badge + hero */
+  .result-tier-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .result-tier-text { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); }
+  .result-badge { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 3px; font-family: var(--font-body); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .stage-l0 { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.38); }
+  .stage-l1 { background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.5); }
+  .stage-l2 { background: rgba(120,180,0,0.10); color: #4a7000; border: 1px solid rgba(120,180,0,0.3); }
+  .stage-l3 { background: rgba(120,180,0,0.15); color: #3d6000; border: 1px solid rgba(120,180,0,0.4); }
+  .stage-l4 { background: rgba(120,180,0,0.22); color: #2e4800; border: 1px solid rgba(120,180,0,0.5); }
+  .stage-l5 { background: var(--lime); color: var(--black); }
+
+  .result-hero { display: grid; grid-template-columns: 1fr 160px; gap: 24px; align-items: start; margin-bottom: 10px; }
+  .result-stage-name { font-family: var(--font-display); font-size: 52px; font-weight: 400; color: var(--black); line-height: 1; margin-bottom: 10px; }
+  .result-tagline { font-size: 13px; line-height: 1.65; color: rgba(0,0,0,0.6); max-width: 420px; }
+  .result-hero-right { text-align: right; padding-top: 4px; }
+  .result-big-score { display: block; font-family: var(--font-display); font-size: 76px; font-weight: 400; line-height: 1; color: var(--black); }
+  .result-big-denom { font-size: 17px; font-weight: 600; color: rgba(0,0,0,0.32); }
+  .result-score-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.32); margin-top: 5px; }
+
+  /* What this means */
+  .stage-insight { border-left: 3px solid var(--lime); padding: 12px 16px; margin: 16px 0 20px; background: rgba(0,0,0,0.02); border-radius: 0 3px 3px 0; }
+  .stage-insight-text { font-size: 13px; line-height: 1.7; color: rgba(0,0,0,0.65); }
+
+  .result-divider { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 0 0 18px; }
+
+  /* Section label */
+  .section-label { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 8px; }
+
+  /* Stage scale */
+  .stage-scale { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid rgba(0,0,0,0.09); border-radius: 3px; overflow: hidden; margin-bottom: 18px; }
+  .stage-cell { padding: 8px 9px; border-right: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.015); }
+  .stage-cell:last-child { border-right: none; }
+  .stage-cell.active { background: rgba(120,180,0,0.12); }
+  .stage-cell-level { font-size: 9px; font-weight: 900; letter-spacing: 0.08em; color: rgba(0,0,0,0.32); margin-bottom: 2px; }
+  .stage-cell.active .stage-cell-level { color: #3d6000; }
+  .stage-cell-name { font-size: 10px; font-weight: 700; color: rgba(0,0,0,0.55); margin-bottom: 2px; }
+  .stage-cell.active .stage-cell-name { color: #3d6000; }
+  .stage-cell-desc { font-size: 9px; color: rgba(0,0,0,0.32); line-height: 1.4; }
+  .stage-cell.active .stage-cell-desc { color: rgba(50,80,0,0.65); }
+
+  /* Cohort comparison */
+  .cohort-comparison { padding: 12px 16px; background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.07); border-radius: 3px; margin-bottom: 18px; }
+  .cohort-comparison-title { font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 10px; }
+  .cohort-row { display: grid; grid-template-columns: 120px 36px 1fr; gap: 10px; align-items: center; margin-bottom: 7px; }
+  .cohort-row:last-of-type { margin-bottom: 0; }
+  .cohort-row-label { font-size: 11px; font-weight: 600; color: rgba(0,0,0,0.6); }
+  .cohort-row-score { font-size: 12px; font-weight: 800; color: var(--black); text-align: right; }
+  .cohort-row-track { height: 6px; background: rgba(0,0,0,0.07); border-radius: 3px; }
+  .cohort-row-fill { height: 100%; border-radius: 3px; }
+  .cohort-row-fill.you { background: var(--lime); }
+  .cohort-row-fill.cohort { background: rgba(0,0,0,0.18); }
+  .cohort-caption { font-size: 10px; color: rgba(0,0,0,0.32); margin-top: 8px; }
+
+  /* Pillar bars */
+  .pillar-bars-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .cohort-legend { display: flex; align-items: center; gap: 5px; font-size: 9px; color: rgba(0,0,0,0.38); font-weight: 600; }
+  .cohort-legend-line { width: 2px; height: 10px; background: rgba(0,0,0,0.22); border-radius: 1px; }
+  .pillar-bars { margin-bottom: 20px; }
+  .pillar-bar-row { display: grid; grid-template-columns: 1fr 38px 200px 34px; gap: 9px; align-items: center; margin-bottom: 8px; }
+  .pillar-bar-name { font-size: 11px; font-weight: 600; color: rgba(0,0,0,0.65); }
+  .pillar-bar-stage-pill { display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; letter-spacing: 0.05em; border-radius: 20px; padding: 2px 6px; border: 1px solid currentColor; }
+  .pillar-bar-track { position: relative; height: 6px; background: rgba(0,0,0,0.07); border-radius: 3px; overflow: visible; }
+  .pillar-bar-fill { height: 100%; background: var(--lime); border-radius: 3px; }
+  .pillar-bar-cohort-marker { position: absolute; top: -4px; width: 2px; height: 14px; background: rgba(0,0,0,0.22); border-radius: 1px; transform: translateX(-50%); }
+  .pillar-bar-score { font-size: 12px; font-weight: 800; color: var(--black); text-align: right; }
+
+  /* Full report teaser */
+  .report-teaser { background: var(--black); border-radius: 4px; padding: 24px 28px; margin-bottom: 0; }
+  .teaser-top { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; margin-bottom: 18px; }
+  .teaser-heading { font-family: var(--font-display); font-size: 20px; color: #fff; font-weight: 400; margin-bottom: 6px; }
+  .teaser-sub { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 380px; }
+  .teaser-items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 20px; }
+  .teaser-item { display: flex; align-items: flex-start; gap: 8px; }
+  .teaser-item-dot { width: 5px; height: 5px; background: var(--lime); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .teaser-item-text { font-size: 11px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .gate-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+  .teaser-heading-row { margin-bottom: 14px; }
+  .teaser-cta-row { display: flex; align-items: center; gap: 16px; }
+  .teaser-cta-btn { font-family: var(--font-body); font-size: 13px; font-weight: 700; padding: 11px 22px; background: var(--lime); color: var(--black); border-radius: 3px; white-space: nowrap; }
+  .teaser-cta-note { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+  /* Footer */
+  .pdf-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+  .pdf-footer-left { font-size: 10px; color: rgba(0,0,0,0.3); font-weight: 500; }
+  .pdf-footer-right { font-size: 10px; color: rgba(0,0,0,0.3); font-weight: 500; }
+
+  /* Contact banner */
+  .contact-banner { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 0; background: var(--black); padding: 24px 52px; }
+  .contact-piece { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.01em; white-space: nowrap; }
+  .contact-piece.brand { font-size: 16px; font-weight: 800; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; }
+  .contact-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.22); border-radius: 50%; margin: 0 24px; flex-shrink: 0; }
+
+  /* Disclaimer */
+  .benchmark-intro-disclaimer { font-size: 9px; color: rgba(0,0,0,0.35); line-height: 1.5; margin-top: 7px; padding-top: 7px; border-top: 1px solid rgba(0,0,0,0.07); }
+</style>
+</head>
+<body>
+
+<div class="print-ui">
+  <span class="print-ui-label">AI Maturity Benchmark — Results Summary</span>
+  <button class="print-ui-btn" onclick="window.print()">Generate PDF →</button>
+</div>
+
+<div class="page">
+
+  <header class="pdf-header">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="76" height="76" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="14" y="14" width="52" height="52" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="26" y="26" width="28" height="28" stroke="#0d0f0d" stroke-width="4"/>
+        <rect x="35" y="35" width="10" height="10" fill="#0d0f0d"/>
+      </svg>
+      <div class="logo-text">THE<br>NTH<br>LAYER</div>
+    </div>
+    <div class="report-label">AI Maturity Benchmark · Results Summary</div>
+  </header>
+
+  <!-- What the benchmark is -->
+  <div class="benchmark-intro">
+    <div class="benchmark-intro-label">About this benchmark</div>
+    <p class="benchmark-intro-text">The Nth Layer AI Maturity Benchmark measures how effectively PE-backed businesses are building, deploying, and scaling AI. Scores are based on 30 diagnostic questions across six pillars, benchmarked against 54 PE-backed SaaS businesses assessed over the past 18 months. Every score is derived from management responses and publicly observable evidence — not self-reported maturity claims.</p>
+    <p class="benchmark-intro-disclaimer">Disclaimer: Cohort company benchmarks are derived from publicly available sources including company websites, investor materials, and published documentation. Data reflects information observable at the time of assessment and may be incomplete, outdated, or subject to interpretation. It should not be relied upon as a definitive or current statement of any company's position.</p>
+  </div>
+
+  <!-- Stage badge -->
+  <div class="result-tier-row">
+    <span class="result-badge stage-l3">L3 · Operational</span>
+    <span class="result-tier-text">Your stage — 3 of 5 on the maturity scale</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="result-hero">
+    <div class="result-hero-left">
+      <h2 class="result-stage-name">Operational</h2>
+      <p class="result-tagline">AI is in production. The operating model has not caught up.</p>
+    </div>
+    <div class="result-hero-right">
+      <span class="result-big-score">3.01</span>
+      <span class="result-big-denom">/5.0</span>
+      <p class="result-score-label">AI Maturity Score</p>
+    </div>
+  </div>
+
+  <!-- What this means for them -->
+  <div class="stage-insight">
+    <p class="stage-insight-text">At L3 you have working AI in the business — that puts you ahead of roughly half the cohort. The gap to L4 is not about adding more tools. It is about the operating model catching up with the technology: clear ownership, measurable EBITDA attribution, and a governance framework that makes AI defensible. The companies that reach L4 do one thing consistently — they stop treating AI as an IT project.</p>
+  </div>
+
+  <hr class="result-divider">
+
+  <!-- Stage scale -->
+  <p class="section-label">The maturity scale — where L3 sits</p>
+  <div class="stage-scale">
+    <div class="stage-cell">
+      <div class="stage-cell-level">L0</div>
+      <div class="stage-cell-name">Absent</div>
+      <div class="stage-cell-desc">AI not yet on the agenda</div>
+    </div>
+    <div class="stage-cell">
+      <div class="stage-cell-level">L1</div>
+      <div class="stage-cell-name">Aware</div>
+      <div class="stage-cell-desc">Conversations only — nothing in production</div>
+    </div>
+    <div class="stage-cell">
+      <div class="stage-cell-level">L2</div>
+      <div class="stage-cell-name">Active</div>
+      <div class="stage-cell-desc">Pilots exist — none compounding</div>
+    </div>
+    <div class="stage-cell active">
+      <div class="stage-cell-level">L3 ← YOU</div>
+      <div class="stage-cell-name">Operational</div>
+      <div class="stage-cell-desc">AI in production — operating model lagging</div>
+    </div>
+    <div class="stage-cell">
+      <div class="stage-cell-level">L4</div>
+      <div class="stage-cell-name">Systemic</div>
+      <div class="stage-cell-desc">Measurable EBITDA contributor</div>
+    </div>
+    <div class="stage-cell">
+      <div class="stage-cell-level">L5</div>
+      <div class="stage-cell-name">Transform­ational</div>
+      <div class="stage-cell-desc">AI is the operating model and the moat</div>
+    </div>
+  </div>
+
+  <!-- Cohort comparison -->
+  <div class="cohort-comparison">
+    <div class="cohort-comparison-title">Your score vs the cohort — 54 PE-backed SaaS businesses</div>
+    <div class="cohort-row">
+      <span class="cohort-row-label">Your score</span>
+      <span class="cohort-row-score">3.01</span>
+      <div class="cohort-row-track"><div class="cohort-row-fill you" style="width:60.2%"></div></div>
+    </div>
+    <div class="cohort-row">
+      <span class="cohort-row-label">Cohort mean</span>
+      <span class="cohort-row-score">3.39</span>
+      <div class="cohort-row-track"><div class="cohort-row-fill cohort" style="width:67.8%"></div></div>
+    </div>
+    <p class="cohort-caption">You are 0.38 points below the cohort mean. The vertical markers on the pillar bars below show where the cohort average falls for each area.</p>
+  </div>
+
+  <!-- Pillar bars -->
+  <div class="pillar-bars-header">
+    <p class="section-label" style="margin-bottom:0">Your score by pillar</p>
+    <div class="cohort-legend"><div class="cohort-legend-line"></div> Cohort average per pillar</div>
+  </div>
+  <div class="pillar-bars">
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Strategy &amp; Leadership</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:72.6%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Data &amp; Knowledge Foundation</span>
+      <span class="pillar-bar-stage-pill stage-l2">L2</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:44%"></div><div class="pillar-bar-cohort-marker" style="left:67%"></div></div>
+      <span class="pillar-bar-score">2.2</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Use Cases &amp; Value Capture</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:72.6%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Talent &amp; Operating Model</span>
+      <span class="pillar-bar-stage-pill stage-l2">L2</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:40%"></div><div class="pillar-bar-cohort-marker" style="left:57.8%"></div></div>
+      <span class="pillar-bar-score">2.0</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Governance, Risk &amp; Trust</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:60%"></div><div class="pillar-bar-cohort-marker" style="left:65%"></div></div>
+      <span class="pillar-bar-score">3.0</span>
+    </div>
+    <div class="pillar-bar-row">
+      <span class="pillar-bar-name">Infrastructure &amp; Tooling</span>
+      <span class="pillar-bar-stage-pill stage-l3">L3</span>
+      <div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:72%"></div><div class="pillar-bar-cohort-marker" style="left:70%"></div></div>
+      <span class="pillar-bar-score">3.6</span>
+    </div>
+  </div>
+
+  <!-- Teaser -->
+  <div class="report-teaser">
+    <div class="teaser-heading-row">
+      <div>
+        <p class="teaser-heading">Your full report includes</p>
+        <p class="teaser-sub">The full report goes deeper on each of the areas below. Speak to The Nth Layer to receive it.</p>
+      </div>
+    </div>
+    <div class="teaser-items">
+      <div class="teaser-item">
+        <div class="teaser-item-dot"></div>
+        <span class="teaser-item-text">How you rank against each of the 54 companies in the cohort, pillar by pillar</span>
+      </div>
+      <div class="teaser-item">
+        <div class="teaser-item-dot"></div>
+        <span class="teaser-item-text">5 prioritised opportunities with a specific first move and rationale for each</span>
+      </div>
+      <div class="teaser-item">
+        <div class="teaser-item-dot"></div>
+        <span class="teaser-item-text">A 90-day action plan built for your stage and your two largest gaps</span>
+      </div>
+      <div class="teaser-item">
+        <div class="teaser-item-dot"></div>
+        <span class="teaser-item-text">What L4 requires — and the operating model traps that keep businesses stuck at L3</span>
+      </div>
+    </div>
+    <div class="gate-divider"></div>
+    <div class="teaser-cta-row">
+      <div class="teaser-cta-btn">Get in touch →</div>
+      <span class="teaser-cta-note">nthlayer.co.uk · matthewdewstowe@nthlayer.co.uk</span>
+    </div>
+  </div>
+
+  <div class="contact-banner">
+    <span class="contact-piece brand">Nth Layer</span>
+    <span class="contact-dot"></span>
+    <span class="contact-piece">nthlayer.co.uk</span>
+    <span class="contact-dot"></span>
+    <span class="contact-piece">+44 7572 879 043</span>
+  </div>
+
+</div>
+</body>
+</html>
