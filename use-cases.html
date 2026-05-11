@@ -39,9 +39,6 @@
       --max-width: 1140px;
     }
 
-    html {
-      zoom: 0.8;
-    }
     html, body {
       scroll-behavior: smooth;
       overflow-x: hidden;
@@ -765,10 +762,10 @@
     }
 
     .container {
-      width: 100%;
-      max-width: none;
+      width: min(100% - 128px, var(--max-width));
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0 180px;
+      padding: 0;
     }
 
     .nav-inner {
