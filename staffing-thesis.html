@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The AI-Native Staffing Thesis | The Nth Layer</title>
+  <meta name="description" content="AI will not simply improve recruiter productivity. It will redesign how recruitment businesses operate. The Nth Layer's thesis on the AI-native staffing operating model.">
+  <link rel="canonical" href="https://nthlayer.co.uk/staffing-thesis">
+  <meta property="og:title" content="The AI-Native Staffing Thesis | The Nth Layer">
+  <meta property="og:description" content="AI will not simply improve recruiter productivity. It will redesign how recruitment businesses operate.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nthlayer.co.uk/staffing-thesis">
+  <meta property="og:site_name" content="The Nth Layer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The AI-Native Staffing Thesis | The Nth Layer">
+  <meta name="twitter:description" content="AI will not simply improve recruiter productivity. It will redesign how recruitment businesses operate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <script>
+  (function(){
+    function applyZoom(){
+      if (window.innerWidth <= 768) {
+        document.documentElement.style.zoom = '1';
+        return;
+      }
+      var ow = window.outerWidth;
+      var iw = window.innerWidth;
+      var browserZoom = (ow > 0 && iw > 0) ? ow / iw : 1;
+      document.documentElement.style.zoom = (0.8 / browserZoom).toString();
+    }
+    applyZoom();
+    window.addEventListener('resize', applyZoom);
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden) applyZoom();
+    });
+  })();
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800;900&family=DM+Serif+Display&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0d0f0d;
+      --paper:   #fbfbf8;
+      --grey:    #e9e9e5;
+      --muted:   #666a62;
+      --lime:    #BFFF00;
+      --dark:    #0a0e0f;
+      --darker:  #050807;
+      --line:    rgba(0,0,0,0.08);
+      --line-w:  rgba(255,255,255,0.08);
+      --max-width: 1140px;
+      --font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      --page-gutter: clamp(16px, 3.6vw, 40px);
+    }
+
+    html {
+      zoom: 0.8;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--paper);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: min(100% - (var(--page-gutter) * 2), var(--max-width));
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      height: 84px;
+      background: var(--darker);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 0;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .nav-logo::after {
+      content: 'THE\A NTH\A LAYER';
+      white-space: pre;
+      font-size: 15px;
+      line-height: 0.88;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+
+    .nav-logo svg {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-links a.nav-cta {
+      background: var(--lime);
+      color: var(--black);
+      padding: 14px 24px;
+      border-radius: 3px;
+      box-shadow: 0 7px 18px rgba(191,255,0,0.22);
+      font-weight: 700;
+    }
+
+    .nav-links a.nav-cta:hover { opacity: 0.9; }
+
+    /* ============================================================
+       SECTION LABELS
+    ============================================================ */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 32px;
+      white-space: nowrap;
+    }
+
+    .section-label::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    .section-label-dark {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 32px;
+      white-space: nowrap;
+    }
+
+    .section-label-dark::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      position: relative;
+      background: var(--darker);
+      overflow: hidden;
+      padding: 120px 0 100px;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Radial lime glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(ellipse at center, rgba(191,255,0,0.10) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Grid pattern overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: #fff;
+      max-width: 820px;
+      margin-bottom: 32px;
+    }
+
+    .hero-subhead {
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .btn-lime {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 16px 30px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(191,255,0,0.28);
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-lime:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 15px 28px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    /* Metric chips */
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 32px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .chip::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      flex-shrink: 0;
+    }
+
+    .chip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       THESIS SECTION
+    ============================================================ */
+    .section-thesis {
+      background: var(--paper);
+      padding: 96px 0;
+    }
+
+    .thesis-pull {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 2.8vw, 40px);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      padding-left: 28px;
+      border-left: 4px solid var(--lime);
+      margin-bottom: 48px;
+      max-width: 680px;
+    }
+
+    .thesis-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .thesis-body-left p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(0,0,0,0.65);
+      margin-bottom: 20px;
+    }
+
+    .thesis-body-left p:last-child {
+      margin-bottom: 0;
+    }
+
+    .thesis-body-left p strong {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .thesis-pull-2 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.2vw, 34px);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      padding-left: 24px;
+      border-left: 4px solid var(--lime);
+      max-width: 480px;
+    }
+
+    /* ============================================================
+       FRONTSTAGE / BACKSTAGE
+    ============================================================ */
+    .section-model {
+      background: var(--dark);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-model::before {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(191,255,0,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .model-heading {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.2vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .model-subhead {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .model-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .model-col {
+      background: var(--dark);
+      padding: 40px 36px 44px;
+    }
+
+    .model-col-left {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .model-col-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .model-col-label-lime { color: var(--lime); }
+    .model-col-label-grey { color: rgba(255,255,255,0.35); }
+
+    .model-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .model-row:last-child {
+      border-bottom: none;
+    }
+
+    .model-row-left {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .model-row-left::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+
+    .model-row-right {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .model-row-right::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       FIVE STAGES
+    ============================================================ */
+    .section-stages {
+      background: var(--paper);
+      padding: 96px 0;
+    }
+
+    .stages-heading {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.2vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 56px;
+      max-width: 600px;
+    }
+
+    .stage-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 4px;
+      margin-bottom: 2px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .stage-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .stage-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: #fff;
+      transition: background 0.2s;
+    }
+
+    .stage-card.active .stage-header {
+      background: var(--black);
+    }
+
+    .stage-num {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      color: rgba(0,0,0,0.22);
+      min-width: 28px;
+      flex-shrink: 0;
+    }
+
+    .stage-card.active .stage-num {
+      color: var(--lime);
+    }
+
+    .stage-title {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--black);
+      flex: 1;
+    }
+
+    .stage-card.active .stage-title {
+      color: #fff;
+    }
+
+    .stage-badge {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(191,255,0,0.15);
+      color: #5a7800;
+      padding: 5px 10px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .stage-chevron {
+      color: rgba(0,0,0,0.25);
+      font-size: 18px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .stage-card.active .stage-chevron {
+      transform: rotate(180deg);
+      color: rgba(255,255,255,0.4);
+    }
+
+    .stage-body {
+      display: none;
+      padding: 0 32px 32px 84px;
+      background: #fafaf7;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .stage-card.active .stage-body {
+      display: block;
+    }
+
+    .stage-body-inner {
+      padding-top: 28px;
+    }
+
+    .stage-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.65);
+      margin-bottom: 24px;
+    }
+
+    .stage-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .stage-meta-item {
+      padding: 16px 18px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .stage-meta-label {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.3);
+      margin-bottom: 8px;
+    }
+
+    .stage-meta-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       WHY STAFFING
+    ============================================================ */
+    .section-why {
+      background: var(--dark);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-heading {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 56px;
+      max-width: 700px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 32px;
+      border-radius: 3px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .why-card:hover {
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(191,255,0,0.12);
+    }
+
+    .why-num {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      color: var(--lime);
+      margin-bottom: 16px;
+    }
+
+    .why-title {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .why-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ============================================================
+       FROM FIRM TO INFRASTRUCTURE
+    ============================================================ */
+    .section-infra {
+      background: var(--paper);
+      padding: 96px 0;
+    }
+
+    .infra-heading {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 56px;
+      max-width: 700px;
+    }
+
+    .infra-steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .infra-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 4px;
+      padding: 36px 32px 40px;
+    }
+
+    .infra-step-num {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+    }
+
+    .infra-step-title {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .infra-step-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.55);
+    }
+
+    .infra-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      padding-top: 80px;
+    }
+
+    .infra-arrow svg {
+      color: var(--lime);
+    }
+
+    .infra-card:nth-child(5) {
+      background: var(--black);
+      border-color: transparent;
+    }
+
+    .infra-card:nth-child(5) .infra-step-num {
+      color: var(--lime);
+    }
+
+    .infra-card:nth-child(5) .infra-step-title {
+      color: #fff;
+    }
+
+    .infra-card:nth-child(5) .infra-step-body {
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ============================================================
+       STRATEGIC IMPLICATIONS
+    ============================================================ */
+    .section-implications {
+      background: var(--darker);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-implications::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse at center, rgba(191,255,0,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .implications-heading {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+
+    .implications-intro {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+      max-width: 680px;
+      margin-bottom: 56px;
+    }
+
+    .implications-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .impl-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 30px 38px;
+      border-radius: 3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .impl-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(191,255,0,0.15);
+    }
+
+    .impl-num {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+
+    .impl-title {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .impl-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.42);
+    }
+
+    /* Last two cards span differently for 5-card grid */
+    .implications-grid .impl-card:nth-child(4),
+    .implications-grid .impl-card:nth-child(5) {
+      /* stays in natural grid flow */
+    }
+
+    /* ============================================================
+       FINAL CTA
+    ============================================================ */
+    .section-cta {
+      background: var(--dark);
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .section-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(ellipse at center, rgba(191,255,0,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-heading {
+      font-family: var(--font-display);
+      font-size: clamp(38px, 4.5vw, 66px);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .cta-subhead {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      margin: 0 auto 48px;
+    }
+
+    .cta-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+
+    .site-footer {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.04em;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ============================================================
+       INTERSECTION OBSERVER ANIMATIONS
+    ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: #f7f7f4;
+      color: var(--black);
+      width: min(840px, calc(100vw - 48px));
+      margin: 0 auto;
+      padding: 42px 40px 44px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.08);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.25s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 22px;
+      background: none; border: none;
+      font-size: 26px; line-height: 1;
+      cursor: pointer; color: rgba(0,0,0,0.35);
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--black); }
+
+    .modal-eyebrow {
+      font-size: 11px; font-weight: 900;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(0,0,0,0.4); margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 3.6vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      font-weight: 400;
+      color: var(--black);
+    }
+
+    .modal-subtitle {
+      font-size: 16px;
+      color: rgba(0,0,0,0.65); margin-bottom: 8px; line-height: 1.45;
+    }
+
+    .contact-note {
+      font-size: 14px;
+      color: rgba(0,0,0,0.4); margin-bottom: 28px; line-height: 1.45;
+    }
+
+    .form-group { margin-bottom: 0; }
+
+    .contact-row-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px; margin-bottom: 14px;
+    }
+
+    .contact-row-single { margin-bottom: 14px; }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 3px;
+      font-family: var(--font-body);
+      font-size: 14px; line-height: 1.4;
+      color: var(--black); background: #fff;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { outline: none; border-color: rgba(0,0,0,0.35); }
+
+    .form-group textarea { resize: vertical; min-height: 88px; }
+
+    .contact-actions { margin-top: 20px; }
+
+    .modal-submit {
+      background: var(--black); color: #fff;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 700;
+      padding: 14px 28px;
+      border: none; border-radius: 3px;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+
+    .modal-submit:hover { opacity: 0.82; }
+    .modal-submit:disabled { opacity: 0.45; cursor: default; }
+
+    /* ============================================================
+       MOBILE
+    ============================================================ */
+    @media (max-width: 768px) {
+      .hero { padding: 72px 0 64px; min-height: auto; }
+      .hero h1 { font-size: 36px; }
+
+      .thesis-body { grid-template-columns: 1fr; gap: 40px; }
+
+      .model-split { grid-template-columns: 1fr; }
+      .model-col-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+      .stage-body { padding: 0 20px 24px 20px; }
+      .stage-meta { grid-template-columns: 1fr; }
+
+      .why-grid { grid-template-columns: 1fr; }
+
+      .infra-steps {
+        grid-template-columns: 1fr;
+      }
+      .infra-arrow { display: none; }
+
+      .implications-grid { grid-template-columns: 1fr; }
+
+      .hero-chips { gap: 8px; }
+      .chip { font-size: 12px; padding: 8px 14px; }
+
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-logo::after { display: none; }
+
+      .modal-content { padding: 24px 18px 28px; border-radius: 4px; }
+      .modal-title { font-size: clamp(32px, 8vw, 44px); }
+      .contact-row-two { grid-template-columns: 1fr; }
+
+      .infra-steps { gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo" aria-label="The Nth Layer home">
+        <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="30" height="30" rx="3" stroke="currentColor" stroke-width="2"/>
+          <rect x="5" y="5" width="22" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="9" y="9" width="14" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="13" y="13" width="6" height="6" rx="0.5" fill="currentColor"/>
+        </svg>
+      </a>
+      <div class="nav-links">
+        <a href="/inflexion/">Inflexion</a>
+        <a href="/#contact" class="nav-cta" onclick="openContactModal(event)">Get in Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Market Thesis</div>
+      <h1>Staffing Is Approaching An Operating Model Inflection Point</h1>
+      <p class="hero-subhead">AI will not simply improve recruiter productivity. It will redesign how recruitment businesses operate.</p>
+      <div class="hero-btns">
+        <a href="#thesis" class="btn-lime">Read The Thesis</a>
+        <button class="btn-outline" onclick="openContactModal(event)">Book Strategy Session</button>
+      </div>
+      <div class="hero-chips" id="heroChips">
+        <span class="chip">20-40% less admin</span>
+        <span class="chip">Faster time-to-shortlist</span>
+        <span class="chip">Higher revenue per consultant</span>
+        <span class="chip">AI-native operations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE THESIS
+  ============================================================ -->
+  <section class="section-thesis" id="thesis">
+    <div class="container">
+      <div class="section-label fade-up">The Thesis</div>
+      <div class="thesis-pull fade-up">"Most staffing firms are using AI as fragmented sidecar tooling."</div>
+      <div class="thesis-body">
+        <div class="thesis-body-left fade-up">
+          <p>Most staffing firms are still using AI as fragmented sidecar tooling: copilots, note takers, sourcing assistants, and isolated automations layered onto existing workflows.</p>
+          <p>These tools improve individual tasks. But recruiters still manually coordinate search, matching, CRM updates, outreach, summaries, scheduling, and operational follow-up across disconnected systems.</p>
+          <p><strong>The strategic shift is not AI-assisted recruiting.</strong></p>
+          <p>It is the emergence of AI-native staffing operating systems.</p>
+        </div>
+        <div class="fade-up">
+          <div class="thesis-pull-2">"The strategic shift is not AI-assisted recruiting. It is the emergence of AI-native staffing operating systems."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FRONTSTAGE VS BACKSTAGE
+  ============================================================ -->
+  <section class="section-model">
+    <div class="container">
+      <div class="section-label-dark fade-up">The Model</div>
+      <h2 class="model-heading fade-up">Frontstage and Backstage</h2>
+      <p class="model-subhead fade-up">The future staffing firm separates what humans do best from what intelligence does best. Operational work moves to the backstage. Human capital concentrates on what cannot be automated: trust, judgement, and relationship.</p>
+      <div class="model-split fade-up">
+        <div class="model-col model-col-left">
+          <div class="model-col-label model-col-label-lime">Human-Led Frontstage</div>
+          <div class="model-row model-row-left">Client relationships</div>
+          <div class="model-row model-row-left">Candidate relationships</div>
+          <div class="model-row model-row-left">Negotiation</div>
+          <div class="model-row model-row-left">Trust</div>
+          <div class="model-row model-row-left">Commercial judgement</div>
+          <div class="model-row model-row-left">Advisory</div>
+        </div>
+        <div class="model-col">
+          <div class="model-col-label model-col-label-grey">AI-Orchestrated Backstage</div>
+          <div class="model-row model-row-right">Search</div>
+          <div class="model-row model-row-right">Matching</div>
+          <div class="model-row model-row-right">CRM coordination</div>
+          <div class="model-row model-row-right">Workflow routing</div>
+          <div class="model-row model-row-right">Summaries and follow-up</div>
+          <div class="model-row model-row-right">Scheduling</div>
+          <div class="model-row model-row-right">Prioritisation</div>
+          <div class="model-row model-row-right">Compliance</div>
+          <div class="model-row model-row-right">Market signals</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FIVE STAGES OF EVOLUTION
+  ============================================================ -->
+  <section class="section-stages">
+    <div class="container">
+      <div class="section-label fade-up">Maturity Model</div>
+      <h2 class="stages-heading fade-up">The Five Stages of Evolution</h2>
+
+      <!-- Stage 1 -->
+      <div class="stage-card fade-up" onclick="toggleStage(this)">
+        <div class="stage-header">
+          <span class="stage-num">01</span>
+          <span class="stage-title">AI-Assisted Staffing</span>
+          <span class="stage-badge">Industry Average</span>
+          <span class="stage-chevron">&#8964;</span>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Individual tools layered onto existing workflows. Copilots, note-takers, and sourcing add-ons reduce friction on specific tasks but leave the underlying operating model unchanged.</p>
+            <div class="stage-meta">
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Recruiter Role</div>
+                <div class="stage-meta-value">Unchanged. AI reduces friction on specific tasks.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">AI Role</div>
+                <div class="stage-meta-value">Task-level assistance.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Business Model</div>
+                <div class="stage-meta-value">Traditional fee-per-placement.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="stage-card fade-up" onclick="toggleStage(this)">
+        <div class="stage-header">
+          <span class="stage-num">02</span>
+          <span class="stage-title">Agentic Staffing Operations</span>
+          <span class="stage-chevron">&#8964;</span>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Agents handle multi-step operational workflows. Search to outreach to scheduling runs autonomously. The recruiter supervises rather than executes.</p>
+            <div class="stage-meta">
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Recruiter Role</div>
+                <div class="stage-meta-value">Supervisor and relationship lead.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">AI Role</div>
+                <div class="stage-meta-value">Operational execution.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Business Model</div>
+                <div class="stage-meta-value">Retained and subscription models emerge.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="stage-card fade-up" onclick="toggleStage(this)">
+        <div class="stage-header">
+          <span class="stage-num">03</span>
+          <span class="stage-title">AI-Native Recruitment Operating System</span>
+          <span class="stage-chevron">&#8964;</span>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">The firm is rebuilt around an intelligence layer. Workflow is designed for human-agent collaboration from the ground up. Operational work is the exception, not the norm.</p>
+            <div class="stage-meta">
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Recruiter Role</div>
+                <div class="stage-meta-value">Strategic and commercial. Operational work is the exception.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">AI Role</div>
+                <div class="stage-meta-value">Core operating infrastructure.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Business Model</div>
+                <div class="stage-meta-value">Platform and managed service models.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="stage-card fade-up" onclick="toggleStage(this)">
+        <div class="stage-header">
+          <span class="stage-num">04</span>
+          <span class="stage-title">Adaptive Talent Intelligence Platform</span>
+          <span class="stage-chevron">&#8964;</span>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">Proprietary data compounds. The system learns from every placement, rejection, and market signal. Each engagement makes the platform more accurate and more valuable.</p>
+            <div class="stage-meta">
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Recruiter Role</div>
+                <div class="stage-meta-value">Intelligence curator and client advisor.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">AI Role</div>
+                <div class="stage-meta-value">Predictive and adaptive.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Business Model</div>
+                <div class="stage-meta-value">Intelligence-as-a-service. Data as asset.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="stage-card fade-up" onclick="toggleStage(this)">
+        <div class="stage-header">
+          <span class="stage-num">05</span>
+          <span class="stage-title">Labour Market Infrastructure</span>
+          <span class="stage-chevron">&#8964;</span>
+        </div>
+        <div class="stage-body">
+          <div class="stage-body-inner">
+            <p class="stage-desc">The firm becomes infrastructure for talent liquidity. Candidate intent modelling, supply and demand orchestration, and predictive hiring make the business a platform for the labour market itself.</p>
+            <div class="stage-meta">
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Recruiter Role</div>
+                <div class="stage-meta-value">Market architect.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">AI Role</div>
+                <div class="stage-meta-value">Labour market intelligence engine.</div>
+              </div>
+              <div class="stage-meta-item">
+                <div class="stage-meta-label">Business Model</div>
+                <div class="stage-meta-value">Infrastructure and platform economics.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHY STAFFING IS UNIQUELY POSITIONED
+  ============================================================ -->
+  <section class="section-why">
+    <div class="container">
+      <div class="section-label-dark fade-up">Market Position</div>
+      <h2 class="why-heading fade-up">Staffing Is One of the Industries Most Likely to Be Transformed</h2>
+      <div class="why-grid">
+
+        <div class="why-card fade-up">
+          <div class="why-num">01</div>
+          <div class="why-title">Workflow-Heavy</div>
+          <p class="why-body">The core recruiter workflow is a sequence of repeatable, high-volume operational steps. Every step is automatable. The question is not whether AI will handle it, but when.</p>
+        </div>
+
+        <div class="why-card fade-up">
+          <div class="why-num">02</div>
+          <div class="why-title">Communication-Heavy</div>
+          <p class="why-body">Recruiters spend the majority of their time on outreach, follow-up, and coordination. AI agents excel at exactly this. The operational core of the recruiter role is prime territory for automation.</p>
+        </div>
+
+        <div class="why-card fade-up">
+          <div class="why-num">03</div>
+          <div class="why-title">Data-Rich</div>
+          <p class="why-body">Every placement, rejection, and conversation is signal. Firms that capture and use this data will compound their advantage. Those that do not will find their instinct-based judgement outperformed at scale.</p>
+        </div>
+
+        <div class="why-card fade-up">
+          <div class="why-num">04</div>
+          <div class="why-title">Timing-Sensitive</div>
+          <p class="why-body">Speed-to-shortlist and speed-to-offer matter. AI collapses the latency between identifying a candidate and getting them in front of a client. First-mover advantage in speed becomes structural.</p>
+        </div>
+
+        <div class="why-card fade-up">
+          <div class="why-num">05</div>
+          <div class="why-title">Capacity-Constrained</div>
+          <p class="why-body">Recruiter headcount caps revenue. AI-native operations decouple revenue growth from headcount growth. The unit economics of the business change fundamentally at scale.</p>
+        </div>
+
+        <div class="why-card fade-up">
+          <div class="why-num">06</div>
+          <div class="why-title">Operationally Intensive</div>
+          <p class="why-body">A high proportion of recruiter time is coordination, not advisory. This is exactly the work that belongs in the backstage. Releasing recruiters from it does not reduce quality: it concentrates it.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FROM FIRM TO INFRASTRUCTURE
+  ============================================================ -->
+  <section class="section-infra">
+    <div class="container">
+      <div class="section-label fade-up">The Big Idea</div>
+      <h2 class="infra-heading fade-up">From Recruitment Firm to Labour Market Infrastructure</h2>
+
+      <div class="infra-steps fade-up">
+
+        <div class="infra-card">
+          <div class="infra-step-num">Step 01</div>
+          <div class="infra-step-title">Recruiter-Centric Business</div>
+          <p class="infra-step-body">Human capacity is the constraint. Revenue scales with headcount. Relationships are the asset. Growth requires hiring. Margins plateau as operations grow.</p>
+        </div>
+
+        <div class="infra-arrow">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 16H26M26 16L18 8M26 16L18 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="infra-card">
+          <div class="infra-step-num">Step 02</div>
+          <div class="infra-step-title">Intelligence-Centric Operating System</div>
+          <p class="infra-step-body">Workflow intelligence is the constraint. Revenue scales with platform adoption. Data compounds. Operational leverage improves with every engagement. Margins expand.</p>
+        </div>
+
+        <div class="infra-arrow">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 16H26M26 16L18 8M26 16L18 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="infra-card">
+          <div class="infra-step-num">Step 03</div>
+          <div class="infra-step-title">Labour Market Infrastructure</div>
+          <p class="infra-step-body">Talent liquidity is the product. Predictive hiring. Candidate intent modelling. Supply and demand orchestration. Intelligence is the asset. The firm is the market.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STRATEGIC IMPLICATIONS
+  ============================================================ -->
+  <section class="section-implications">
+    <div class="container">
+      <div class="section-label-dark fade-up">Strategic Implications</div>
+      <h2 class="implications-heading fade-up">What This Means for PE-Backed and Founder-Led Staffing Firms</h2>
+      <p class="implications-intro fade-up">AI tooling commoditises quickly. The firms that will win are those that build workflow intelligence as a proprietary asset. Operational leverage, compounding data, and margin expansion are the strategic prizes.</p>
+
+      <div class="implications-grid">
+
+        <div class="impl-card fade-up">
+          <div class="impl-num">01</div>
+          <div class="impl-title">Revenue Per Consultant</div>
+          <p class="impl-body">AI-native firms will generate significantly higher revenue per consultant as operational work shifts to the intelligence layer. Headcount becomes a multiplier, not the constraint.</p>
+        </div>
+
+        <div class="impl-card fade-up">
+          <div class="impl-num">02</div>
+          <div class="impl-title">Time-to-Shortlist</div>
+          <p class="impl-body">Speed becomes a structural advantage. Faster shortlists mean higher win rates and stronger client retention. The firms that get there first build a commercial moat that is difficult to close.</p>
+        </div>
+
+        <div class="impl-card fade-up">
+          <div class="impl-num">03</div>
+          <div class="impl-title">Operating Leverage</div>
+          <p class="impl-body">Decoupling revenue from headcount changes the unit economics of the entire business model. This is the shift that transforms a staffing firm into a scalable platform.</p>
+        </div>
+
+        <div class="impl-card fade-up">
+          <div class="impl-num">04</div>
+          <div class="impl-title">Margin Expansion</div>
+          <p class="impl-body">Operational cost reduction at scale creates margin profiles that traditional staffing cannot match. Intelligence-native operations change what the business is worth at exit.</p>
+        </div>
+
+        <div class="impl-card fade-up">
+          <div class="impl-num">05</div>
+          <div class="impl-title">Workflow Visibility</div>
+          <p class="impl-body">Intelligence-native operations create auditability and insight that transforms how firms are valued at exit. Data provenance and workflow intelligence are balance sheet assets.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA
+  ============================================================ -->
+  <section class="section-cta">
+    <div class="container" style="position:relative;z-index:10;">
+      <h2 class="cta-heading fade-up">The Future Staffing Firm Is Intelligence-Native</h2>
+      <p class="cta-subhead fade-up">Move beyond sidecar AI and redesign the recruitment operating model itself.</p>
+      <div class="cta-btns fade-up">
+        <button class="btn-lime" onclick="openContactModal(event)">Book a Strategy Session</button>
+        <a href="/" class="btn-outline">Back to The Nth Layer</a>
+      </div>
+      <div class="site-footer fade-up">
+        Nth Layer | nthlayer.co.uk | +44 7572 879 043
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT MODAL
+  ============================================================ -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeContactModal()">x</button>
+      <div class="modal-eyebrow">Get in touch</div>
+      <h2 class="modal-title">Let's talk</h2>
+      <p class="modal-subtitle">If AI transformation in staffing is on your agenda, the form takes 30 seconds.</p>
+      <p class="contact-note">Every engagement starts with a 30-minute call. No deck. Just the right questions.</p>
+      <form id="contactModalForm" onsubmit="submitContact(event)">
+        <div class="contact-row-two">
+          <div class="form-group">
+            <input type="text" id="contactName" name="name" required placeholder="Name *">
+          </div>
+          <div class="form-group">
+            <input type="text" id="contactCompany" name="company" required placeholder="Company *">
+          </div>
+        </div>
+        <div class="contact-row-single">
+          <div class="form-group">
+            <input type="text" id="contactJobTitle" name="jobtitle" required placeholder="Job title *">
+          </div>
+        </div>
+        <div class="contact-row-single">
+          <div class="form-group">
+            <input type="email" id="contactEmail" name="email" required placeholder="Email *">
+          </div>
+        </div>
+        <div class="contact-row-single">
+          <div class="form-group">
+            <textarea id="contactMessage" name="message" placeholder="Anything you want us to know (optional)"></textarea>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <button type="submit" class="modal-submit">Send message</button>
+        </div>
+      </form>
+      <div id="contactModalSuccess" class="modal-subtitle" style="display:none; margin-top:12px;">Thank you. We will be in touch shortly.</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JS
+  ============================================================ -->
+  <script>
+    // ---- Hero chip stagger ----
+    (function() {
+      var chips = document.querySelectorAll('#heroChips .chip');
+      chips.forEach(function(chip, i) {
+        setTimeout(function() {
+          chip.classList.add('visible');
+        }, 600 + (i * 150));
+      });
+    })();
+
+    // ---- Intersection Observer for fade-up ----
+    (function() {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.fade-up').forEach(function(el) {
+        io.observe(el);
+      });
+    })();
+
+    // ---- Stage card toggle ----
+    function toggleStage(card) {
+      var isActive = card.classList.contains('active');
+      document.querySelectorAll('.stage-card.active').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      if (!isActive) {
+        card.classList.add('active');
+      }
+    }
+
+    // ---- Contact modal ----
+    function openContactModal(e) {
+      if (e) e.preventDefault();
+      var form = document.getElementById('contactModalForm');
+      var success = document.getElementById('contactModalSuccess');
+      if (form && success) { form.style.display = 'block'; success.style.display = 'none'; }
+      document.getElementById('contactModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    async function submitContact(e) {
+      e.preventDefault();
+      var formEl = e.target;
+      var form = document.getElementById('contactModalForm');
+      var success = document.getElementById('contactModalSuccess');
+      var submitButton = formEl.querySelector('.modal-submit');
+      var originalLabel = submitButton.textContent;
+      var payload = {
+        name: document.getElementById('contactName').value.trim(),
+        company: document.getElementById('contactCompany').value.trim(),
+        jobtitle: document.getElementById('contactJobTitle').value.trim(),
+        email: document.getElementById('contactEmail').value.trim(),
+        message: document.getElementById('contactMessage').value.trim(),
+        audience: 'Staffing Thesis',
+        sourcePage: 'staffing-thesis'
+      };
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      try {
+        var response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error('Failed');
+        form.style.display = 'none';
+        success.style.display = 'block';
+        formEl.reset();
+      } catch (error) {
+        alert('Message failed to send. Please try again.');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+      }
+    }
+
+    document.getElementById('contactModal').addEventListener('click', function(e) {
+      if (e.target === this) closeContactModal();
+    });
+
+    // ---- ESC key to close modal ----
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContactModal();
+    });
+  </script>
+</body>
+</html>
