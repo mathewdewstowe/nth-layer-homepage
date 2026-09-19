@@ -148,45 +148,45 @@
        HERO
     ════════════════════════════════ */
     .hero {
-      padding: 140px var(--gutter) 88px;
-      background:
-        radial-gradient(ellipse 60% 70% at 95% 60%, rgba(198,242,78,0.07) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 55% at 5% 10%,  rgba(77,124,15,0.22)  0%, transparent 60%),
-        var(--hero-bg);
+      background: var(--hero-bg);
+      display: flex; min-height: 580px;
+    }
+    .hero-img {
+      flex: 0 0 46%;
+      background: url('/images/hero-tree.jpg') center 30% / cover no-repeat;
+    }
+    .hero-text {
+      flex: 1;
+      padding: 100px clamp(32px, 5vw, 72px) 72px;
       display: flex; align-items: center;
+      background:
+        radial-gradient(ellipse 70% 60% at 100% 50%, rgba(198,242,78,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 55% at 0% 10%,   rgba(77,124,15,0.18)  0%, transparent 55%),
+        var(--hero-bg);
     }
     .hero-inner {
-      width: min(100%, var(--max-w));
-      margin-inline: auto;
-      max-width: 700px;
-      text-align: center;
+      width: 100%; max-width: 520px;
     }
     .hero-eyebrow {
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
       text-transform: uppercase; color: rgba(198,242,78,0.6); margin-bottom: 22px;
     }
-    .hero-divider { width: 32px; height: 2px; background: rgba(198,242,78,0.4); border-radius: 1px; margin: 0 auto 26px; }
+    .hero-divider { width: 32px; height: 2px; background: rgba(198,242,78,0.4); border-radius: 1px; margin-bottom: 26px; }
     .hero h1 {
-      font-size: clamp(22px, 2.6vw, 36px);
-      font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 22px;
+      font-size: clamp(22px, 2.4vw, 34px);
+      font-weight: 700; line-height: 1.28; color: #fff; margin-bottom: 22px;
     }
     .hero h1 em { color: var(--lime); font-style: normal; }
     .hero-offer {
-      font-size: clamp(15px, 1.6vw, 17px);
-      color: rgba(235,235,232,0.68); line-height: 1.7; margin-bottom: 40px;
-      max-width: 520px; margin-inline: auto;
+      font-size: clamp(15px, 1.5vw, 16px);
+      color: rgba(235,235,232,0.65); line-height: 1.72; margin-bottom: 38px;
     }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-
-    /* ════════════════════════════════
-       HERO VISUAL
-    ════════════════════════════════ */
-    .hero-visual {
-      height: 360px;
-      background: url('/images/hero-tree.jpg') center 40% / cover no-repeat;
-      border-bottom: 1px solid rgba(22,24,26,0.12);
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 800px) {
+      .hero { flex-direction: column; }
+      .hero-img { flex: 0 0 260px; }
+      .hero-text { padding: 48px var(--gutter) 60px; }
     }
-    @media (max-width: 700px) { .hero-visual { height: 220px; } }
 
     /* ════════════════════════════════
        PROBLEM
@@ -408,20 +408,20 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-inner">
-    <p class="hero-eyebrow">The Nth Layer · AI Operating Model Practice</p>
-    <div class="hero-divider"></div>
-    <h1>Most AI Programmes Generate Output.<br>Almost None Change <em>How the Business Runs.</em></h1>
-    <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
-    <div class="hero-actions">
-      <button class="btn btn-lime" onclick="openModal()">Book a Working Session</button>
-      <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
+  <div class="hero-img" role="presentation"></div>
+  <div class="hero-text">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">The Nth Layer · AI Operating Model Practice</p>
+      <div class="hero-divider"></div>
+      <h1>Most AI Programmes Generate Output.<br>Almost None Change <em>How the Business Runs.</em></h1>
+      <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
+      <div class="hero-actions">
+        <button class="btn btn-lime" onclick="openModal()">Book a Working Session</button>
+        <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- HERO VISUAL -->
-<div class="hero-visual" role="presentation"></div>
 
 <!-- PROBLEM -->
 <section class="problem">
