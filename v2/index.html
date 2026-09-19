@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="Output is up. Lead time hasn't moved. Nobody can say what the AI spend bought.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,7 +42,7 @@
       --hero-bg:   #0E1210;
       --max-w:     1100px;
       --gutter:    clamp(20px, 5vw, 48px);
-      --font-head: 'Merriweather', Georgia, serif;
+      --font-head: 'DM Serif Display', Georgia, serif;
       --font-body: 'Roboto', system-ui, sans-serif;
       --font-mono: 'Roboto Mono', 'Courier New', monospace;
     }
@@ -63,7 +63,7 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); line-height: 1.2; font-style: normal; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); font-weight: 400; line-height: 1.15; font-style: normal; }
     em, i { font-style: normal; }
 
     .wrap {
@@ -93,7 +93,7 @@
     /* ── Section label ── */
     .label {
       display: block; font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.45; margin-bottom: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(198,242,78,0.7); margin-bottom: 14px;
     }
 
     /* ════════════════════════════════
@@ -101,7 +101,7 @@
     ════════════════════════════════ */
     #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-      height: 66px; display: flex; align-items: center; padding: 0 var(--gutter);
+      height: 72px; display: flex; align-items: center;
       background: transparent; transition: background 0.3s, backdrop-filter 0.3s;
     }
     #nav.scrolled {
@@ -109,7 +109,7 @@
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
     .nav-logo {
       display: flex; align-items: center; gap: 9px; text-decoration: none;
       color: #fff; font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
@@ -148,44 +148,45 @@
        HERO
     ════════════════════════════════ */
     .hero {
-      background: var(--hero-bg);
-      display: flex; min-height: 580px;
-    }
-    .hero-img {
-      flex: 0 0 46%;
-      background: url('/images/hero-tree.jpg') center 30% / cover no-repeat;
-    }
-    .hero-text {
-      flex: 1;
-      padding: 100px clamp(32px, 5vw, 72px) 72px;
+      min-height: max(640px, 92vh);
       display: flex; align-items: center;
+      padding: 120px var(--gutter) 88px;
       background:
-        radial-gradient(ellipse 70% 60% at 100% 50%, rgba(198,242,78,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 55% at 0% 10%,   rgba(77,124,15,0.18)  0%, transparent 55%),
+        linear-gradient(90deg, rgba(8,10,9,0.92) 0%, rgba(8,10,9,0.72) 38%, rgba(8,10,9,0.15) 70%, rgba(8,10,9,0.05) 100%),
+        linear-gradient(to top, rgba(8,10,9,0.55) 0%, transparent 35%),
+        url('/images/hero-tree.jpg') 70% center / cover no-repeat,
         var(--hero-bg);
     }
-    .hero-inner {
-      width: 100%; max-width: 520px;
-    }
+    .hero-inner { width: min(100%, var(--max-w)); margin-inline: auto; }
     .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(198,242,78,0.6); margin-bottom: 22px;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(198,242,78,0.75); margin-bottom: 28px;
     }
-    .hero-divider { width: 32px; height: 2px; background: rgba(198,242,78,0.4); border-radius: 1px; margin-bottom: 26px; }
     .hero h1 {
-      font-size: clamp(22px, 2.4vw, 34px);
-      font-weight: 700; line-height: 1.28; color: #fff; margin-bottom: 22px;
+      font-size: clamp(38px, 5vw, 72px);
+      line-height: 1.04; letter-spacing: -0.01em; color: #fff;
+      max-width: 1040px; margin-bottom: 28px;
     }
-    .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero h1 .l1 { display: block; color: var(--lime); }
+    .hero h1 .l2 { display: block; }
     .hero-offer {
-      font-size: clamp(15px, 1.5vw, 16px);
-      color: rgba(235,235,232,0.65); line-height: 1.72; margin-bottom: 38px;
+      font-size: clamp(16px, 1.5vw, 19px);
+      color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 40px; max-width: 580px;
     }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    @media (max-width: 800px) {
-      .hero { flex-direction: column; }
-      .hero-img { flex: 0 0 260px; }
-      .hero-text { padding: 48px var(--gutter) 60px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero .btn { padding: 18px 30px; font-size: 15px; font-weight: 700; border-radius: 4px; }
+    .hero .btn-ghost { background: rgba(8,10,9,0.55); border-color: rgba(255,255,255,0.3); color: #fff; }
+    @media (max-width: 700px) {
+      .hero {
+        min-height: 0; padding: 110px var(--gutter) 64px;
+      }
+      .hero .btn-lime { order: -1; }
+      .hero .btn { width: 100%; justify-content: center; }
+      .hero {
+        background:
+          linear-gradient(to top, rgba(8,10,9,0.95) 0%, rgba(8,10,9,0.8) 45%, rgba(8,10,9,0.35) 100%),
+          url('/images/hero-tree.jpg') 70% center / cover no-repeat, var(--hero-bg);
+      }
     }
 
     /* ════════════════════════════════
@@ -197,8 +198,35 @@
       color: var(--dark);
       border-top: 1px solid rgba(22,24,26,0.08);
     }
-    .problem-inner { max-width: 780px; }
-    .problem .label { color: rgba(22,24,26,0.42); }
+    .problem-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+    @media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .problem-inner { max-width: 560px; }
+    .compress { margin: 0; background: #fff; border: 1px solid rgba(22,24,26,0.08); border-radius: 6px; padding: 32px 32px 26px; }
+    .compress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid rgba(22,24,26,0.1); }
+    .compress-title { font-family: var(--font-head); font-size: 22px; color: var(--dark); }
+    .compress-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(22,24,26,0.45); }
+    .c-row { display: grid; grid-template-columns: 118px minmax(0, 1fr) 34px; gap: 14px; align-items: center; margin-bottom: 20px; }
+    .c-label { font-size: 13px; line-height: 1.3; color: rgba(22,24,26,0.7); }
+    .c-row.win .c-label { color: var(--dark); font-weight: 700; }
+    .c-track { height: 30px; }
+    .c-bar { display: flex; height: 100%; border-radius: 3px; overflow: hidden; transform-origin: left; animation: grow 0.9s cubic-bezier(.2,.7,.2,1) both; }
+    .c-row:nth-of-type(3) .c-bar { animation-delay: 0.12s; }
+    .c-row:nth-of-type(4) .c-bar { animation-delay: 0.24s; }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .c-bar i { display: block; height: 100%; }
+    .c-bar i + i { box-shadow: inset 1px 0 0 rgba(255,255,255,0.55); }
+    .s-dec { background: var(--green); }
+    .s-bld { background: var(--lime); }
+    .s-ver { background: #E0A33E; }
+    .s-rel { background: #7A5C3A; }
+    .c-total { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: rgba(22,24,26,0.55); text-align: right; }
+    .c-row.win .c-total { color: var(--green); font-weight: 700; font-size: 16px; }
+    .c-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 26px 0 18px; padding-left: 132px; }
+    .c-legend span { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(22,24,26,0.55); }
+    .c-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+    .compress figcaption { font-size: 13px; line-height: 1.6; color: rgba(22,24,26,0.62); border-top: 1px solid rgba(22,24,26,0.1); padding-top: 16px; }
+    @media (max-width: 480px) { .c-row { grid-template-columns: 1fr 30px; } .c-label { grid-column: 1 / -1; margin-bottom: -6px; } .c-legend { padding-left: 0; } .compress { padding: 24px 20px 20px; } }
+    .problem .label { color: var(--green); }
     .problem-statement {
       font-family: var(--font-head);
       font-size: clamp(22px, 3vw, 32px);
@@ -218,7 +246,7 @@
       background: var(--dark); color: var(--warm);
     }
     .offer-head { margin-bottom: 52px; }
-    .offer-head .label { color: rgba(235,235,232,0.35); }
+    .offer-head .label { color: rgba(198,242,78,0.7); }
     .offer-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: #fff; }
     .offer-grid {
       display: grid;
@@ -241,7 +269,7 @@
       text-transform: uppercase; color: rgba(198,242,78,0.55); margin-bottom: 16px;
     }
     .shape h3 {
-      font-family: var(--font-head); font-size: 19px; font-weight: 700;
+      font-family: var(--font-head); font-size: 23px; font-weight: 400;
       color: #fff; margin-bottom: 14px; line-height: 1.25;
     }
     .shape-desc { font-size: 14px; color: rgba(235,235,232,0.6); line-height: 1.75; margin-bottom: 0; flex: 1; }
@@ -255,11 +283,11 @@
       border-top: 1px solid rgba(235,235,232,0.06);
     }
     .diagram-head { margin-bottom: 52px; }
-    .diagram-head .label { color: rgba(235,235,232,0.35); }
-    .diagram-head h2 { font-size: clamp(22px, 2.4vw, 30px); color: #fff; max-width: 580px; }
+    .diagram-head .label { color: rgba(198,242,78,0.7); }
+    .diagram-head h2 { font-size: clamp(28px, 3.2vw, 44px); color: #fff; max-width: none; }
     .diag-cols {
       display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center; gap: 0;
+      align-items: stretch; gap: 0;
     }
     @media (max-width: 700px) { .diag-cols { grid-template-columns: 1fr; } }
     .diag-arrow {
@@ -269,48 +297,56 @@
     @media (max-width: 700px) { .diag-arrow { display: none; } }
     .diag-col {
       border: 1px solid rgba(235,235,232,0.1); border-radius: 4px;
-      padding: 28px 24px; min-height: 220px;
+      padding: 30px 26px;
     }
     .diag-col.constraint {
       border-color: rgba(198,242,78,0.3);
       background: rgba(198,242,78,0.04);
     }
     .diag-col-label {
-      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
       text-transform: uppercase; margin-bottom: 20px;
     }
-    .diag-col-label.dim { color: rgba(235,235,232,0.3); }
+    .diag-col-label.dim { color: rgba(235,235,232,0.5); }
     .diag-col-label.accent { color: rgba(198,242,78,0.7); }
     .diag-item { margin-bottom: 16px; }
     .diag-item:last-child { margin-bottom: 0; }
-    .diag-item-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .diag-item-name { font-family: var(--font-head); font-size: 18px; font-weight: 400; color: #fff; margin-bottom: 3px; }
     .diag-col.constraint .diag-item-name { color: var(--lime); }
-    .diag-item-desc { font-size: 12px; color: rgba(235,235,232,0.45); line-height: 1.5; }
+    .diag-item-desc { font-size: 13px; color: rgba(235,235,232,0.58); line-height: 1.5; }
     .diag-badge {
       display: inline-block; margin-top: 20px;
       background: var(--lime); color: var(--dark);
       font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
       text-transform: uppercase; padding: 5px 10px; border-radius: 2px; font-weight: 700;
     }
-    .diag-outcome-neg { font-size: 12px; color: rgba(235,235,232,0.38); line-height: 1.55; }
+    .diag-outcome-neg { font-size: 14px; color: rgba(235,235,232,0.72); line-height: 1.55; padding-left: 12px; border-left: 2px solid rgba(235,235,232,0.18); }
 
     /* ════════════════════════════════
        NUMBERS
     ════════════════════════════════ */
     .numbers {
-      padding: 96px var(--gutter);
-      background: var(--dark);
+      padding: 104px var(--gutter);
+      background: var(--warm); color: var(--dark);
     }
-    .numbers-head { margin-bottom: 56px; }
-    .numbers-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: #fff; }
+    .numbers-head { margin-bottom: 56px; max-width: 900px; }
+    .numbers-head .label { color: var(--green); }
+    .numbers-head h2 { font-size: clamp(30px, 3.6vw, 48px); color: var(--dark); margin-bottom: 16px; }
+    .numbers-head p { max-width: 620px; font-size: 17px; color: rgba(22,24,26,0.62); line-height: 1.7; }
     .nums-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 52px 60px; margin-bottom: 52px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 2px solid var(--dark);
     }
+    @media (max-width: 900px) { .nums-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 560px) { .nums-grid { grid-template-columns: 1fr; } }
-    .num-stat { font-family: var(--font-head); font-size: clamp(36px, 5.5vw, 58px); color: var(--lime); line-height: 1; margin-bottom: 10px; }
-    .num-label { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 8px; }
-    .num-desc { font-size: 13px; color: rgba(235,235,232,0.5); line-height: 1.68; }
+    .outcome { padding: 28px 28px 8px 0; border-right: 1px solid rgba(22,24,26,0.12); display: flex; flex-direction: column; }
+    .outcome + .outcome { padding-left: 28px; }
+    .outcome:last-child { border-right: none; }
+    @media (max-width: 900px) { .outcome { border-right: none; padding: 28px 0 !important; border-bottom: 1px solid rgba(22,24,26,0.12); } }
+    .num-stat { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; color: var(--green); margin-bottom: 24px; }
+    .num-label { font-family: var(--font-head); font-size: clamp(22px, 1.9vw, 26px); line-height: 1.1; color: var(--dark); margin-bottom: 14px; }
+    .num-desc { font-size: 14px; color: rgba(22,24,26,0.64); line-height: 1.7; flex: 1; }
+    .num-measure { font-family: var(--font-mono); font-size: 11px; color: rgba(22,24,26,0.5); border-top: 1px solid rgba(22,24,26,0.12); padding-top: 14px; margin-top: 22px; line-height: 1.5; }
 
     /* ════════════════════════════════
        HOW WE KNOW
@@ -341,7 +377,7 @@
       border-bottom: 1px solid rgba(235,235,232,0.06);
     }
     .partners-label {
-      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
       text-transform: uppercase; color: rgba(235,235,232,0.28);
       text-align: center; margin-bottom: 32px;
     }
@@ -360,7 +396,7 @@
       background: var(--lime); color: var(--dark);
     }
     .closing-inner { max-width: 600px; margin-inline: auto; text-align: center; }
-    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; color: var(--dark); margin-bottom: 20px; }
     .closing-sub { font-size: 16px; color: rgba(22,24,26,0.68); line-height: 1.68; margin-bottom: 36px; max-width: 480px; margin-inline: auto; margin-bottom: 36px; }
     .closing-email { display: inline-block; font-size: 17px; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--dark); padding-bottom: 1px; text-decoration: none; margin-bottom: 28px; }
     .closing-email:hover { color: var(--green); border-color: var(--green); }
@@ -443,17 +479,13 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-img" role="presentation"></div>
-  <div class="hero-text">
-    <div class="hero-inner">
-      <p class="hero-eyebrow">The Nth Layer · AI Operating Model Practice</p>
-      <div class="hero-divider"></div>
-      <h1>Most AI Programmes Generate Output.<br>Almost None Change <em>How the Business Runs.</em></h1>
-      <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
-      <div class="hero-actions">
-        <button class="btn btn-lime" onclick="openModal()">Book a Working Session</button>
-        <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
-      </div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">AI Operating Model Practice</p>
+    <h1><span class="l1">AI Spend Is Up.</span><span class="l2">How the Business Runs Is Not.</span></h1>
+    <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
+    <div class="hero-actions">
+      <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
+      <button class="btn btn-lime" onclick="openModal()">Book a Working Session <span aria-hidden="true">&rarr;</span></button>
     </div>
   </div>
 </section>
@@ -461,10 +493,37 @@
 <!-- PROBLEM -->
 <section class="problem">
   <div class="wrap">
-    <div class="problem-inner">
-      <span class="label">The Problem</span>
-      <p class="problem-statement">Faster generation on a broken operating model produces <span>more of the wrong thing, faster.</span></p>
-      <p class="problem-body">Most AI investment is running on the same decision structures, accountability gaps and measurement approaches that existed before the tools arrived. Teams are generating more output. Lead time to production has not moved. The spend line is rising and nobody can draw a line from it to a business result. That is not a tooling problem. It is an operating model problem.</p>
+    <div class="problem-grid">
+      <div class="problem-inner">
+        <span class="label">The Problem</span>
+        <p class="problem-statement">Faster generation on a broken operating model produces <span>more of the wrong thing, faster.</span></p>
+        <p class="problem-body">Most AI investment is running on the same decision structures, accountability gaps and measurement approaches that existed before the tools arrived. Teams are generating more output. Lead time to production has not moved. The spend line is rising and nobody can draw a line from it to a business result. That is not a tooling problem. It is an operating model problem.</p>
+      </div>
+      <figure class="compress" aria-label="Relative elapsed time from idea to measured result across three delivery models">
+        <div class="compress-head">
+          <span class="compress-title">Idea to Measured Result</span>
+          <span class="compress-sub">Relative elapsed time</span>
+        </div>
+        <div class="c-row">
+          <div class="c-label">Today</div>
+          <div class="c-track"><div class="c-bar" style="width:100%"><i class="s-dec" style="flex:2"></i><i class="s-bld" style="flex:14"></i><i class="s-ver" style="flex:5"></i><i class="s-rel" style="flex:3"></i></div></div>
+          <div class="c-total">24</div>
+        </div>
+        <div class="c-row">
+          <div class="c-label">Faster Coding Only</div>
+          <div class="c-track"><div class="c-bar" style="width:91.67%"><i class="s-dec" style="flex:2"></i><i class="s-bld" style="flex:7"></i><i class="s-ver" style="flex:8"></i><i class="s-rel" style="flex:5"></i></div></div>
+          <div class="c-total">22</div>
+        </div>
+        <div class="c-row win">
+          <div class="c-label">Operating Model Rebuilt</div>
+          <div class="c-track"><div class="c-bar" style="width:45.83%"><i class="s-dec" style="flex:2"></i><i class="s-bld" style="flex:4"></i><i class="s-ver" style="flex:3"></i><i class="s-rel" style="flex:2"></i></div></div>
+          <div class="c-total">11</div>
+        </div>
+        <div class="c-legend">
+          <span><i class="s-dec"></i>Decide</span><span><i class="s-bld"></i>Build</span><span><i class="s-ver"></i>Verify</span><span><i class="s-rel"></i>Release</span>
+        </div>
+        <figcaption>Buying the tools and changing nothing takes two units off a twenty-four unit process. The work just moves to verify and release.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -526,33 +585,38 @@
   </div>
 </section>
 
-<!-- FOUR NUMBERS -->
-<section class="numbers">
+<!-- OUTCOMES -->
+<section class="numbers" id="outcomes">
   <div class="wrap">
     <div class="numbers-head">
-      <span class="label">What Changes</span>
-      <h2>The Four Numbers That Move</h2>
+      <span class="label">Outcomes That Matter</span>
+      <h2>What the Board Actually Sees Change</h2>
+      <p>Not more output. Four outcomes that show up in the P&amp;L, the board pack and the exit story.</p>
     </div>
     <div class="nums-grid">
-      <div>
-        <div class="num-stat">↓</div>
-        <div class="num-label">Cost to Deliver a Verified Business Outcome</div>
-        <div class="num-desc">Total delivery spend against outputs that reached production and trace to a business result. Falls as decision quality improves and rework drops.</div>
+      <div class="outcome">
+        <div class="num-stat">01</div>
+        <div class="num-label">Lower Cost to Serve</div>
+        <div class="num-desc">AI takes cost out of how the business delivers, not just how fast people type. Margin improves because the work itself changes.</div>
+        <div class="num-measure">Measured by cost per unit of delivered value</div>
       </div>
-      <div>
-        <div class="num-stat">↓</div>
-        <div class="num-label">Time from Decision to Measurable Result</div>
-        <div class="num-desc">Elapsed time between a priority being stated and its impact showing in operating data. Falls when the model is rebuilt around the real constraint.</div>
+      <div class="outcome">
+        <div class="num-stat">02</div>
+        <div class="num-label">Faster Commercial Execution</div>
+        <div class="num-desc">The time from a decision to a result in the market shrinks. Products, pricing and propositions reach customers sooner.</div>
+        <div class="num-measure">Measured by decision to measurable result</div>
       </div>
-      <div>
-        <div class="num-stat">↓</div>
-        <div class="num-label">Dependency on External Capacity</div>
-        <div class="num-desc">Agency, contractor and consultant spend bought to compensate for gaps. Falls as throughput becomes predictable and capability is owned internally.</div>
+      <div class="outcome">
+        <div class="num-stat">03</div>
+        <div class="num-label">Better Operating Leverage</div>
+        <div class="num-desc">Revenue grows faster than headcount and external spend. Capability is owned internally rather than rented from agencies and contractors.</div>
+        <div class="num-measure">Measured by revenue per head and external spend</div>
       </div>
-      <div>
-        <div class="num-stat">↑</div>
-        <div class="num-label">Repeatability Across the Portfolio</div>
-        <div class="num-desc">When the approach runs more than once — across business units or portcos — the evidence from the first run calibrates the next. It compounds.</div>
+      <div class="outcome">
+        <div class="num-stat">04</div>
+        <div class="num-label">A Stronger Exit Story</div>
+        <div class="num-desc">AI spend traces to results a buyer can verify. The question every diligence team will ask has an answer with evidence behind it.</div>
+        <div class="num-measure">Measured by AI spend attributed to outcomes</div>
       </div>
     </div>
   </div>
@@ -564,7 +628,7 @@
     <div class="know-inner">
       <span class="label">How We Know It Works</span>
       <h2>Falsifiable by Design</h2>
-      <p>Before an engagement starts, we write down what failure looks like. If cost-per-outcome, lead time and change-failure rate have not moved by the end, we say so in writing — and we publish that finding. We have pre-registered that standard, not agreed it in retrospect. No engagement ends with a slide deck of claimed wins and no way to verify them.</p>
+      <p>Before an engagement starts, we write down what failure looks like. If cost-per-outcome, lead time and change-failure rate have not moved by the end, we say so in writing and publish that finding. We have pre-registered that standard, not agreed it in retrospect. No engagement ends with a slide deck of claimed wins and no way to verify them.</p>
       <a href="/inflexion/" class="know-link">Read the full evidence base and methodology →</a>
     </div>
   </div>
@@ -575,9 +639,9 @@
   <div class="wrap">
     <div class="partners-label" style="color: rgba(22,24,26,0.38); text-align: center; margin-bottom: 36px;">Organisations We Have Worked With</div>
     <div class="partners-logos" style="justify-content: center; align-items: center; gap: 40px 64px;">
-      <img class="p-logo" src="/images/partner-marlin.png"  alt="Marlin Equity Partners"  style="height: 28px; opacity: 0.45; filter: grayscale(1);">
-      <img class="p-logo" src="/images/partner-stratum.png" alt="Stratum Capital"          style="height: 28px; opacity: 0.45; filter: grayscale(1);">
-      <img class="p-logo" src="/images/partner-banc.png"    alt="Banc"                     style="height: 28px; opacity: 0.45; filter: grayscale(1);">
+      <img class="p-logo" src="/images/partner-marlin.png"  alt="Marlin Equity Partners"  style="height: 34px; opacity: 0.6; filter: grayscale(1);">
+      <img class="p-logo" src="/images/partner-stratum.png" alt="Stratum Capital"          style="height: 34px; opacity: 0.6; filter: grayscale(1);">
+      <img class="p-logo" src="/images/partner-banc.png"    alt="Banc"                     style="height: 34px; opacity: 0.6; filter: grayscale(1);">
     </div>
   </div>
 </section>
@@ -630,7 +694,7 @@
   <div class="modal-box">
     <button class="modal-close" type="button" aria-label="Close" onclick="closeModal()">&#x00D7;</button>
     <div class="modal-eye">Get in Touch</div>
-    <h2 class="modal-title">Let's talk</h2>
+    <h2 class="modal-title">Let&rsquo;s Talk</h2>
     <p class="modal-sub">Every engagement starts with a working session. No deck. Just the right questions.</p>
     <form id="contactForm" onsubmit="submitContact(event)">
       <div class="frow">
@@ -641,9 +705,9 @@
       <div class="fgroup"><input type="email" id="cEmail"   name="email"    required placeholder="Email *"     autocomplete="email"></div>
       <div class="fgroup"><textarea id="cMsg" name="message" rows="4" required placeholder="Message *"></textarea></div>
       <div id="contactErr" class="modal-err"></div>
-      <button type="submit" class="modal-submit">Send message →</button>
+      <button type="submit" class="modal-submit">Send Message</button>
     </form>
-    <div id="contactOk" class="modal-success">Thank you — I will be in touch shortly.</div>
+    <div id="contactOk" class="modal-success">Thank you. I will be in touch shortly.</div>
   </div>
 </div>
 
