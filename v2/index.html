@@ -213,6 +213,15 @@
     .frame-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); gap: 72px; align-items: center; }
     @media (max-width: 900px) { .frame-grid { grid-template-columns: 1fr; gap: 48px; } }
     .frame-statement { border-left: 3px solid var(--lime); padding-left: 32px; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.12; color: var(--dark); }
+    .frame-statement span { display: block; color: rgba(22,24,26,0.45); }
+    .pcards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .pcards { grid-template-columns: 1fr; } }
+    .pcard { position: relative; background: #fff; border: 1px solid rgba(22,24,26,0.12); border-radius: 6px; padding: 30px 28px 32px; transition: border-color 0.2s, transform 0.2s; }
+    .pcard::before { content: ''; position: absolute; top: -1px; left: 28px; width: 32px; height: 3px; background: var(--lime); border-radius: 0 0 2px 2px; }
+    .pcard:hover { border-color: rgba(22,24,26,0.3); transform: translateY(-2px); }
+    .pcard-n { font-family: var(--font-ui); font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 18px; }
+    .pcard h3 { font-family: var(--font-ui); font-weight: 600; font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; color: var(--dark); margin-bottom: 10px; }
+    .pcard p { font-size: 15px; line-height: 1.65; color: rgba(22,24,26,0.64); }
     .frame-cards { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(22,24,26,0.1); }
     @media (max-width: 560px) { .frame-cards { grid-template-columns: 1fr; } }
     .fcard { padding: 36px 34px; border-right: 1px solid rgba(22,24,26,0.1); border-bottom: 1px solid rgba(22,24,26,0.1); }
@@ -395,12 +404,14 @@
       background: linear-gradient(rgba(198,242,78,0.05), rgba(198,242,78,0.05)), var(--dark);
     }
     .diag-col-label {
-      font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.09em;
-      text-transform: uppercase; margin-bottom: 28px;
+      font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; margin-bottom: 6px;
     }
     .diag-col-label.dim { color: rgba(235,235,232,0.5); }
     .diag-col-label.accent { color: rgba(198,242,78,0.7); }
-    .diag-item { margin-bottom: 28px; }
+    .diag-item { padding: 22px 0; border-top: 1px solid rgba(255,255,255,0.14); }
+    .diag-item:last-child { padding-bottom: 0; }
+    .diag-col.constraint .diag-item { border-top-color: rgba(198,242,78,0.25); }
     .diag-item:last-child { margin-bottom: 0; }
     .diag-item-name { font-family: var(--font-ui); font-weight: 600; letter-spacing: -0.01em; font-size: 18px; color: #fff; margin-bottom: 6px; }
     .diag-col.constraint .diag-item-name { color: var(--lime); }
@@ -568,7 +579,7 @@
 <section class="hero" id="home">
   <div class="hero-inner">
     <div class="hero-copy">
-    <p class="hero-eyebrow">AI Operating Model Practice</p>
+    <p class="hero-eyebrow">AI-Native Product Strategy and Operating Model</p>
     <h1><span class="l1">AI Spend Is Up.</span><span class="l2">How the Business Runs Is Not.</span></h1>
     <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
     <div class="hero-actions">
@@ -592,27 +603,27 @@
   <div class="wrap">
     <div class="sec-rule"><span class="label">The Problem</span></div>
     <div class="frame-grid">
-      <h2 class="frame-statement">Your Portcos Are Running AI Experiments. None of Them Are Compounding.</h2>
-      <div class="frame-cards">
-        <div class="fcard">
-          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/><path d="M10 9v6M14 9v6"/></svg></div>
-          <h3>No Portfolio Playbook</h3>
-          <p>Every portco is running its own AI experiments, tools, vendors and bets. There is no shared operating model or repeatable way to scale what works.</p>
+      <h2 class="frame-statement">AI Is Everywhere in the Business. <span>None of It Is Compounding.</span></h2>
+      <div class="pcards">
+        <div class="pcard">
+          <div class="pcard-n">01</div>
+          <h3>No Clear Owner</h3>
+          <p>AI sits between product, technology, operations and leadership. Everyone has a stake, but no one fully owns the outcome.</p>
         </div>
-        <div class="fcard">
-          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5l3 8M16 7.5l-3 8M8.5 6h7"/></svg></div>
-          <h3>No Clear Line to Value</h3>
-          <p>AI spend is rising, but the value bridge is not moving. There is no clear link to EBITDA improvement, revenue growth, margin expansion or the exit narrative.</p>
+        <div class="pcard">
+          <div class="pcard-n">02</div>
+          <h3>Too Much Activity, Not Enough Change</h3>
+          <p>Pilots create momentum, but they do not automatically become shipped products, redesigned workflows or measurable cost reduction.</p>
         </div>
-        <div class="fcard">
-          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4A1.5 1.5 0 0 0 19 19l-5-10V3"/><path d="M7.5 15h9"/></svg></div>
-          <h3>Pilots Do Not Compound</h3>
-          <p>Pilots prove a point, then stall. The business case is not closed, the operating model does not change, and the learning does not transfer across the portfolio.</p>
+        <div class="pcard">
+          <div class="pcard-n">03</div>
+          <h3>Broken Workflows Get Automated</h3>
+          <p>AI added to poor processes creates a faster mess. The workflow needs redesign before automation makes sense.</p>
         </div>
-        <div class="fcard">
-          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <h3>No Scorecard for Winning Bets</h3>
-          <p>You are funding AI without a clear view of what is working. No cost-per-outcome model, no maturity view, and no way to redirect capital toward the best opportunities.</p>
+        <div class="pcard">
+          <div class="pcard-n">04</div>
+          <h3>Value Is Hard to Prove</h3>
+          <p>Teams can show usage, but not impact. Leaders need to see what changed: cost, speed, quality, margin or customer experience.</p>
         </div>
       </div>
     </div>
@@ -636,33 +647,33 @@
         <div class="diag-col-label dim">AI Investment</div>
         <div class="diag-item">
           <div class="diag-item-name">AI Tools</div>
-          <div class="diag-item-desc">LLMs, copilots, agents and automation are now in most teams. Access to the tools is no longer the hard part.</div>
+          <div class="diag-item-desc">Copilots, agents and automation in every team.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Teams</div>
-          <div class="diag-item-desc">People are producing more drafts, code and content than ever. Volume has gone up; throughput has not.</div>
+          <div class="diag-item-desc">More output than ever. Throughput has not moved.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Budget</div>
-          <div class="diag-item-desc">The AI line rises every quarter. It sits on top of existing spend rather than replacing any of it.</div>
+          <div class="diag-item-desc">Rising every quarter, on top of existing spend.</div>
         </div>
       </div>
 
       <div class="diag-arrow">→</div>
 
       <div class="diag-col constraint">
-        <div class="diag-col-label accent">Operating Model · The Constraint</div>
+        <div class="diag-col-label accent">Operating Model</div>
         <div class="diag-item">
           <div class="diag-item-name">Decision Structure</div>
-          <div class="diag-item-desc">Who decides what, and how fast. When approvals and priorities still move at the old pace, faster work just queues up waiting.</div>
+          <div class="diag-item-desc">Decisions still move at the old pace, so work queues.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Accountability</div>
-          <div class="diag-item-desc">Nobody owns the result end to end. Gains made in one team disappear in the hand-off to the next.</div>
+          <div class="diag-item-desc">Nobody owns the result end to end.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Measurement</div>
-          <div class="diag-item-desc">Teams are counted and rewarded on activity and output. Nobody is accountable for the outcome the spend was meant to buy.</div>
+          <div class="diag-item-desc">Activity gets rewarded. Outcomes do not.</div>
         </div>
       </div>
 
@@ -672,15 +683,15 @@
         <div class="diag-col-label dim">Business Outcomes</div>
         <div class="diag-item">
           <div class="diag-item-name">Lead Time</div>
-          <div class="diag-item-desc">The time from a decision to a result in the market has not moved. Faster work upstream never reaches the customer.</div>
+          <div class="diag-item-desc">Decision to result in market has not moved.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Attribution</div>
-          <div class="diag-item-desc">Nobody can trace the AI spend to a business result. The board sees a cost line with no return beside it.</div>
+          <div class="diag-item-desc">A cost line with no return beside it.</div>
         </div>
         <div class="diag-item">
-          <div class="diag-item-name">Diligence</div>
-          <div class="diag-item-desc">Every buyer will ask what the AI programme delivered. Without evidence, it counts against the equity story rather than for it.</div>
+          <div class="diag-item-name">Product</div>
+          <div class="diag-item-desc">Same product, with AI features bolted on.</div>
         </div>
       </div>
 
@@ -733,20 +744,20 @@
     <div class="deliver-grid">
       <div class="deliver-lead">
         <h2>It Is Not a <span>Technology</span> Problem.</h2>
-        <p>It is an ownership, execution and value creation problem, and it shows up in the value bridge.</p>
+        <p>It is an operating model problem. We rebuild how decisions get made, how work moves and how value is measured, so AI spend turns into results the business can see.</p>
       </div>
       <div>
         <div class="dl-item">
           <h3>Product</h3>
-          <p>AI embedded in the core P&amp;L driver. Products redesigned so they command a premium at exit: not a feature layer bolted on, but a fundamentally different asset.</p>
+          <p>We reshape the product around where AI changes the economics: what customers pay for, what it costs to deliver and what makes it hard to copy. Not a feature layer bolted onto the old roadmap.</p>
         </div>
         <div class="dl-item">
           <h3>Process</h3>
-          <p>Cost base restructured before automation is applied. Decision loops redesigned so AI reduces headcount dependency, compresses cycle time and improves EBITDA margin, rather than being layered on what is broken.</p>
+          <p>We redesign how work moves from decision to result before anything is automated. Approvals, hand-offs and review are rebuilt so faster output reaches the customer instead of queuing.</p>
         </div>
         <div class="dl-item">
           <h3>People</h3>
-          <p>The portco team owns the outcome at exit diligence. No consultant dependency. No black-box systems. Transferred capability, not a retainer.</p>
+          <p>We set clear ownership, decision rights and measures tied to outcomes, then hand the capability over. Your team runs it after we leave. No dependency, no retainer.</p>
         </div>
       </div>
     </div>
@@ -756,23 +767,23 @@
 <!-- SERVICES -->
 <section class="services" id="services">
   <div class="wrap">
-    <div class="sec-rule"><span class="label">What We Do for Private Equity</span></div>
-    <h2 class="services-head">We Help PE Firms Identify, Prioritise and Deploy AI Opportunities Across the Portfolio, Tied to Measurable Value Creation, Not Generic Innovation.</h2>
+    <div class="sec-rule"><span class="label">What We Do</span></div>
+    <h2 class="services-head">We Help Leadership Teams Build AI-Native Products and the Operating Model to Run Them.</h2>
     <div class="svc-grid">
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="10" width="16" height="5" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/></svg></div>
-          <h3>Portfolio-Wide AI Adoption</h3>
-          <p>Move AI from scattered licence usage to structured adoption across teams, roles and workflows.</p>
+          <h3>AI-Native Product Strategy</h3>
+          <p>Decide where AI changes what customers value and what the product should become, then set the roadmap around it.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 14l3-3 2 2 3-4"/></svg></div>
-          <h3>AI Value Creation Scan</h3>
-          <p>Assess where AI can improve revenue growth, EBITDA, margin, productivity, scalability, retention or exit readiness.</p>
+          <h3>Opportunity Assessment</h3>
+          <p>Find where AI can move revenue, cost, speed or quality, and rank each opportunity by value and effort.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></div>
           <h3>Operating Model Redesign</h3>
-          <p>Define the ownership, roles, decision rights and rhythms each portco needs for AI-enabled work to run properly.</p>
+          <p>Define the ownership, roles, decision rights and rhythms the business needs for AI-enabled work to run properly.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 2 5 6 4 11l-2 3h-4l-2-3c-1-5 1-9 4-11z"/><circle cx="12" cy="10" r="1.6"/><path d="M8 14l-3 3 3 1M16 14l3 3-3 1"/></svg></div>
@@ -781,13 +792,13 @@
         </div>
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12h18"/></svg></div>
-          <h3>Commercial Workflow Deployment</h3>
-          <p>Deploy revenue-generating and cost-removing workflows against board-level targets.</p>
+          <h3>Workflow Transformation</h3>
+          <p>Redesign high-friction workflows before automation is applied, so AI removes cost instead of creating clean-up.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <h3>Governance and Risk</h3>
-          <p>Create practical policies, controls, audit trails and decision rights that satisfy boards, regulators and acquirers.</p>
+          <p>Practical policies, controls and decision rights so teams can ship safely and keep moving.</p>
         </div>
     </div>
   </div>
@@ -805,7 +816,7 @@
     <div class="numbers-head">
       <span class="label">Outcomes That Matter</span>
       <h2>What the Board Actually Sees Change</h2>
-      <p>Not more output. Four outcomes that show up in the P&amp;L, the board pack and the exit story.</p>
+      <p>Not more output. Four outcomes that show up in the P&amp;L, the board pack and the product.</p>
     </div>
     <div class="nums-grid">
       <div class="outcome">
@@ -828,9 +839,9 @@
       </div>
       <div class="outcome">
         <div class="num-stat">04</div>
-        <div class="num-label">A Stronger Exit Story</div>
-        <div class="num-desc">AI spend traces to results a buyer can verify. The question every diligence team will ask has an answer with evidence behind it.</div>
-        <div class="num-measure">Measured by AI spend attributed to outcomes</div>
+        <div class="num-label">A Product That Is Hard to Copy</div>
+        <div class="num-desc">AI changes what the product does for customers, not just how it is built. The advantage compounds instead of being matched in a quarter.</div>
+        <div class="num-measure">Measured by retention, pricing power and win rate</div>
       </div>
     </div>
   </div>
@@ -842,11 +853,11 @@
     <div class="sec-rule"><span class="label">The Fractional Alternative</span></div>
     <div class="frac-grid">
       <div class="frac-lead">
-        <h2>A Full-Time Chief AI Officer Is Hard to Justify Inside Every Portco Before the Business Has Shipped Meaningful AI Change.</h2>
-        <p>The Nth Layer brings that capability on a fractional basis: assessing opportunities, sequencing the work, aligning leadership teams and owning delivery until each portco has something real to operate. What you get is AI leadership as a function across the portfolio, not another strategy deck.</p>
+        <h2>A Full-Time Chief AI Officer Is Hard to Justify Before the Business Has Shipped Meaningful AI Change.</h2>
+        <p>The Nth Layer brings that capability on a fractional basis: setting the product strategy, sequencing the work, aligning the leadership team and owning delivery until the business has something real to operate. What you get is AI leadership as a function, not another strategy deck.</p>
       </div>
       <div>
-        <div class="stat"><div class="stat-num">1x</div><div><h3>Strategic Exit</h3><p>AI-native product transformation cited in the deal narrative.</p></div></div>
+        <div class="stat"><div class="stat-num">1x</div><div><h3>AI-Native Product Rebuild</h3><p>A product transformation central enough to be cited in a strategic exit.</p></div></div>
         <div class="stat"><div class="stat-num">&pound;6M</div><div><h3>Run-Rate Cost Out</h3><p>Headcount-equivalent savings from agentic workflows replacing manual operations.</p></div></div>
         <div class="stat"><div class="stat-num">90%</div><div><h3>Cycle-Time Compression</h3><p>High-volume evaluation workflows automated end to end, reducing work from days to hours.</p></div></div>
       </div>
@@ -866,7 +877,7 @@
       </svg>
       <div>
         <div class="sec-rule" style="margin-bottom: 28px;"><span class="label">Who We Are</span></div>
-        <p>The Nth Layer is led by Matthew Dewstowe, an exited founder and product leader who has built AI products, led transformations and scaled businesses from the inside. The belief is simple: AI leadership is a role, not a deliverable. You get the function, not a deck. The Nth Layer works at the point where products, workflows, teams, operating models and value creation plans need to align. One operator. No platform pitch. No portco lock-in.</p>
+        <p>The Nth Layer is led by Matthew Dewstowe, an exited founder and product leader who has built AI products, led transformations and scaled businesses from the inside. The belief is simple: AI leadership is a role, not a deliverable. You get the function, not a deck. The Nth Layer works at the point where product strategy, workflows, teams and the operating model need to align. One operator. No platform pitch. No lock-in.</p>
       </div>
     </div>
   </div>
@@ -931,7 +942,7 @@
 <!-- CLOSING -->
 <section class="closing" id="contact">
   <div class="closing-inner">
-    <h2>From Portfolio Risk to <span>Portfolio Edge</span></h2>
+    <h2>From AI Activity to <span>AI-Native Advantage</span></h2>
     <p class="closing-sub">One conversation to find the constraint. No deck, no proposal stage, no commitment beyond the session.</p>
     <button class="btn btn-lime" onclick="openModal()">Book a Working Session <span aria-hidden="true">&rarr;</span></button>
   </div>
