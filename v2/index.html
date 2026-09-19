@@ -542,6 +542,22 @@
     .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
     .modal-success { color: var(--lime); font-size: 15px; text-align: center; padding: 24px 0; display: none; }
     .modal-err { color: #f87171; font-size: 12px; margin-top: 10px; display: none; line-height: 1.5; }
+
+    /* ════════════════════════════════
+       SHARED DARK SWIRL + LIVE-SITE DETAILS
+    ════════════════════════════════ */
+    .hero, .diagram, .deliver, .fractional, .know, .closing {
+      background: #050807 url('/images/slice-1.png') center / cover no-repeat !important;
+    }
+    .hero::before { display: none; }
+    .fcard-icon { width: 50px; height: 50px; border-radius: 12px; background: #EFEFEB !important; border: none !important; margin-bottom: 22px; }
+    .fcard-icon svg { width: 22px; height: 22px; stroke: rgba(0,0,0,0.56); }
+    .pcard .fcard-icon { margin-bottom: 20px; }
+    .quote { background: #fff !important; text-align: center; padding: 40px var(--gutter) 44px !important; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .quote .quote-inner { position: relative; max-width: var(--max-w); margin: 0 auto; }
+    .quote .quote-inner::before { content: '\201C'; position: absolute; left: 0; top: -18px; font-family: var(--font-head); font-size: 120px; line-height: 1; color: rgba(0,0,0,0.08); }
+    .quote blockquote { font-size: clamp(22px, 2.5vw, 34px) !important; line-height: 1.35 !important; color: rgba(0,0,0,0.72) !important; max-width: 1000px; margin: 0 auto 14px !important; }
+    .quote cite { color: rgba(0,0,0,0.45) !important; font-weight: 500 !important; }
   </style>
 </head>
 <body>
@@ -606,22 +622,22 @@
       <h2 class="frame-statement">AI Is Everywhere in the Business. <span>None of It Is Compounding.</span></h2>
       <div class="pcards">
         <div class="pcard">
-          <div class="pcard-n">01</div>
+          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/><path d="M18 4l2 2M20 4l-2 2"/></svg></div>
           <h3>No Clear Owner</h3>
           <p>AI sits between product, technology, operations and leadership. Everyone has a stake, but no one fully owns the outcome.</p>
         </div>
         <div class="pcard">
-          <div class="pcard-n">02</div>
+          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg></div>
           <h3>Too Much Activity, Not Enough Change</h3>
           <p>Pilots create momentum, but they do not automatically become shipped products, redesigned workflows or measurable cost reduction.</p>
         </div>
         <div class="pcard">
-          <div class="pcard-n">03</div>
+          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h6v4H4zM14 14h6v4h-6z"/><path d="M10 8h3a2 2 0 0 1 2 2v4"/><path d="M8 15l-3 3M5 15l3 3"/></svg></div>
           <h3>Broken Workflows Get Automated</h3>
           <p>AI added to poor processes creates a faster mess. The workflow needs redesign before automation makes sense.</p>
         </div>
         <div class="pcard">
-          <div class="pcard-n">04</div>
+          <div class="fcard-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
           <h3>Value Is Hard to Prove</h3>
           <p>Teams can show usage, but not impact. Leaders need to see what changed: cost, speed, quality, margin or customer experience.</p>
         </div>
@@ -806,8 +822,10 @@
 
 <!-- QUOTE -->
 <section class="quote">
-  <blockquote>&ldquo;Every company will be an AI company, or it will be disrupted by one that is.&rdquo;</blockquote>
-  <cite>Satya Nadella, CEO, Microsoft</cite>
+  <div class="quote-inner">
+    <blockquote>&ldquo;Every company will be an AI company, or it will be disrupted by one that is.&rdquo;</blockquote>
+    <cite>Satya Nadella, CEO, Microsoft</cite>
+  </div>
 </section>
 
 <!-- OUTCOMES -->
