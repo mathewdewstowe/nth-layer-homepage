@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-Native Transformation · The Nth Layer</title>
-  <meta name="description" content="The Nth Layer helps PE-backed software businesses become AI-native — rebuilding product, operating model and delivery around where the constraint actually sits.">
+  <title>AI Operating Model · The Nth Layer</title>
+  <meta name="description" content="Output is up. Lead time hasn't moved. Nobody can say what the AI spend bought. The Nth Layer rebuilds the operating model around where the constraint actually sits.">
   <link rel="canonical" href="https://nthlayer.co.uk/">
-  <meta property="og:title" content="AI-Native Transformation · The Nth Layer">
-  <meta property="og:description" content="Becoming AI-native is an operating-model change. Not a tooling rollout.">
+  <meta property="og:title" content="AI Operating Model · The Nth Layer">
+  <meta property="og:description" content="Output is up. Lead time hasn't moved. Nobody can say what the AI spend bought.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nthlayer.co.uk/">
   <meta property="og:site_name" content="The Nth Layer">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI-Native Transformation · The Nth Layer">
-  <meta name="twitter:description" content="Becoming AI-native is an operating-model change. Not a tooling rollout.">
+  <meta name="twitter:title" content="AI Operating Model · The Nth Layer">
+  <meta name="twitter:description" content="Output is up. Lead time hasn't moved. Nobody can say what the AI spend bought.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
     "@type": "ProfessionalService",
     "name": "The Nth Layer",
     "url": "https://nthlayer.co.uk",
-    "description": "We help PE-backed software businesses become AI-native — rebuilding product, operating model and delivery around where the constraint actually sits.",
+    "description": "We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.",
     "founder": { "@type": "Person", "name": "Matthew Dewstowe" },
     "areaServed": { "@type": "Country", "name": "United Kingdom" },
     "contactPoint": { "@type": "ContactPoint", "contactType": "business enquiries", "url": "https://nthlayer.co.uk/#contact" }
@@ -35,18 +35,16 @@
 
     /* ── Tokens ── */
     :root {
-      --lime:        #C6F24E;
-      --green:       #4D7C0F;
-      --dark:        #16181A;
-      --warm:        #EBEBE8;
-      --amber:       #E0A33E;
-      --hero-bg:     #0E1210;
-      --muted-brown: #7A5C3A;
-      --max-w:       1140px;
-      --gutter:      clamp(20px, 5vw, 48px);
-      --font-head:   'Merriweather', Georgia, serif;
-      --font-body:   'Roboto', system-ui, sans-serif;
-      --font-mono:   'Roboto Mono', 'Courier New', monospace;
+      --lime:      #C6F24E;
+      --green:     #4D7C0F;
+      --dark:      #16181A;
+      --warm:      #EBEBE8;
+      --hero-bg:   #0E1210;
+      --max-w:     1100px;
+      --gutter:    clamp(20px, 5vw, 48px);
+      --font-head: 'Merriweather', Georgia, serif;
+      --font-body: 'Roboto', system-ui, sans-serif;
+      --font-mono: 'Roboto Mono', 'Courier New', monospace;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -65,12 +63,7 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-head);
-      line-height: 1.2;
-      font-style: normal;
-    }
-
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); line-height: 1.2; font-style: normal; }
     em, i { font-style: normal; }
 
     .wrap {
@@ -82,18 +75,11 @@
 
     /* ── Buttons ── */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border-radius: 3px;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: background 0.18s, border-color 0.18s, opacity 0.18s;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 3px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: background 0.18s, border-color 0.18s;
       letter-spacing: 0.01em;
     }
     .btn-lime  { background: var(--lime); color: var(--dark); }
@@ -102,43 +88,31 @@
     .btn-ghost:hover { border-color: var(--warm); }
     .btn-dark  { background: var(--dark); color: var(--warm); border: 1px solid rgba(235,235,232,0.2); }
     .btn-dark:hover { border-color: rgba(235,235,232,0.5); }
+    .btn-dark-solid { background: var(--dark); color: var(--warm); }
 
     /* ── Section label ── */
     .label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      opacity: 0.45;
-      margin-bottom: 10px;
+      display: block; font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.45; margin-bottom: 10px;
     }
 
     /* ════════════════════════════════
        NAV
     ════════════════════════════════ */
     #nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 300;
-      height: 66px;
-      display: flex;
-      align-items: center;
-      padding: 0 var(--gutter);
-      background: transparent;
-      transition: background 0.3s, backdrop-filter 0.3s;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: 66px; display: flex; align-items: center; padding: 0 var(--gutter);
+      background: transparent; transition: background 0.3s, backdrop-filter 0.3s;
     }
     #nav.scrolled {
-      background: rgba(14,18,16,0.93);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(14,18,16,0.94);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
     .nav-logo {
-      display: flex; align-items: center; gap: 9px;
-      text-decoration: none; color: #fff;
-      font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 9px; text-decoration: none;
+      color: #fff; font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
     }
     .nav-logo svg { width: 24px; height: 24px; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 24px; }
@@ -149,7 +123,6 @@
       padding: 7px 16px; border-radius: 3px; font-weight: 700; font-size: 12px;
     }
     .nav-cta:hover { background: #d6ff5c; }
-
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 6px;
@@ -158,18 +131,14 @@
     .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
     @media (max-width: 700px) { .hamburger { display: flex; } .nav-links { display: none; } }
-
     .mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 290; }
     .mob-overlay.open { display: block; }
     .mob-menu {
       position: fixed; top: 0; right: -280px; width: 280px; height: 100dvh;
-      background: #0E1210; z-index: 295;
-      padding: 88px 28px 32px;
+      background: #0E1210; z-index: 295; padding: 88px 28px 32px;
       display: flex; flex-direction: column; gap: 22px;
-      transition: right 0.28s ease;
-      border-left: 1px solid rgba(255,255,255,0.08);
+      transition: right 0.28s ease; border-left: 1px solid rgba(255,255,255,0.08);
     }
     .mob-menu.open { right: 0; }
     .mob-menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 17px; font-weight: 500; }
@@ -180,140 +149,94 @@
     ════════════════════════════════ */
     .hero {
       min-height: 100svh;
-      padding: 100px var(--gutter) 80px;
+      padding: 120px var(--gutter) 80px;
       background:
-        radial-gradient(ellipse 55% 65% at 80% 65%, rgba(224,163,62,0.20) 0%, transparent 68%),
-        radial-gradient(ellipse 50% 60% at 4% 8%,  rgba(77,124,15,0.30)  0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 95% 60%, rgba(198,242,78,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 55% at 5% 10%,  rgba(77,124,15,0.28)  0%, transparent 60%),
         var(--hero-bg);
-      display: flex;
-      align-items: center;
-      position: relative;
+      display: flex; align-items: center;
     }
-    .hero::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: rgba(235,235,232,0.07);
-      pointer-events: none;
-    }
-
     .hero-inner {
       width: min(100%, var(--max-w));
       margin-inline: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: center;
+      max-width: 760px;
     }
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-chart-col { order: -1; }
-    }
-
     .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      color: rgba(235,235,232,0.45);
-      margin-bottom: 14px;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.09em;
+      color: rgba(235,235,232,0.4); margin-bottom: 32px;
     }
-    .hero-rule { width: 100%; height: 1px; background: rgba(235,235,232,0.14); margin-bottom: 22px; }
     .hero h1 {
-      font-family: var(--font-head);
-      font-size: clamp(30px, 3.8vw, 50px);
-      font-weight: 700;
-      line-height: 1.14;
-      color: #fff;
-      margin-bottom: 22px;
+      font-size: clamp(32px, 5.2vw, 62px);
+      font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 28px;
     }
-    .hero-lede {
-      font-size: clamp(15px, 1.5vw, 16px);
-      line-height: 1.72;
-      color: rgba(235,235,232,0.78);
-      margin-bottom: 34px;
-      max-width: 510px;
+    .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero-offer {
+      font-size: clamp(16px, 1.8vw, 18px);
+      color: rgba(235,235,232,0.72); line-height: 1.65; margin-bottom: 40px; max-width: 560px;
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-    /* Hero chart */
-    .hero-chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .hero-chart-scroll svg { width: 100%; min-width: 340px; display: block; }
-    .hero-chart-caption {
-      margin-top: 10px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: rgba(235,235,232,0.32);
-      line-height: 1.5;
-    }
-
     /* ════════════════════════════════
-       PROBLEM (4 CARDS)
+       PROBLEM
     ════════════════════════════════ */
     .problem {
       padding: 96px var(--gutter);
       background: var(--dark);
       border-top: 1px solid rgba(235,235,232,0.06);
     }
-    .problem-head { margin-bottom: 56px; }
-    .problem-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: #fff; max-width: 580px; }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border-top: 1px solid rgba(235,235,232,0.1);
+    .problem-inner { max-width: 780px; }
+    .problem-statement {
+      font-family: var(--font-head);
+      font-size: clamp(22px, 3vw, 32px);
+      color: #fff; line-height: 1.45; margin-bottom: 28px;
     }
-    @media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 500px) { .problem-grid { grid-template-columns: 1fr; } }
-    .pcard {
-      padding: 32px 28px 32px 0;
-      border-right: 1px solid rgba(235,235,232,0.08);
+    .problem-statement span { color: var(--lime); }
+    .problem-body {
+      font-size: clamp(15px, 1.6vw, 17px);
+      color: rgba(235,235,232,0.62); line-height: 1.78; max-width: 640px;
     }
-    .pcard:last-child { border-right: none; padding-right: 0; }
-    @media (max-width: 900px) {
-      .pcard { border-bottom: 1px solid rgba(235,235,232,0.08); padding-right: 0; border-right: none; padding-bottom: 28px; padding-top: 28px; }
-      .pcard:nth-child(odd) { padding-right: 24px; border-right: 1px solid rgba(235,235,232,0.08); }
-      .pcard:nth-last-child(-n+2) { border-bottom: none; }
-    }
-    @media (max-width: 500px) { .pcard { border-right: none !important; padding-right: 0 !important; } .pcard:last-child { border-bottom: none; } }
-    .pcard-n { font-family: var(--font-mono); font-size: 10px; color: rgba(198,242,78,0.7); margin-bottom: 12px; letter-spacing: 0.08em; }
-    .pcard h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.35; }
-    .pcard p { font-size: 13px; color: rgba(235,235,232,0.52); line-height: 1.7; }
 
     /* ════════════════════════════════
-       PILLARS (warm grey, 3 col)
+       OFFER — 3 ENGAGEMENT SHAPES
     ════════════════════════════════ */
-    .pillars {
+    .offer {
       padding: 96px var(--gutter);
-      background: var(--warm);
-      color: var(--dark);
+      background: var(--warm); color: var(--dark);
     }
-    .pillars-head { margin-bottom: 52px; }
-    .pillars-head .label { color: rgba(22,24,26,0.42); }
-    .pillars-head h2 { font-size: clamp(26px, 3.2vw, 40px); color: var(--dark); max-width: 640px; line-height: 1.2; }
-    .pillars-grid {
+    .offer-head { margin-bottom: 52px; }
+    .offer-head .label { color: rgba(22,24,26,0.42); }
+    .offer-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: var(--dark); }
+    .offer-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
       border-top: 2px solid rgba(22,24,26,0.12);
     }
-    @media (max-width: 700px) { .pillars-grid { grid-template-columns: 1fr; } }
-    .pillar {
+    @media (max-width: 800px) { .offer-grid { grid-template-columns: 1fr; } }
+    .shape {
       padding: 36px 32px 36px 0;
       border-right: 1px solid rgba(22,24,26,0.1);
     }
-    .pillar:last-child { border-right: none; padding-right: 0; }
-    @media (max-width: 700px) {
-      .pillar { border-right: none; border-bottom: 1px solid rgba(22,24,26,0.12); padding: 28px 0; }
-      .pillar:last-child { border-bottom: none; }
+    .shape:last-child { border-right: none; padding-right: 0; }
+    @media (max-width: 800px) {
+      .shape { border-right: none; border-bottom: 1px solid rgba(22,24,26,0.12); padding: 30px 0; }
+      .shape:last-child { border-bottom: none; }
     }
-    .pillar-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(22,24,26,0.38); margin-bottom: 14px; }
-    .pillar h3 { font-family: var(--font-head); font-size: 19px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
-    .pillar p { font-size: 14px; color: rgba(22,24,26,0.68); line-height: 1.75; }
-    .pillar--accent { border-top: 3px solid var(--lime); padding-top: 33px; }
-    @media (max-width: 700px) { .pillar--accent { border-top: none; border-left: 3px solid var(--lime); padding-left: 18px; } }
+    .shape-meta {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(22,24,26,0.38); margin-bottom: 16px;
+    }
+    .shape h3 {
+      font-family: var(--font-head); font-size: 19px; font-weight: 700;
+      color: var(--dark); margin-bottom: 14px; line-height: 1.25;
+    }
+    .shape-desc { font-size: 14px; color: rgba(22,24,26,0.65); line-height: 1.75; margin-bottom: 24px; }
+    .shape-price {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      color: var(--dark); border-top: 1px solid rgba(22,24,26,0.12); padding-top: 16px;
+    }
 
     /* ════════════════════════════════
-       FOUR NUMBERS
+       NUMBERS
     ════════════════════════════════ */
     .numbers {
       padding: 96px var(--gutter);
@@ -322,86 +245,32 @@
     .numbers-head { margin-bottom: 56px; }
     .numbers-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: #fff; }
     .nums-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 52px 60px;
-      margin-bottom: 52px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px 60px; margin-bottom: 52px;
     }
     @media (max-width: 560px) { .nums-grid { grid-template-columns: 1fr; } }
     .num-stat { font-family: var(--font-head); font-size: clamp(36px, 5.5vw, 58px); color: var(--lime); line-height: 1; margin-bottom: 10px; }
     .num-label { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 8px; }
     .num-desc { font-size: 13px; color: rgba(235,235,232,0.5); line-height: 1.68; }
-    .numbers-note {
-      font-size: 14px;
-      color: rgba(235,235,232,0.5);
-      line-height: 1.72;
-      max-width: 620px;
-      border-top: 1px solid rgba(235,235,232,0.1);
-      padding-top: 28px;
-    }
 
     /* ════════════════════════════════
-       EVIDENCE (warm grey)
+       HOW WE KNOW
     ════════════════════════════════ */
-    .evidence {
-      padding: 96px var(--gutter);
-      background: var(--warm);
-      color: var(--dark);
-    }
-    .evidence-head { margin-bottom: 44px; }
-    .evidence-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: var(--dark); }
-    .ev-rows { border-top: 1px solid rgba(22,24,26,0.12); margin-bottom: 28px; }
-    .ev-row {
-      display: grid;
-      grid-template-columns: 160px 1fr 110px;
-      gap: 20px;
-      align-items: center;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(22,24,26,0.1);
-    }
-    @media (max-width: 600px) { .ev-row { grid-template-columns: 1fr; gap: 6px; } }
-    .ev-src { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--dark); }
-    .ev-desc { font-size: 13px; color: rgba(22,24,26,0.68); line-height: 1.6; }
-    .ev-weight {}
-    .ev-wlabel { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(22,24,26,0.38); margin-bottom: 4px; }
-    .ev-track { height: 5px; background: rgba(22,24,26,0.12); border-radius: 3px; overflow: hidden; }
-    .ev-fill { height: 100%; background: var(--dark); border-radius: 3px; }
-    .evidence-note {
-      font-size: 13px;
-      color: rgba(22,24,26,0.55);
-      max-width: 580px;
-      line-height: 1.7;
-      border-top: 1px solid rgba(22,24,26,0.1);
-      padding-top: 22px;
-    }
-
-    /* ════════════════════════════════
-       HOW WE ENGAGE (near-black)
-    ════════════════════════════════ */
-    .engage {
-      padding: 96px var(--gutter);
+    .know {
+      padding: 88px var(--gutter);
       background: #0E1210;
+      border-top: 1px solid rgba(235,235,232,0.06);
     }
-    .engage-head { margin-bottom: 48px; }
-    .engage-head h2 { font-size: clamp(24px, 2.8vw, 34px); color: #fff; }
-    .engage-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid rgba(235,235,232,0.1);
+    .know-inner { max-width: 660px; }
+    .know-inner h2 { font-size: clamp(22px, 2.4vw, 28px); color: #fff; margin-bottom: 20px; }
+    .know-inner p { font-size: 15px; color: rgba(235,235,232,0.62); line-height: 1.78; margin-bottom: 22px; }
+    .know-link {
+      color: var(--lime); text-decoration: none;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+      border-bottom: 1px solid rgba(198,242,78,0.35);
+      transition: border-color 0.18s;
     }
-    @media (max-width: 700px) { .engage-grid { grid-template-columns: 1fr; } }
-    .engage-phase {
-      padding: 36px 32px;
-      border-right: 1px solid rgba(235,235,232,0.1);
-    }
-    .engage-phase:last-child { border-right: none; }
-    @media (max-width: 700px) {
-      .engage-phase { border-right: none; border-bottom: 1px solid rgba(235,235,232,0.1); }
-      .engage-phase:last-child { border-bottom: none; }
-    }
-    .engage-num { font-family: var(--font-mono); font-size: 10px; color: var(--lime); letter-spacing: 0.08em; margin-bottom: 14px; }
-    .engage-phase h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 14px; }
-    .engage-phase p { font-size: 13px; color: rgba(235,235,232,0.6); line-height: 1.72; }
+    .know-link:hover { border-color: var(--lime); }
 
     /* ════════════════════════════════
        PARTNERS
@@ -413,55 +282,34 @@
       border-bottom: 1px solid rgba(235,235,232,0.06);
     }
     .partners-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(235,235,232,0.28);
-      text-align: center;
-      margin-bottom: 32px;
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(235,235,232,0.28);
+      text-align: center; margin-bottom: 32px;
     }
     .partners-logos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 36px 56px;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 36px 56px;
     }
-    .p-logo {
-      height: 26px;
-      opacity: 0.38;
-      filter: invert(1) brightness(10);
-      transition: opacity 0.2s;
-    }
+    .p-logo { height: 26px; opacity: 0.38; filter: invert(1) brightness(10); transition: opacity 0.2s; }
     .p-logo:hover { opacity: 0.65; }
 
     /* ════════════════════════════════
-       CLOSING BLOCK (lime)
+       CLOSING (lime)
     ════════════════════════════════ */
     .closing {
       padding: 96px var(--gutter);
-      background: var(--lime);
-      color: var(--dark);
+      background: var(--lime); color: var(--dark);
     }
-    .closing-inner { max-width: 640px; margin-inline: auto; text-align: center; }
-    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 700; color: var(--dark); margin-bottom: 24px; }
-    .closing-qs { list-style: none; text-align: left; margin-bottom: 36px; display: flex; flex-direction: column; gap: 14px; }
-    .closing-qs li { font-size: 15px; color: rgba(22,24,26,0.78); padding-left: 24px; position: relative; line-height: 1.65; }
-    .closing-qs li::before { content: '→'; position: absolute; left: 0; color: rgba(22,24,26,0.4); }
-    .closing-intro { font-size: 14px; color: rgba(22,24,26,0.62); margin-bottom: 28px; }
-    .closing-email { display: inline-block; font-size: 16px; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--dark); padding-bottom: 1px; text-decoration: none; margin-bottom: 28px; }
+    .closing-inner { max-width: 600px; margin-inline: auto; text-align: center; }
+    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+    .closing-sub { font-size: 16px; color: rgba(22,24,26,0.68); line-height: 1.68; margin-bottom: 36px; max-width: 480px; margin-inline: auto; margin-bottom: 36px; }
+    .closing-email { display: inline-block; font-size: 17px; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--dark); padding-bottom: 1px; text-decoration: none; margin-bottom: 28px; }
     .closing-email:hover { color: var(--green); border-color: var(--green); }
-    .closing .btn-dark { background: var(--dark); color: var(--warm); border: none; }
 
     /* ════════════════════════════════
        FOOTER
     ════════════════════════════════ */
-    footer {
-      background: var(--dark);
-      padding: 28px var(--gutter);
-      border-top: 1px solid rgba(235,235,232,0.06);
-    }
+    footer { background: var(--dark); padding: 28px var(--gutter); border-top: 1px solid rgba(235,235,232,0.06); }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .footer-copy { font-size: 11px; color: rgba(235,235,232,0.3); }
     .footer-links { display: flex; gap: 18px; }
@@ -469,20 +317,13 @@
     .footer-links a:hover { color: rgba(235,235,232,0.6); }
 
     /* ════════════════════════════════
-       CONTACT MODAL
+       MODAL
     ════════════════════════════════ */
     .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
     .modal.active { display: flex; }
     .modal-box {
-      background: #181c1a;
-      border: 1px solid rgba(235,235,232,0.1);
-      border-radius: 3px;
-      padding: 36px;
-      width: 100%;
-      max-width: 488px;
-      max-height: 92vh;
-      overflow-y: auto;
-      position: relative;
+      background: #181c1a; border: 1px solid rgba(235,235,232,0.1); border-radius: 3px;
+      padding: 36px; width: 100%; max-width: 488px; max-height: 92vh; overflow-y: auto; position: relative;
     }
     .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: rgba(235,235,232,0.45); font-size: 22px; line-height: 1; cursor: pointer; }
     .modal-close:hover { color: #fff; }
@@ -491,26 +332,18 @@
     .modal-sub { font-size: 13px; color: rgba(235,235,232,0.55); margin-bottom: 26px; line-height: 1.6; }
     .fgroup { margin-bottom: 14px; }
     .fgroup input, .fgroup textarea {
-      width: 100%;
-      background: rgba(235,235,232,0.06);
-      border: 1px solid rgba(235,235,232,0.14);
-      border-radius: 3px;
-      padding: 11px 13px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--warm);
-      transition: border-color 0.18s;
+      width: 100%; background: rgba(235,235,232,0.06); border: 1px solid rgba(235,235,232,0.14);
+      border-radius: 3px; padding: 11px 13px; font-family: var(--font-body); font-size: 13px;
+      color: var(--warm); transition: border-color 0.18s;
     }
     .fgroup input:focus, .fgroup textarea:focus { outline: none; border-color: var(--lime); }
     .fgroup textarea { resize: vertical; min-height: 96px; }
     .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     @media (max-width: 460px) { .frow { grid-template-columns: 1fr; } }
     .modal-submit {
-      width: 100%; padding: 13px;
-      background: var(--lime); color: var(--dark);
+      width: 100%; padding: 13px; background: var(--lime); color: var(--dark);
       font-family: var(--font-body); font-size: 14px; font-weight: 700;
-      border: none; border-radius: 3px; cursor: pointer; margin-top: 6px;
-      transition: background 0.18s;
+      border: none; border-radius: 3px; cursor: pointer; margin-top: 6px; transition: background 0.18s;
     }
     .modal-submit:hover { background: #d6ff5c; }
     .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -552,123 +385,57 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
-    <div class="hero-copy">
-      <p class="hero-eyebrow">Product and Engineering Operating Models · AI Transformation</p>
-      <div class="hero-rule" role="presentation"></div>
-      <h1>Becoming AI-Native Is an Operating-Model Change. Not a Tooling Rollout.</h1>
-      <p class="hero-lede">Most businesses have adopted AI tooling. Far fewer have changed how they decide, build and measure. The constraint has moved — and the gap between those two things is where value is being lost.</p>
-      <div class="hero-actions">
-        <button class="btn btn-lime" onclick="openModal()">Book a Working Session</button>
-        <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
-      </div>
-    </div>
-    <div class="hero-chart-col" aria-label="Chart comparing elapsed time across three delivery models">
-      <div class="hero-chart-scroll">
-        <svg viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Horizontal stacked bar chart: idea to measured result, three delivery models">
-          <defs>
-            <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M0 0 L8 4 L0 8z" fill="rgba(235,235,232,0.22)"/>
-            </marker>
-          </defs>
-
-          <!-- Row labels -->
-          <text x="150" y="41" text-anchor="end" fill="rgba(235,235,232,0.65)" font-size="11" font-family="'Roboto Mono',monospace">Today</text>
-          <text x="150" y="91" text-anchor="end" fill="rgba(235,235,232,0.65)" font-size="11" font-family="'Roboto Mono',monospace">Faster coding</text>
-          <text x="150" y="105" text-anchor="end" fill="rgba(235,235,232,0.65)" font-size="11" font-family="'Roboto Mono',monospace">only</text>
-          <text x="150" y="155" text-anchor="end" fill="rgba(235,235,232,0.65)" font-size="11" font-family="'Roboto Mono',monospace">Rebuilt</text>
-
-          <!-- Bar 1: Today — 24 units -->
-          <rect x="155" y="27" width="24"  height="26" fill="#4D7C0F"/>
-          <rect x="179" y="27" width="168" height="26" fill="#C6F24E"/>
-          <rect x="347" y="27" width="60"  height="26" fill="#E0A33E"/>
-          <rect x="407" y="27" width="36"  height="26" fill="#7A5C3A"/>
-          <text x="447" y="44" fill="rgba(235,235,232,0.58)" font-size="12" font-weight="500" font-family="'Roboto Mono',monospace">24</text>
-
-          <!-- Bar 2: Faster coding only — 22 units -->
-          <rect x="155" y="80" width="24"  height="26" fill="#4D7C0F"/>
-          <rect x="179" y="80" width="84"  height="26" fill="#C6F24E"/>
-          <rect x="263" y="80" width="96"  height="26" fill="#E0A33E"/>
-          <rect x="359" y="80" width="60"  height="26" fill="#7A5C3A"/>
-          <text x="423" y="97" fill="rgba(235,235,232,0.58)" font-size="12" font-weight="500" font-family="'Roboto Mono',monospace">22</text>
-
-          <!-- Bar 3: Rebuilt — 11 units -->
-          <rect x="155" y="133" width="24"  height="26" fill="#4D7C0F"/>
-          <rect x="179" y="133" width="48"  height="26" fill="#C6F24E"/>
-          <rect x="227" y="133" width="36"  height="26" fill="#E0A33E"/>
-          <rect x="263" y="133" width="24"  height="26" fill="#7A5C3A"/>
-          <text x="291" y="150" fill="#C6F24E" font-size="12" font-weight="700" font-family="'Roboto Mono',monospace">11</text>
-
-          <!-- Legend -->
-          <rect x="155" y="180" width="10" height="7" fill="#4D7C0F"/>
-          <text x="169" y="187" fill="rgba(235,235,232,0.38)" font-size="9" font-family="'Roboto Mono',monospace">Decide</text>
-          <rect x="220" y="180" width="10" height="7" fill="#C6F24E"/>
-          <text x="234" y="187" fill="rgba(235,235,232,0.38)" font-size="9" font-family="'Roboto Mono',monospace">Build</text>
-          <rect x="275" y="180" width="10" height="7" fill="#E0A33E"/>
-          <text x="289" y="187" fill="rgba(235,235,232,0.38)" font-size="9" font-family="'Roboto Mono',monospace">Verify</text>
-          <rect x="336" y="180" width="10" height="7" fill="#7A5C3A"/>
-          <text x="350" y="187" fill="rgba(235,235,232,0.38)" font-size="9" font-family="'Roboto Mono',monospace">Release</text>
-        </svg>
-      </div>
-      <p class="hero-chart-caption">Buying the tools and changing nothing takes two units off a twenty-four unit process.</p>
+    <p class="hero-eyebrow">The Nth Layer · AI Operating Model Practice</p>
+    <h1>Output Is Up. <em>Nothing</em> Is Faster. Nobody Can Say What the AI Spend Bought.</h1>
+    <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
+    <div class="hero-actions">
+      <button class="btn btn-lime" onclick="openModal()">Book a Working Session</button>
+      <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM: 4 CARDS -->
+<!-- PROBLEM -->
 <section class="problem">
   <div class="wrap">
-    <div class="problem-head">
+    <div class="problem-inner">
       <span class="label">The Problem</span>
-      <h2>The Tools Have Changed. The Operating Model Hasn't.</h2>
-    </div>
-    <div class="problem-grid">
-      <div class="pcard">
-        <div class="pcard-n">01</div>
-        <h3>Operating Model Lag</h3>
-        <p>AI tooling is running on the same decision structures, accountability gaps and measurement approaches that existed before it. The bottleneck has moved — most organisations have not.</p>
-      </div>
-      <div class="pcard">
-        <div class="pcard-n">02</div>
-        <h3>Spend Without Attribution</h3>
-        <p>AI investment is rising across the portfolio. The line from that spend to a measurable business outcome — margin, delivery efficiency, exit multiple — remains undrawn.</p>
-      </div>
-      <div class="pcard">
-        <div class="pcard-n">03</div>
-        <h3>Products Not Designed for an AI-Native World</h3>
-        <p>Most roadmaps bolt AI onto what already exists. The harder question is whether the product — what it costs to run, what it can do, how defensible it is — has been redesigned around what AI now makes viable.</p>
-      </div>
-      <div class="pcard">
-        <div class="pcard-n">04</div>
-        <h3>A Diligence Gap</h3>
-        <p>A buyer asking about AI is not asking about tool adoption. They want to know whether the operating model is more efficient, more defensible and more scalable than the benchmark. Most portcos cannot answer.</p>
-      </div>
+      <p class="problem-statement">Faster generation on a broken operating model produces <span>more of the wrong thing, faster.</span></p>
+      <p class="problem-body">Most AI investment is running on the same decision structures, accountability gaps and measurement approaches that existed before the tools arrived. Teams are generating more output. Lead time to production has not moved. The spend line is rising and nobody can draw a line from it to a business result. That is not a tooling problem. It is an operating model problem.</p>
     </div>
   </div>
 </section>
 
-<!-- PILLARS: What AI-Native Means -->
-<section class="pillars">
+<!-- OFFER: 3 ENGAGEMENT SHAPES -->
+<section class="offer">
   <div class="wrap">
-    <div class="pillars-head">
-      <span class="label">What AI-Native Actually Means</span>
-      <h2>A Different Operating Model. Not a Faster Version of the Same One.</h2>
+    <div class="offer-head">
+      <span class="label">What We Do</span>
+      <h2>Three Ways to Engage</h2>
     </div>
-    <div class="pillars-grid">
-      <div class="pillar">
-        <div class="pillar-tag">Product</div>
-        <h3>Products That Command a Premium</h3>
-        <p>AI-native products do things that weren't previously viable, at economics that weren't previously achievable. Defensibility is structural — built into the business model, not added as a feature layer.</p>
+    <div class="offer-grid">
+
+      <div class="shape">
+        <div class="shape-meta">Diagnostic · 4 weeks</div>
+        <h3>Find the Constraint</h3>
+        <p class="shape-desc">Map where the operating model is creating friction — where decisions slow, where value disappears and where the AI spend is going. You leave with a prioritised change plan and a clear read on where the value is.</p>
+        <div class="shape-price">From £18,000</div>
       </div>
-      <div class="pillar">
-        <div class="pillar-tag">Operating Model</div>
-        <h3>An Operating Model Built for Evidence</h3>
-        <p>How decisions get made, how work flows and how outcomes get measured all need to change together. Speed comes from removing structural friction — not from asking people to move faster on a broken process.</p>
+
+      <div class="shape">
+        <div class="shape-meta">Programme · 12 weeks</div>
+        <h3>Rebuild Around It</h3>
+        <p class="shape-desc">Rebuild product strategy, delivery model and measurement together — not sequentially. Designed to show measurable results before the engagement ends. We transfer capability; we do not create dependency.</p>
+        <div class="shape-price">From £75,000</div>
       </div>
-      <div class="pillar pillar--accent">
-        <div class="pillar-tag">Value at Exit</div>
-        <h3>A Value Story That Holds in Diligence</h3>
-        <p>The evidence of what changed — in cost, speed and reliability — needs to live in the operating data before anyone asks for it. Built-in before the process starts, not constructed during it.</p>
+
+      <div class="shape">
+        <div class="shape-meta">Fractional · Ongoing</div>
+        <h3>Senior Operating Model Leadership</h3>
+        <p class="shape-desc">Embedded in the business one or two days a week. Useful when the change is ongoing, the internal team does not yet have the pattern, and adding a full-time hire is not the right answer yet.</p>
+        <div class="shape-price">Day rate on request</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -677,111 +444,42 @@
 <section class="numbers">
   <div class="wrap">
     <div class="numbers-head">
-      <span class="label">What Moves</span>
-      <h2>Four Numbers. Four Quarters.</h2>
+      <span class="label">What Changes</span>
+      <h2>The Four Numbers That Move</h2>
     </div>
     <div class="nums-grid">
       <div>
         <div class="num-stat">↓</div>
         <div class="num-label">Cost to Deliver a Verified Business Outcome</div>
-        <div class="num-desc">Total engineering and delivery spend against outputs that reached production and can be attributed to a business result. Falls as decision quality improves and rework drops.</div>
+        <div class="num-desc">Total delivery spend against outputs that reached production and trace to a business result. Falls as decision quality improves and rework drops.</div>
       </div>
       <div>
         <div class="num-stat">↓</div>
         <div class="num-label">Time from Decision to Measurable Result</div>
-        <div class="num-desc">The elapsed time between a priority being stated and its impact being visible in operating data. Falls when the operating model is rebuilt around where the constraint actually sits.</div>
+        <div class="num-desc">Elapsed time between a priority being stated and its impact showing in operating data. Falls when the model is rebuilt around the real constraint.</div>
       </div>
       <div>
         <div class="num-stat">↓</div>
         <div class="num-label">Dependency on External Capacity</div>
-        <div class="num-desc">Agency, contractor and consultant spend bought to compensate for capability and capacity gaps. Falls as throughput becomes predictable and capability is owned internally.</div>
+        <div class="num-desc">Agency, contractor and consultant spend bought to compensate for gaps. Falls as throughput becomes predictable and capability is owned internally.</div>
       </div>
       <div>
         <div class="num-stat">↑</div>
         <div class="num-label">Repeatability Across the Portfolio</div>
-        <div class="num-desc">When the same approach runs across business units or portcos, the evidence from the first run calibrates the next. The approach compounds in a way a single engagement cannot.</div>
+        <div class="num-desc">When the approach runs more than once — across business units or portcos — the evidence from the first run calibrates the next. It compounds.</div>
       </div>
     </div>
-    <p class="numbers-note">These are the numbers that appear in a diligence conversation about AI transformation. When they move, the story writes itself.</p>
   </div>
 </section>
 
-<!-- EVIDENCE -->
-<section class="evidence">
+<!-- HOW WE KNOW IT WORKS -->
+<section class="know">
   <div class="wrap">
-    <div class="evidence-head">
-      <span class="label">Evidence</span>
-      <h2>Graded by Method, Not by Vendor</h2>
-    </div>
-    <div class="ev-rows">
-      <div class="ev-row">
-        <div class="ev-src">METR</div>
-        <div class="ev-desc">Independent capability evaluations of frontier models on software engineering tasks. Pre-registered methodology, adversarially validated results. Highest methodological weight.</div>
-        <div class="ev-weight">
-          <div class="ev-wlabel">Weight</div>
-          <div class="ev-track"><div class="ev-fill" style="width:100%"></div></div>
-        </div>
-      </div>
-      <div class="ev-row">
-        <div class="ev-src">DORA</div>
-        <div class="ev-desc">Annual State of DevOps Report. Multi-year longitudinal survey of delivery performance across thousands of teams. Broadly representative but self-selected sample.</div>
-        <div class="ev-weight">
-          <div class="ev-wlabel">Weight</div>
-          <div class="ev-track"><div class="ev-fill" style="width:80%"></div></div>
-        </div>
-      </div>
-      <div class="ev-row">
-        <div class="ev-src">GitClear</div>
-        <div class="ev-desc">Analysis of 211 million lines of code change from 2019 to 2024, tracking churn, copy-paste rate and revert frequency. Longitudinal, code-level signal without self-report bias.</div>
-        <div class="ev-weight">
-          <div class="ev-wlabel">Weight</div>
-          <div class="ev-track"><div class="ev-fill" style="width:72%"></div></div>
-        </div>
-      </div>
-      <div class="ev-row">
-        <div class="ev-src">Adoption research</div>
-        <div class="ev-desc">Independent studies of AI coding tool adoption at scale across GitHub Copilot, Cursor and Claude Code. Velocity gains are real; defect-rate outcomes depend on how the operating model is set up.</div>
-        <div class="ev-weight">
-          <div class="ev-wlabel">Weight</div>
-          <div class="ev-track"><div class="ev-fill" style="width:55%"></div></div>
-        </div>
-      </div>
-      <div class="ev-row">
-        <div class="ev-src">Vendor accounts</div>
-        <div class="ev-desc">Self-reported outcomes from tool providers. Useful for directional signal; structurally incentivised toward positive framing. Treated as hypothesis, not evidence.</div>
-        <div class="ev-weight">
-          <div class="ev-wlabel">Weight</div>
-          <div class="ev-track"><div class="ev-fill" style="width:28%"></div></div>
-        </div>
-      </div>
-    </div>
-    <p class="evidence-note">Our own approach would score a C on the same table: we have structured observation and pilot data, not a randomised controlled trial. We state this in advance rather than after the fact.</p>
-  </div>
-</section>
-
-<!-- HOW WE ENGAGE -->
-<section class="engage">
-  <div class="wrap">
-    <div class="engage-head">
-      <span class="label">How We Engage</span>
-      <h2>Twelve Weeks. Three Phases.</h2>
-    </div>
-    <div class="engage-grid">
-      <div class="engage-phase">
-        <div class="engage-num">Phase One</div>
-        <h3>Diagnose the Real Constraint</h3>
-        <p>We start where the operating model breaks down — where decisions slow, where value disappears and where accountability is unclear. That diagnosis drives everything that follows. No tooling conversation until this is done.</p>
-      </div>
-      <div class="engage-phase">
-        <div class="engage-num">Phase Two</div>
-        <h3>Rebuild Around the Constraint</h3>
-        <p>Product strategy, delivery model and measurement change together — not sequentially. Changes that cannot be connected to a measurable outcome are not made. We transfer capability, not dependency.</p>
-      </div>
-      <div class="engage-phase">
-        <div class="engage-num">Phase Three</div>
-        <h3>Prove It in the Operating Data</h3>
-        <p>By the end of the engagement, the evidence lives in operating data — not in a presentation. Cost, speed and reliability are measurable. The story for a buyer is already forming.</p>
-      </div>
+    <div class="know-inner">
+      <span class="label">How We Know It Works</span>
+      <h2>Falsifiable by Design</h2>
+      <p>Before an engagement starts, we write down what failure looks like. If cost-per-outcome, lead time and change-failure rate have not moved by the end, we say so in writing — and we publish that finding. We have pre-registered that standard, not agreed it in retrospect. No engagement ends with a slide deck of claimed wins and no way to verify them.</p>
+      <a href="/inflexion/" class="know-link">Read the full evidence base and methodology →</a>
     </div>
   </div>
 </section>
@@ -798,20 +496,15 @@
   </div>
 </section>
 
-<!-- CLOSING BLOCK (lime) -->
+<!-- CLOSING (lime) -->
 <section class="closing" id="contact">
   <div class="closing-inner">
-    <h2>Three Questions Worth Asking</h2>
-    <ul class="closing-qs">
-      <li>What does our AI spend actually trace to in the operating numbers?</li>
-      <li>If a buyer asked us to demonstrate AI-native efficiency today, what would we show them?</li>
-      <li>Is our product designed around what AI now makes possible — or just augmented with it?</li>
-    </ul>
-    <p class="closing-intro">If you do not have fast answers to all three, that is the starting point.</p>
-    <a href="mailto:matthew@nthlayer.co.uk" class="closing-email">matthew@nthlayer.co.uk</a>
+    <h2>Start with a Working Session</h2>
+    <p class="closing-sub">One conversation to find the constraint. No deck, no proposal stage, no commitment beyond the session.</p>
     <div>
-      <button class="btn btn-dark" onclick="openModal()">Book a Working Session</button>
+      <a href="mailto:matthew@nthlayer.co.uk" class="closing-email">matthew@nthlayer.co.uk</a>
     </div>
+    <button class="btn btn-dark-solid" onclick="openModal()">Book a Working Session</button>
   </div>
 </section>
 
@@ -825,7 +518,7 @@
   </div>
 </footer>
 
-<!-- CONTACT MODAL -->
+<!-- MODAL -->
 <div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="Get in touch">
   <div class="modal-box">
     <button class="modal-close" type="button" aria-label="Close" onclick="closeModal()">&#x00D7;</button>
@@ -834,22 +527,12 @@
     <p class="modal-sub">Every engagement starts with a working session. No deck. Just the right questions.</p>
     <form id="contactForm" onsubmit="submitContact(event)">
       <div class="frow">
-        <div class="fgroup">
-          <input type="text"  id="cName"    name="name"     required placeholder="Name *"     autocomplete="name">
-        </div>
-        <div class="fgroup">
-          <input type="text"  id="cCompany" name="company"  required placeholder="Company *"  autocomplete="organization">
-        </div>
+        <div class="fgroup"><input type="text"  id="cName"    name="name"     required placeholder="Name *"     autocomplete="name"></div>
+        <div class="fgroup"><input type="text"  id="cCompany" name="company"  required placeholder="Company *"  autocomplete="organization"></div>
       </div>
-      <div class="fgroup">
-        <input type="text"  id="cTitle"   name="jobtitle" required placeholder="Job title *" autocomplete="organization-title">
-      </div>
-      <div class="fgroup">
-        <input type="email" id="cEmail"   name="email"    required placeholder="Email *"     autocomplete="email">
-      </div>
-      <div class="fgroup">
-        <textarea id="cMsg" name="message" rows="4" required placeholder="Message *"></textarea>
-      </div>
+      <div class="fgroup"><input type="text"  id="cTitle"   name="jobtitle" required placeholder="Job title *" autocomplete="organization-title"></div>
+      <div class="fgroup"><input type="email" id="cEmail"   name="email"    required placeholder="Email *"     autocomplete="email"></div>
+      <div class="fgroup"><textarea id="cMsg" name="message" rows="4" required placeholder="Message *"></textarea></div>
       <div id="contactErr" class="modal-err"></div>
       <button type="submit" class="modal-submit">Send message →</button>
     </form>
@@ -858,7 +541,6 @@
 </div>
 
 <script>
-  // Nav scroll
   (function () {
     var nav = document.getElementById('nav');
     function tick() { nav.classList.toggle('scrolled', window.scrollY > 40); }
@@ -866,7 +548,6 @@
     tick();
   })();
 
-  // Mobile menu
   function toggleMenu() {
     var m = document.getElementById('mobMenu');
     var o = document.getElementById('mobOverlay');
@@ -877,7 +558,6 @@
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  // Escape key
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     var m = document.getElementById('mobMenu');
@@ -885,7 +565,6 @@
     closeModal();
   });
 
-  // Modal
   function openModal(e) {
     if (e) e.preventDefault();
     document.getElementById('contactForm').style.display = 'block';
@@ -915,15 +594,10 @@
       jobtitle:  document.getElementById('cTitle').value.trim(),
       email:     document.getElementById('cEmail').value.trim(),
       message:   document.getElementById('cMsg').value.trim(),
-      audience:  'CEO',
-      sourcePage:'home'
+      audience:  'CEO', sourcePage: 'home'
     };
     try {
-      var res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      var res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error('Failed');
       document.getElementById('contactForm').style.display = 'none';
       document.getElementById('contactOk').style.display  = 'block';
