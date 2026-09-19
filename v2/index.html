@@ -251,13 +251,48 @@
     ════════════════════════════════ */
     .diagram {
       padding: 88px var(--gutter);
-      background: var(--warm); color: var(--dark);
-      border-top: 1px solid rgba(22,24,26,0.08);
+      background: var(--dark);
+      border-top: 1px solid rgba(235,235,232,0.06);
     }
-    .diagram-head { margin-bottom: 48px; }
-    .diagram-head .label { color: rgba(22,24,26,0.42); }
-    .diagram-head h2 { font-size: clamp(22px, 2.4vw, 30px); color: var(--dark); max-width: 580px; }
-    .diagram-svg { width: 100%; max-width: 900px; }
+    .diagram-head { margin-bottom: 52px; }
+    .diagram-head .label { color: rgba(235,235,232,0.35); }
+    .diagram-head h2 { font-size: clamp(22px, 2.4vw, 30px); color: #fff; max-width: 580px; }
+    .diag-cols {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center; gap: 0;
+    }
+    @media (max-width: 700px) { .diag-cols { grid-template-columns: 1fr; } }
+    .diag-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 16px; color: rgba(235,235,232,0.2); font-size: 20px;
+    }
+    @media (max-width: 700px) { .diag-arrow { display: none; } }
+    .diag-col {
+      border: 1px solid rgba(235,235,232,0.1); border-radius: 4px;
+      padding: 28px 24px; min-height: 220px;
+    }
+    .diag-col.constraint {
+      border-color: rgba(198,242,78,0.3);
+      background: rgba(198,242,78,0.04);
+    }
+    .diag-col-label {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .diag-col-label.dim { color: rgba(235,235,232,0.3); }
+    .diag-col-label.accent { color: rgba(198,242,78,0.7); }
+    .diag-item { margin-bottom: 16px; }
+    .diag-item:last-child { margin-bottom: 0; }
+    .diag-item-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .diag-col.constraint .diag-item-name { color: var(--lime); }
+    .diag-item-desc { font-size: 12px; color: rgba(235,235,232,0.45); line-height: 1.5; }
+    .diag-badge {
+      display: inline-block; margin-top: 20px;
+      background: var(--lime); color: var(--dark);
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 5px 10px; border-radius: 2px; font-weight: 700;
+    }
+    .diag-outcome-neg { font-size: 12px; color: rgba(235,235,232,0.38); line-height: 1.55; }
 
     /* ════════════════════════════════
        NUMBERS
@@ -434,38 +469,6 @@
   </div>
 </section>
 
-<!-- OFFER: 3 ENGAGEMENT SHAPES -->
-<section class="offer">
-  <div class="wrap">
-    <div class="offer-head">
-      <span class="label">What We Do</span>
-      <h2>Three Ways to Engage</h2>
-      <p style="font-size: 16px; color: rgba(235,235,232,0.58); line-height: 1.7; max-width: 600px; margin-top: 16px;">Every engagement starts with strategy: where is the constraint, what does rebuilding around it require, and what does success look like before any work begins. The shape depends on how urgent and how deep.</p>
-    </div>
-    <div class="offer-grid">
-
-      <div class="shape">
-        <div class="shape-meta">Diagnostic · 4 weeks</div>
-        <h3>Find the Constraint</h3>
-        <p class="shape-desc">Map where the operating model is creating friction: where decisions slow, where value disappears and where the AI spend is going. You leave with a prioritised change plan and a clear read on where the value is.</p>
-      </div>
-
-      <div class="shape">
-        <div class="shape-meta">Programme · 12 weeks</div>
-        <h3>Rebuild Around It</h3>
-        <p class="shape-desc">Rebuild product strategy, delivery model and measurement together, not sequentially. Designed to show measurable results before the engagement ends. We transfer capability and do not create dependency.</p>
-      </div>
-
-      <div class="shape">
-        <div class="shape-meta">Fractional · Ongoing</div>
-        <h3>Senior Operating Model Leadership</h3>
-        <p class="shape-desc">Embedded in the business one or two days a week. Useful when the change is ongoing, the internal team does not yet have the pattern, and adding a full-time hire is not the right answer yet.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- DIAGRAM -->
 <section class="diagram">
   <div class="wrap">
@@ -473,46 +476,53 @@
       <span class="label">Why It Stalls</span>
       <h2>The Constraint Is Rarely in the Technology Layer</h2>
     </div>
-    <svg class="diagram-svg" viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing AI investment flowing through a constrained operating model before reaching business outcomes">
-      <!-- Background panels -->
-      <rect x="0"   y="40" width="248" height="200" rx="4" fill="#16181A" opacity="0.06"/>
-      <rect x="326" y="40" width="248" height="200" rx="4" fill="#C6F24E" opacity="0.12"/>
-      <rect x="652" y="40" width="248" height="200" rx="4" fill="#16181A" opacity="0.06"/>
-      <!-- Column labels -->
-      <text x="124" y="28" text-anchor="middle" font-family="'Roboto Mono', monospace" font-size="10" letter-spacing="2" fill="#16181A" opacity="0.4" text-decoration="none">AI INVESTMENT</text>
-      <text x="450" y="28" text-anchor="middle" font-family="'Roboto Mono', monospace" font-size="10" letter-spacing="2" fill="#4D7C0F" opacity="0.8">OPERATING MODEL</text>
-      <text x="776" y="28" text-anchor="middle" font-family="'Roboto Mono', monospace" font-size="10" letter-spacing="2" fill="#16181A" opacity="0.4">BUSINESS OUTCOMES</text>
-      <!-- Left column content -->
-      <text x="124" y="108" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">AI Tools</text>
-      <text x="124" y="130" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.55">LLMs, copilots, agents</text>
-      <line x1="80" y1="155" x2="168" y2="155" stroke="#16181A" stroke-opacity="0.12" stroke-width="1"/>
-      <text x="124" y="175" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">Teams</text>
-      <text x="124" y="195" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.55">More output generated</text>
-      <!-- Arrows left to middle -->
-      <line x1="250" y1="140" x2="324" y2="140" stroke="#16181A" stroke-opacity="0.2" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <polygon points="324,136 332,140 324,144" fill="#16181A" opacity="0.2"/>
-      <!-- Middle column — constraint -->
-      <text x="450" y="90" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">Decision Structure</text>
-      <text x="450" y="112" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.6">Who decides, and how fast</text>
-      <line x1="350" y1="128" x2="550" y2="128" stroke="#4D7C0F" stroke-opacity="0.25" stroke-width="1"/>
-      <text x="450" y="150" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">Accountability Gaps</text>
-      <text x="450" y="172" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.6">Where ownership is unclear</text>
-      <line x1="350" y1="188" x2="550" y2="188" stroke="#4D7C0F" stroke-opacity="0.25" stroke-width="1"/>
-      <text x="450" y="210" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">Measurement</text>
-      <text x="450" y="232" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.6">What gets counted and rewarded</text>
-      <!-- Constraint label -->
-      <rect x="342" y="248" width="216" height="22" rx="3" fill="#4D7C0F" opacity="0.9"/>
-      <text x="450" y="263" text-anchor="middle" font-family="'Roboto Mono', monospace" font-size="10" letter-spacing="1.5" fill="#C6F24E">THE CONSTRAINT LIVES HERE</text>
-      <!-- Arrows middle to right (narrow = bottleneck) -->
-      <line x1="576" y1="140" x2="650" y2="140" stroke="#16181A" stroke-opacity="0.2" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <polygon points="650,136 658,140 650,144" fill="#16181A" opacity="0.2"/>
-      <!-- Right column -->
-      <text x="776" y="108" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">Lead Time</text>
-      <text x="776" y="130" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.55">Decision to result: unchanged</text>
-      <line x1="700" y1="155" x2="852" y2="155" stroke="#16181A" stroke-opacity="0.12" stroke-width="1"/>
-      <text x="776" y="175" text-anchor="middle" font-family="'Merriweather', Georgia, serif" font-size="13" font-weight="700" fill="#16181A">AI Spend Attribution</text>
-      <text x="776" y="195" text-anchor="middle" font-family="'Roboto', sans-serif" font-size="12" fill="#16181A" opacity="0.55">Cannot draw line to outcome</text>
-    </svg>
+    <div class="diag-cols">
+
+      <div class="diag-col">
+        <div class="diag-col-label dim">AI Investment</div>
+        <div class="diag-item">
+          <div class="diag-item-name">AI Tools</div>
+          <div class="diag-item-desc">LLMs, copilots, agents, automation</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Teams</div>
+          <div class="diag-item-desc">More output being generated than ever</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Budget</div>
+          <div class="diag-item-desc">Spend line rising quarter on quarter</div>
+        </div>
+      </div>
+
+      <div class="diag-arrow">→</div>
+
+      <div class="diag-col constraint">
+        <div class="diag-col-label accent">Operating Model</div>
+        <div class="diag-item">
+          <div class="diag-item-name">Decision Structure</div>
+          <div class="diag-item-desc">Who decides what, and how fast</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Accountability</div>
+          <div class="diag-item-desc">Where ownership breaks down</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Measurement</div>
+          <div class="diag-item-desc">What gets counted and rewarded</div>
+        </div>
+        <span class="diag-badge">Constraint Lives Here</span>
+      </div>
+
+      <div class="diag-arrow">→</div>
+
+      <div class="diag-col">
+        <div class="diag-col-label dim">Business Outcomes</div>
+        <div class="diag-outcome-neg">Lead time to production: unchanged.</div>
+        <div class="diag-outcome-neg" style="margin-top: 14px;">AI spend attribution: nobody can draw the line.</div>
+        <div class="diag-outcome-neg" style="margin-top: 14px;">Diligence gap: the question every PE board is about to ask.</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -568,6 +578,34 @@
       <img class="p-logo" src="/images/partner-marlin.png"  alt="Marlin Equity Partners"  style="height: 28px; opacity: 0.45; filter: grayscale(1);">
       <img class="p-logo" src="/images/partner-stratum.png" alt="Stratum Capital"          style="height: 28px; opacity: 0.45; filter: grayscale(1);">
       <img class="p-logo" src="/images/partner-banc.png"    alt="Banc"                     style="height: 28px; opacity: 0.45; filter: grayscale(1);">
+    </div>
+  </div>
+</section>
+
+<!-- OFFER: 3 ENGAGEMENT SHAPES -->
+<section class="offer">
+  <div class="wrap">
+    <div class="offer-head">
+      <span class="label">What We Do</span>
+      <h2>Three Ways to Engage</h2>
+      <p style="font-size: 16px; color: rgba(235,235,232,0.55); line-height: 1.7; max-width: 600px; margin-top: 16px;">Every engagement starts with strategy: where is the constraint, what does rebuilding around it require, and what does success look like before work begins. The shape depends on how urgent and how deep.</p>
+    </div>
+    <div class="offer-grid">
+      <div class="shape">
+        <div class="shape-meta">Diagnostic · 4 weeks</div>
+        <h3>Find the Constraint</h3>
+        <p class="shape-desc">Map where the operating model is creating friction: where decisions slow, where value disappears and where the AI spend is going. You leave with a prioritised change plan and a clear read on where the value is.</p>
+      </div>
+      <div class="shape">
+        <div class="shape-meta">Programme · 12 weeks</div>
+        <h3>Rebuild Around It</h3>
+        <p class="shape-desc">Rebuild product strategy, delivery model and measurement together, not sequentially. Designed to show measurable results before the engagement ends. We transfer capability and do not create dependency.</p>
+      </div>
+      <div class="shape">
+        <div class="shape-meta">Fractional · Ongoing</div>
+        <h3>Senior Operating Model Leadership</h3>
+        <p class="shape-desc">Embedded in the business one or two days a week. Useful when the change is ongoing, the internal team does not yet have the pattern, and adding a full-time hire is not the right answer yet.</p>
+      </div>
     </div>
   </div>
 </section>
