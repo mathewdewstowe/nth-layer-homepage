@@ -180,19 +180,21 @@
     ════════════════════════════════ */
     .problem {
       padding: 96px var(--gutter);
-      background: var(--dark);
-      border-top: 1px solid rgba(235,235,232,0.06);
+      background: var(--warm);
+      color: var(--dark);
+      border-top: 1px solid rgba(22,24,26,0.08);
     }
     .problem-inner { max-width: 780px; }
+    .problem .label { color: rgba(22,24,26,0.42); }
     .problem-statement {
       font-family: var(--font-head);
       font-size: clamp(22px, 3vw, 32px);
-      color: #fff; line-height: 1.45; margin-bottom: 28px;
+      color: var(--dark); line-height: 1.45; margin-bottom: 28px;
     }
-    .problem-statement span { color: var(--lime); }
+    .problem-statement span { color: var(--green); }
     .problem-body {
       font-size: clamp(15px, 1.6vw, 17px);
-      color: rgba(235,235,232,0.62); line-height: 1.78; max-width: 640px;
+      color: rgba(22,24,26,0.65); line-height: 1.78; max-width: 640px;
     }
 
     /* ════════════════════════════════
@@ -214,6 +216,7 @@
     .shape {
       padding: 36px 32px 36px 0;
       border-right: 1px solid rgba(22,24,26,0.1);
+      display: flex; flex-direction: column;
     }
     .shape:last-child { border-right: none; padding-right: 0; }
     @media (max-width: 800px) {
@@ -228,10 +231,10 @@
       font-family: var(--font-head); font-size: 19px; font-weight: 700;
       color: var(--dark); margin-bottom: 14px; line-height: 1.25;
     }
-    .shape-desc { font-size: 14px; color: rgba(22,24,26,0.65); line-height: 1.75; margin-bottom: 24px; }
+    .shape-desc { font-size: 14px; color: rgba(22,24,26,0.65); line-height: 1.75; margin-bottom: 0; flex: 1; }
     .shape-price {
       font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-      color: var(--dark); border-top: 1px solid rgba(22,24,26,0.12); padding-top: 16px;
+      color: var(--dark); border-top: 1px solid rgba(22,24,26,0.12); padding-top: 16px; margin-top: 24px;
     }
 
     /* ════════════════════════════════
@@ -500,9 +503,6 @@
   <div class="closing-inner">
     <h2>Start with a Working Session</h2>
     <p class="closing-sub">One conversation to find the constraint. No deck, no proposal stage, no commitment beyond the session.</p>
-    <div>
-      <a href="mailto:matthew@nthlayer.co.uk" class="closing-email">matthew@nthlayer.co.uk</a>
-    </div>
     <button class="btn btn-dark-solid" onclick="openModal()">Book a Working Session</button>
   </div>
 </section>
@@ -510,10 +510,6 @@
 <footer>
   <div class="footer-inner wrap">
     <span class="footer-copy">&copy; 2026 The Nth Layer. All rights reserved.</span>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="/usecases/">Use Cases</a>
-      <a href="/inflexion/">Inflexion</a>
-    </nav>
   </div>
 </footer>
 
