@@ -148,45 +148,55 @@
        HERO
     ════════════════════════════════ */
     .hero {
-      min-height: max(640px, 92vh);
+      position: relative; overflow: hidden;
+      min-height: max(620px, 88vh);
       display: flex; align-items: center;
-      padding: 120px var(--gutter) 88px;
+      padding: 128px var(--gutter) 96px;
       background:
-        linear-gradient(90deg, rgba(8,10,9,0.92) 0%, rgba(8,10,9,0.72) 38%, rgba(8,10,9,0.15) 70%, rgba(8,10,9,0.05) 100%),
-        linear-gradient(to top, rgba(8,10,9,0.55) 0%, transparent 35%),
-        url('/images/hero-tree.jpg') 70% center / cover no-repeat,
+        radial-gradient(ellipse 45% 55% at 80% 50%, rgba(198,242,78,0.09) 0%, transparent 65%),
         var(--hero-bg);
     }
-    .hero-inner { width: min(100%, var(--max-w)); margin-inline: auto; }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(235,235,232,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(235,235,232,0.045) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 75% at 72% 50%, #000 15%, transparent 72%);
+              mask-image: radial-gradient(ellipse 60% 75% at 72% 50%, #000 15%, transparent 72%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      width: min(100%, var(--max-w)); margin-inline: auto;
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 56px; align-items: center;
+    }
     .hero-eyebrow {
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
       text-transform: uppercase; color: rgba(198,242,78,0.75); margin-bottom: 28px;
     }
     .hero h1 {
-      font-size: clamp(38px, 5vw, 72px);
-      line-height: 1.04; letter-spacing: -0.01em; color: #fff;
-      max-width: 1040px; margin-bottom: 28px;
+      font-size: clamp(40px, 4.8vw, 70px);
+      line-height: 1.04; letter-spacing: -0.01em; color: #fff; margin-bottom: 28px;
     }
     .hero h1 .l1 { display: block; color: var(--lime); }
     .hero h1 .l2 { display: block; }
     .hero-offer {
       font-size: clamp(16px, 1.5vw, 19px);
-      color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 40px; max-width: 580px;
+      color: rgba(255,255,255,0.72); line-height: 1.65; margin-bottom: 40px; max-width: 560px;
     }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
     .hero .btn { padding: 18px 30px; font-size: 15px; font-weight: 700; border-radius: 4px; }
-    .hero .btn-ghost { background: rgba(8,10,9,0.55); border-color: rgba(255,255,255,0.3); color: #fff; }
+    .hero .btn-ghost { border-color: rgba(255,255,255,0.3); color: #fff; }
+    .hero-mark { width: 100%; max-width: 420px; justify-self: end; }
+    .hero-mark .sq { fill: none; stroke-width: 1.5; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-mark { display: none; }
+    }
     @media (max-width: 700px) {
-      .hero {
-        min-height: 0; padding: 110px var(--gutter) 64px;
-      }
+      .hero { min-height: 0; padding: 112px var(--gutter) 72px; }
       .hero .btn-lime { order: -1; }
       .hero .btn { width: 100%; justify-content: center; }
-      .hero {
-        background:
-          linear-gradient(to top, rgba(8,10,9,0.95) 0%, rgba(8,10,9,0.8) 45%, rgba(8,10,9,0.35) 100%),
-          url('/images/hero-tree.jpg') 70% center / cover no-repeat, var(--hero-bg);
-      }
     }
 
     /* ════════════════════════════════
@@ -194,7 +204,7 @@
     ════════════════════════════════ */
     .problem {
       padding: 96px var(--gutter);
-      background: var(--warm);
+      background: #fff;
       color: var(--dark);
       border-top: 1px solid rgba(22,24,26,0.08);
     }
@@ -220,19 +230,19 @@
     .s-ver { background: #E0A33E; }
     .s-rel { background: #7A5C3A; }
     .c-total { font-family: var(--font-mono); font-size: 14px; font-weight: 500; color: rgba(22,24,26,0.55); text-align: right; }
-    .c-row.win .c-total { color: var(--green); font-weight: 700; font-size: 16px; }
+    .c-row.win .c-total { color: var(--dark); font-weight: 700; font-size: 16px; }
     .c-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 26px 0 18px; padding-left: 132px; }
     .c-legend span { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(22,24,26,0.55); }
     .c-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
     .compress figcaption { font-size: 13px; line-height: 1.6; color: rgba(22,24,26,0.62); border-top: 1px solid rgba(22,24,26,0.1); padding-top: 16px; }
     @media (max-width: 480px) { .c-row { grid-template-columns: 1fr 30px; } .c-label { grid-column: 1 / -1; margin-bottom: -6px; } .c-legend { padding-left: 0; } .compress { padding: 24px 20px 20px; } }
-    .problem .label { color: var(--green); }
+    .problem .label { color: rgba(22,24,26,0.5); }
     .problem-statement {
       font-family: var(--font-head);
       font-size: clamp(22px, 3vw, 32px);
       color: var(--dark); line-height: 1.45; margin-bottom: 28px;
     }
-    .problem-statement span { color: var(--green); }
+    .problem-statement span { color: var(--dark); }
     .problem-body {
       font-size: clamp(15px, 1.6vw, 17px);
       color: rgba(22,24,26,0.65); line-height: 1.78; max-width: 640px;
@@ -309,25 +319,18 @@
     }
     .diag-col-label.dim { color: rgba(235,235,232,0.5); }
     .diag-col-label.accent { color: rgba(198,242,78,0.7); }
-    .diag-item { margin-bottom: 16px; }
+    .diag-item { margin-bottom: 22px; }
     .diag-item:last-child { margin-bottom: 0; }
     .diag-item-name { font-family: var(--font-head); font-size: 18px; font-weight: 400; color: #fff; margin-bottom: 3px; }
     .diag-col.constraint .diag-item-name { color: var(--lime); }
-    .diag-item-desc { font-size: 13px; color: rgba(235,235,232,0.58); line-height: 1.5; }
-    .diag-badge {
-      display: inline-block; margin-top: 20px;
-      background: var(--lime); color: var(--dark);
-      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 5px 10px; border-radius: 2px; font-weight: 700;
-    }
-    .diag-outcome-neg { font-size: 14px; color: rgba(235,235,232,0.72); line-height: 1.55; padding-left: 12px; border-left: 2px solid rgba(235,235,232,0.18); }
+    .diag-item-desc { font-size: 14px; color: rgba(235,235,232,0.62); line-height: 1.6; }
 
     /* ════════════════════════════════
        NUMBERS
     ════════════════════════════════ */
     .numbers {
       padding: 104px var(--gutter);
-      background: var(--warm); color: var(--dark);
+      background: #fff; border-top: 1px solid rgba(22,24,26,0.08); color: var(--dark);
     }
     .numbers-head { margin-bottom: 56px; max-width: 900px; }
     .numbers-head .label { color: var(--green); }
@@ -356,9 +359,10 @@
       background: #0E1210;
       border-top: 1px solid rgba(235,235,232,0.06);
     }
-    .know-inner { max-width: 660px; }
-    .know-inner h2 { font-size: clamp(22px, 2.4vw, 28px); color: #fff; margin-bottom: 20px; }
-    .know-inner p { font-size: 15px; color: rgba(235,235,232,0.62); line-height: 1.78; margin-bottom: 22px; }
+    .know-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 32px 72px; align-items: start; }
+    @media (max-width: 800px) { .know-inner { grid-template-columns: 1fr; } }
+    .know-inner h2 { font-size: clamp(28px, 3.2vw, 44px); color: #fff; margin-bottom: 20px; }
+    .know-inner p { font-size: 17px; color: rgba(235,235,232,0.62); line-height: 1.78; margin-bottom: 22px; }
     .know-link {
       color: var(--lime); text-decoration: none;
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
@@ -392,12 +396,12 @@
        CLOSING (lime)
     ════════════════════════════════ */
     .closing {
-      padding: 96px var(--gutter);
+      padding: 52px var(--gutter);
       background: var(--lime); color: var(--dark);
     }
     .closing-inner { max-width: 600px; margin-inline: auto; text-align: center; }
-    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; color: var(--dark); margin-bottom: 20px; }
-    .closing-sub { font-size: 16px; color: rgba(22,24,26,0.68); line-height: 1.68; margin-bottom: 36px; max-width: 480px; margin-inline: auto; margin-bottom: 36px; }
+    .closing h2 { font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; color: var(--dark); margin-bottom: 12px; }
+    .closing-sub { font-size: 16px; color: rgba(22,24,26,0.68); line-height: 1.68; max-width: 480px; margin-inline: auto; margin-bottom: 24px; }
     .closing-email { display: inline-block; font-size: 17px; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--dark); padding-bottom: 1px; text-decoration: none; margin-bottom: 28px; }
     .closing-email:hover { color: var(--green); border-color: var(--green); }
 
@@ -480,6 +484,7 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
+    <div class="hero-copy">
     <p class="hero-eyebrow">AI Operating Model Practice</p>
     <h1><span class="l1">AI Spend Is Up.</span><span class="l2">How the Business Runs Is Not.</span></h1>
     <p class="hero-offer">We rebuild the operating model around where the constraint actually sits. Diagnostic, twelve-week programme, or fractional leadership.</p>
@@ -487,6 +492,15 @@
       <a href="/inflexion/" class="btn btn-ghost">Read the Thesis</a>
       <button class="btn btn-lime" onclick="openModal()">Book a Working Session <span aria-hidden="true">&rarr;</span></button>
     </div>
+    </div>
+    <svg class="hero-mark" viewBox="0 0 400 400" aria-hidden="true">
+      <rect class="sq" x="2"   y="2"   width="396" height="396" stroke="rgba(235,235,232,0.10)"/>
+      <rect class="sq" x="42"  y="42"  width="316" height="316" stroke="rgba(235,235,232,0.16)"/>
+      <rect class="sq" x="82"  y="82"  width="236" height="236" stroke="rgba(235,235,232,0.24)"/>
+      <rect class="sq" x="122" y="122" width="156" height="156" stroke="rgba(235,235,232,0.34)"/>
+      <rect class="sq" x="162" y="162" width="76"  height="76"  stroke="rgba(198,242,78,0.6)"/>
+      <rect x="185" y="185" width="30" height="30" fill="#C6F24E"/>
+    </svg>
   </div>
 </section>
 
@@ -541,44 +555,52 @@
         <div class="diag-col-label dim">AI Investment</div>
         <div class="diag-item">
           <div class="diag-item-name">AI Tools</div>
-          <div class="diag-item-desc">LLMs, copilots, agents, automation</div>
+          <div class="diag-item-desc">LLMs, copilots, agents and automation are now in most teams. Access to the tools is no longer the hard part.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Teams</div>
-          <div class="diag-item-desc">More output being generated than ever</div>
+          <div class="diag-item-desc">People are producing more drafts, code and content than ever. Volume has gone up; throughput has not.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Budget</div>
-          <div class="diag-item-desc">Spend line rising quarter on quarter</div>
+          <div class="diag-item-desc">The AI line rises every quarter. It sits on top of existing spend rather than replacing any of it.</div>
         </div>
       </div>
 
       <div class="diag-arrow">→</div>
 
       <div class="diag-col constraint">
-        <div class="diag-col-label accent">Operating Model</div>
+        <div class="diag-col-label accent">Operating Model · The Constraint</div>
         <div class="diag-item">
           <div class="diag-item-name">Decision Structure</div>
-          <div class="diag-item-desc">Who decides what, and how fast</div>
+          <div class="diag-item-desc">Who decides what, and how fast. When approvals and priorities still move at the old pace, faster work just queues up waiting.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Accountability</div>
-          <div class="diag-item-desc">Where ownership breaks down</div>
+          <div class="diag-item-desc">Nobody owns the result end to end. Gains made in one team disappear in the hand-off to the next.</div>
         </div>
         <div class="diag-item">
           <div class="diag-item-name">Measurement</div>
-          <div class="diag-item-desc">What gets counted and rewarded</div>
+          <div class="diag-item-desc">Teams are counted and rewarded on activity and output. Nobody is accountable for the outcome the spend was meant to buy.</div>
         </div>
-        <span class="diag-badge">Constraint Lives Here</span>
       </div>
 
       <div class="diag-arrow">→</div>
 
       <div class="diag-col">
         <div class="diag-col-label dim">Business Outcomes</div>
-        <div class="diag-outcome-neg">Lead time to production: unchanged.</div>
-        <div class="diag-outcome-neg" style="margin-top: 14px;">AI spend attribution: nobody can draw the line.</div>
-        <div class="diag-outcome-neg" style="margin-top: 14px;">Diligence gap: the question every PE board is about to ask.</div>
+        <div class="diag-item">
+          <div class="diag-item-name">Lead Time</div>
+          <div class="diag-item-desc">The time from a decision to a result in the market has not moved. Faster work upstream never reaches the customer.</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Attribution</div>
+          <div class="diag-item-desc">Nobody can trace the AI spend to a business result. The board sees a cost line with no return beside it.</div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-item-name">Diligence</div>
+          <div class="diag-item-desc">Every buyer will ask what the AI programme delivered. Without evidence, it counts against the equity story rather than for it.</div>
+        </div>
       </div>
 
     </div>
@@ -626,16 +648,20 @@
 <section class="know">
   <div class="wrap">
     <div class="know-inner">
-      <span class="label">How We Know It Works</span>
-      <h2>Falsifiable by Design</h2>
+      <div>
+        <span class="label">How We Know It Works</span>
+        <h2>Falsifiable by Design</h2>
+      </div>
+      <div>
       <p>Before an engagement starts, we write down what failure looks like. If cost-per-outcome, lead time and change-failure rate have not moved by the end, we say so in writing and publish that finding. We have pre-registered that standard, not agreed it in retrospect. No engagement ends with a slide deck of claimed wins and no way to verify them.</p>
       <a href="/inflexion/" class="know-link">Read the full evidence base and methodology →</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PARTNERS -->
-<section class="partners" style="background: var(--warm); border-top: 1px solid rgba(22,24,26,0.08); border-bottom: none; padding: 52px var(--gutter);">
+<section class="partners" style="background: #fff; border-top: 1px solid rgba(22,24,26,0.08); border-bottom: none; padding: 52px var(--gutter);">
   <div class="wrap">
     <div class="partners-label" style="color: rgba(22,24,26,0.38); text-align: center; margin-bottom: 36px;">Organisations We Have Worked With</div>
     <div class="partners-logos" style="justify-content: center; align-items: center; gap: 40px 64px;">
