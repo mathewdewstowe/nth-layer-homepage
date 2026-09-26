@@ -6,11 +6,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://nthlayer.co.uk/use-cases</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://nthlayer.co.uk/inflexion/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
