@@ -1733,6 +1733,10 @@ html.v9-anim .v9-sr.in.now,html.v9-anim .v9-sr.in.now .v9bar{transition:none!imp
 .v9 .ghero .hlogos{padding-top:14px}
 .v9 .hl-row{gap:14px 16px!important}
 }
+/* 2026-10-18 17:53: evidence stats, the number never overlaps its label; label drops below when there is no room */
+.v9 .pf-top{flex-wrap:wrap;column-gap:14px;row-gap:4px}
+.v9 .pf-v{flex:0 0 auto;min-width:0;max-width:100%}
+.v9 .pf-lab{flex:1 1 10em;min-width:0;overflow-wrap:break-word}
 /* parallax uses the individual translate property, so it never fights the load/reveal transforms */
 html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .ghero .hv-frame{will-change:translate}
 </style>
