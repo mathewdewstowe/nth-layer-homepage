@@ -1704,6 +1704,25 @@ html.v9-anim .v9-sr.now{transition:none!important}
 .v9 .pf-tab{min-height:40px}
 </style>
 <script>(function(){try{if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;document.documentElement.classList.add("v9-anim")}catch(e){}})()</script>
+<style id="v9css3">
+/* mobile and tablet: hero + logos fill the first screen (svh = viewport with browser bars), logos at the bottom */
+@media(max-width:899px){
+.v9 .ghero{padding-top:0!important}
+.v9 .ghero .hmain{min-height:calc(100vh - 63px)!important;min-height:calc(100svh - 63px)!important;box-sizing:border-box;padding:clamp(24px,6svh,56px) 0 clamp(16px,3svh,28px)!important}
+.v9 .ghero .hmain>h1{margin-top:auto!important}
+.v9 .ghero .hmain::before,.v9 .ghero .hmain::after{display:none!important}
+.v9 .ghero .hlogos{margin-top:auto!important;padding-top:28px}
+}
+@media(max-width:899px) and (max-height:620px){
+.v9 .ghero .hmain{padding:12px 0 12px!important}
+.v9 .ghero .sub{margin-top:14px!important}
+.v9 .ghero .act{margin-top:18px!important}
+.v9 .ghero .hlogos{padding-top:14px}
+.v9 .hl-row{gap:14px 16px!important}
+}
+/* parallax uses the individual translate property, so it never fights the load/reveal transforms */
+html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .ghero .hv-frame{will-change:translate}
+</style>
 </head><body class="look look-g clean g2 g3 g4 g5 g6 g7 g8 v2 v3 v4 v6 v7 v8 v9"><!-- CONFIRM WITH MATTHEW BEFORE PUBLISH: cookie banner copy; PLACEHOLDER: [COOKIE POLICY LINK] needs a real policy URL --><div class="ck9" id="ck9" role="region" aria-label="Cookie preferences" hidden><p class="ck9-t">This site uses cookies to understand how it is used. You can accept or reject non-essential cookies. <a class="ck9-l" href="#cookie-policy">[COOKIE POLICY LINK]</a></p><div class="ck9-b"><button type="button" class="ck9-y" data-ck="accepted">Accept</button><button type="button" class="ck9-n" data-ck="rejected">Reject</button></div></div>
 <div class="gbar"><div class="wrap"><header class="site"><a class="brand" href="#top" aria-label="The Nth Layer, back to top"><svg class="mark" viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg><span class="stack">The<br>Nth<br>Layer</span></a>
 <nav class="main" aria-label="Main"><a class="book" href="#contact" data-contact>Book a call</a></nav><a class="mbook" href="#contact" data-contact>Book a call</a></header></div></div>
@@ -1811,4 +1830,16 @@ b.hidden=false;pad();addEventListener("resize",pad);
 [].forEach.call(b.querySelectorAll("[data-ck]"),function(x){x.addEventListener("click",function(){var c=x.getAttribute("data-ck");
 try{localStorage.setItem(K,JSON.stringify({choice:c,date:new Date().toISOString()}))}catch(e){}
 b.hidden=true;pad();removeEventListener("resize",pad);if(c==="accepted")loadNonEssential();
-try{document.dispatchEvent(new CustomEvent("nl:consent",{detail:c}))}catch(e){}})})})();</script></body></html>
+try{document.dispatchEvent(new CustomEvent("nl:consent",{detail:c}))}catch(e){}})})})();</script><script>(function(){var H=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches||!("translate" in H.style))return;
+var q=function(s){return document.querySelector(s)};var hero=q(".ghero"),h1=q(".ghero h1"),sub=q(".ghero .sub"),act=q(".ghero .act"),hv=q(".ghero .hvis"),fr=q(".ghero .hv-frame"),sx=q("#shift"),sw=q("#shift > .wrap");
+var sm=matchMedia("(max-width:600px)"),last={},tick=false;H.classList.add("v9-px");
+function cl(v,a,b){return v<a?a:v>b?b:v}
+function put(el,k,v){if(!el)return;v=Math.round(v*10)/10;if(last[k]===v)return;last[k]=v;el.style.translate=v?"0 "+v+"px":""}
+function frame(){tick=false;var y=window.scrollY||H.scrollTop,vh=window.innerHeight,m=sm.matches?.5:1;
+var rh=hv?hv.getBoundingClientRect():null,rs=sx?sx.getBoundingClientRect():null;
+if(y<vh*1.5){var c=cl(y,0,600);put(h1,"h",-c*.10*m);put(sub,"s",-c*.07*m);put(act,"a",-c*.04*m)}
+if(rh&&rh.bottom>-200&&rh.top<vh+200){put(fr,"f",cl(((rh.top+rh.height/2)-vh/2)*.08,0,24)*m)}
+if(rs&&rs.bottom>-200&&rs.top<vh+200){put(sw,"w",cl(((rs.top+rs.height/2)-vh/2)*.05,-20,20)*m)}}
+function req(){if(!tick){tick=true;requestAnimationFrame(frame)}}
+addEventListener("scroll",req,{passive:true});addEventListener("resize",req);addEventListener("load",req);addEventListener("pageshow",req);
+if(sm.addEventListener)sm.addEventListener("change",function(){last={};req()});req()}catch(e){}})();</script></body></html>
