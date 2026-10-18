@@ -1842,9 +1842,9 @@ function reveal(list,instant){list=list.filter(function(el){return pend.indexOf(
 list.sort(function(a,b){var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();return (Math.round(ra.top/8)-Math.round(rb.top/8))||(ra.left-rb.left)});
 var k=0;list.forEach(function(el){var r=el.getBoundingClientRect();if(instant||r.bottom<=0){el.classList.add("now")}else{el.style.setProperty("--sd",(Math.min(k++,8)*ST)+"ms")}el.classList.add("in");if(io)io.unobserve(el);done(el)});
 pend=pend.filter(function(el){return list.indexOf(el)<0})}
-function check(){var lim=(window.innerHeight||H.clientHeight)*0.92,l=[];pend.forEach(function(el){if(el.getBoundingClientRect().top<lim)l.push(el)});reveal(l)}
+function check(){var lim=(window.innerHeight||H.clientHeight)*0.96,l=[];pend.forEach(function(el){if(el.getBoundingClientRect().top<lim)l.push(el)});reveal(l)}
 var q=false;function sched(){if(q)return;q=true;requestAnimationFrame(function(){q=false;check()})}
-io=new IntersectionObserver(function(es){seen=true;var l=[];es.forEach(function(e){if(e.isIntersecting||e.boundingClientRect.top<0)l.push(e.target)});reveal(l)},{rootMargin:"0px 0px -8% 0px",threshold:0});
+io=new IntersectionObserver(function(es){seen=true;var l=[];es.forEach(function(e){if(e.isIntersecting||e.boundingClientRect.top<0)l.push(e.target)});reveal(l)},{rootMargin:"0px 0px -4% 0px",threshold:0});
 pend.forEach(function(el){io.observe(el)});
 addEventListener("scroll",sched,{passive:true});addEventListener("resize",sched);addEventListener("orientationchange",sched);addEventListener("hashchange",function(){setTimeout(check,80)});addEventListener("pageshow",sched);addEventListener("load",sched);
 setTimeout(function(){if(!seen){reveal(pend.slice(),true)}else{check()}},2500);
