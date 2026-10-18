@@ -1674,17 +1674,34 @@ html.js-rv .rv,html.js-rv .rv2{opacity:1!important;transform:none!important;tran
 </style>
 <style id="v9css2">
 /* 2026-10-18 11:07: load animation in CSS from first paint (class set in head), scroll reveal */
-@keyframes v9Up{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
-html.v9-anim body.v9 header.site,html.v9-anim body.v9 .ghero h1,html.v9-anim body.v9 .ghero .sub,html.v9-anim body.v9 .ghero .act .btn,html.v9-anim body.v9 .ghero .note,html.v9-anim body.v9 .ghero .hlogos{animation:v9Up .45s cubic-bezier(.2,.7,.2,1) both!important}
-html.v9-anim body.v9 .ghero h1{animation-delay:40ms!important}
-html.v9-anim body.v9 .ghero .sub{animation-delay:80ms!important}
-html.v9-anim body.v9 .ghero .act .btn{animation-delay:120ms!important}
-html.v9-anim body.v9 .ghero .note{animation-delay:160ms!important}
-html.v9-anim body.v9 .ghero .hlogos{animation-delay:200ms!important}
-html.v9-anim .v9-sr{opacity:0;transform:translate3d(0,14px,0)}
-html.v9-anim .v9-sr.in{opacity:1;transform:none;transition:opacity .55s ease-out,transform .55s cubic-bezier(.2,.7,.2,1);transition-delay:var(--sd,0ms)}
-html.v9-anim .v9-sr.now{transition:none!important}
-@media(prefers-reduced-motion:reduce){html.v9-anim .v9-sr{opacity:1!important;transform:none!important;transition:none!important}html.v9-anim body.v9 *{animation:none!important}}
+@keyframes v9Up{from{opacity:0;transform:translate3d(0,36px,0)}to{opacity:1;transform:none}}
+@keyframes v9UpR{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
+@keyframes v9Hd{from{opacity:0;transform:translate3d(0,-12px,0)}to{opacity:1;transform:none}}
+html.v9-anim body.v9 .ghero h1,html.v9-anim body.v9 .ghero .sub,html.v9-anim body.v9 .ghero .act .btn,html.v9-anim body.v9 .ghero .note,html.v9-anim body.v9 .ghero .hl-row > li{animation:v9Up .9s cubic-bezier(.16,1,.3,1) both!important}
+html.v9-anim body.v9 header.site{animation:v9Hd .6s cubic-bezier(.16,1,.3,1) both!important}
+html.v9-anim body.v9 .ghero .sub{animation-delay:120ms!important}
+html.v9-anim body.v9 .ghero .act .btn{animation-delay:240ms!important}
+html.v9-anim body.v9 .ghero .note{animation-delay:360ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(1){animation-delay:480ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(2){animation-delay:580ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(3){animation-delay:680ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(4){animation-delay:780ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(5){animation-delay:880ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(6){animation-delay:980ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(7){animation-delay:1080ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(8){animation-delay:1180ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(9){animation-delay:1280ms!important}
+html.v9-anim body.v9 .ghero .hl-row > li:nth-child(10){animation-delay:1380ms!important}
+html.v9-anim.v9-rm body.v9 header.site,html.v9-anim.v9-rm body.v9 .ghero h1,html.v9-anim.v9-rm body.v9 .ghero .sub,html.v9-anim.v9-rm body.v9 .ghero .act .btn,html.v9-anim.v9-rm body.v9 .ghero .note,html.v9-anim.v9-rm body.v9 .ghero .hl-row > li{animation-name:v9UpR!important;animation-duration:.6s!important;animation-timing-function:ease-out!important;animation-iteration-count:1!important}
+html.v9-anim .v9-sr{opacity:0;transform:translate3d(0,40px,0)}
+html.v9-anim .v9-sr.v9-sc{transform:translate3d(0,40px,0) scale(.96)}
+html.v9-anim .v9-sr.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);transition-delay:var(--sd,0ms)}
+html.v9-anim .v9-sr .v9bar,html.v9-anim .v9-sr.v9bar{clip-path:inset(-40px 100% -40px -40px)}
+html.v9-anim .v9-sr.in .v9bar,html.v9-anim .v9-sr.in.v9bar{clip-path:inset(-40px -40px -40px -40px);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1) calc(var(--sd,0ms) + 200ms)}
+html.v9-anim.v9-rm .v9-sr,html.v9-anim.v9-rm .v9-sr.v9-sc{transform:translate3d(0,12px,0)}
+html.v9-anim.v9-rm .v9-sr.in:not(.now){transform:none;transition:opacity .6s ease-out,transform .6s ease-out!important;transition-delay:var(--sd,0ms)!important}
+html.v9-anim.v9-rm .v9-sr .v9bar,html.v9-anim.v9-rm .v9-sr.v9bar{clip-path:none!important}
+html.v9-anim .v9-sr.in.now,html.v9-anim .v9-sr.in.now .v9bar{transition:none!important}
 /* mobile pass */
 .v9 .ft9{display:inline}
 @media(max-width:600px){
@@ -1699,7 +1716,26 @@ html.v9-anim .v9-sr.now{transition:none!important}
 .v9 .mbook{padding-top:11px!important;padding-bottom:11px!important}
 .v9 .pf-tab{min-height:40px}
 </style>
-<script>(function(){try{if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;document.documentElement.classList.add("v9-anim")}catch(e){}})()</script>
+<script>(function(){try{if(!("IntersectionObserver" in window))return;var H=document.documentElement;if(matchMedia("(prefers-reduced-motion: reduce)").matches)H.classList.add("v9-rm");H.classList.add("v9-anim")}catch(e){}})()</script>
+<style id="v9css3">
+/* mobile and tablet: hero + logos fill the first screen (svh = viewport with browser bars), logos at the bottom */
+@media(max-width:899px){
+.v9 .ghero{padding-top:0!important}
+.v9 .ghero .hmain{min-height:calc(100vh - 63px)!important;min-height:calc(100svh - 63px)!important;box-sizing:border-box;padding:clamp(24px,6svh,56px) 0 clamp(16px,3svh,28px)!important}
+.v9 .ghero .hmain>h1{margin-top:auto!important}
+.v9 .ghero .hmain::before,.v9 .ghero .hmain::after{display:none!important}
+.v9 .ghero .hlogos{margin-top:auto!important;padding-top:28px}
+}
+@media(max-width:899px) and (max-height:620px){
+.v9 .ghero .hmain{padding:12px 0 12px!important}
+.v9 .ghero .sub{margin-top:14px!important}
+.v9 .ghero .act{margin-top:18px!important}
+.v9 .ghero .hlogos{padding-top:14px}
+.v9 .hl-row{gap:14px 16px!important}
+}
+/* parallax uses the individual translate property, so it never fights the load/reveal transforms */
+html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .ghero .hv-frame{will-change:translate}
+</style>
 </head><body class="look look-g clean g2 g3 g4 g5 g6 g7 g8 v2 v3 v4 v6 v7 v8 v9">
 <div class="gbar"><div class="wrap"><header class="site"><a class="brand" href="#top" aria-label="The Nth Layer, back to top"><svg class="mark" viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg><span class="stack">The<br>Nth<br>Layer</span></a>
 <nav class="main" aria-label="Main"><a class="book" href="#contact" data-contact>Book a call</a></nav><a class="mbook" href="#contact" data-contact>Book a call</a></header></div></div>
@@ -1779,21 +1815,45 @@ catch(x){er.textContent="The message could not be sent. Please try again in a mo
 
 <script>(function(){var H=document.documentElement;if(!H.classList.contains("v9-anim"))return;
 try{
-var T=[];[].forEach.call(document.querySelectorAll("main section:not(#top) > .wrap"),function(w){[].forEach.call(w.children,function(c){if(c.tagName==="SCRIPT"||c.hidden)return;var cs=c.classList.contains("card")?[c]:c.querySelectorAll(".card");if(cs.length){[].push.apply(T,cs);return}if(/^(UL|OL)$/.test(c.tagName)&&c.children.length>1){[].push.apply(T,c.children)}else{T.push(c)}})});
-var hv=document.querySelector(".ghero .hvis");if(hv)T.push(hv);
-[].forEach.call(document.querySelectorAll(".sx-row > li"),function(li){if(T.indexOf(li)<0)T.push(li)});
-T=T.filter(function(el){var p=el.parentElement;while(p){if(T.indexOf(p)>=0)return false;p=p.parentElement}return true});
-function vh(){return window.innerHeight||H.clientHeight}
-var pend=[];T.forEach(function(el){if(el.getBoundingClientRect().top<vh()*0.96)return;el.classList.add("v9-sr");pend.push(el)});
-var io=null,seen=false;
+var RM=H.classList.contains("v9-rm"),VH=window.innerHeight||H.clientHeight,T=[],CARD=[];
+var TXT=/^(P|H1|H2|H3|H4|H5|H6|BLOCKQUOTE|TABLE|FIGURE|IMG|SVG|PICTURE|A|BUTTON|FORM|LABEL|INPUT|SELECT|TEXTAREA|DL|PRE|SPAN|B|STRONG|EM|I|SMALL)$/;
+function ok(c){if(/^(SCRIPT|STYLE|TEMPLATE|BR|HR)$/.test(c.tagName)||c.hidden)return false;if(!c.getClientRects().length)return false;
+var s=getComputedStyle(c);if(s.display==="none"||s.visibility==="hidden"||s.position==="absolute"||s.position==="fixed"||s.position==="sticky")return false;
+if(s.transform!=="none"||s.animationName!=="none"||parseFloat(s.opacity)<1)return false;return true}
+function boxy(c,s){return (s.backgroundColor&&!/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor))||parseFloat(s.borderTopWidth)>0||parseFloat(s.borderLeftWidth)>0||s.boxShadow!=="none"||/card|box|stat|tile|stp-panel/.test(c.className||"")}
+function textual(c){for(var n=c.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.nodeValue.trim())return true}
+for(var e=c.firstElementChild;e;e=e.nextElementSibling){var d=getComputedStyle(e).display;if(d!=="inline"&&d!=="inline-block"&&d!=="inline-flex"&&d!=="none")return false}return true}
+function walk(el,d){for(var c=el.firstElementChild;c;c=c.nextElementSibling){if(!ok(c)){if(c.firstElementChild&&d<7&&!c.hidden&&getComputedStyle(c).display!=="none"&&c.getClientRects().length&&getComputedStyle(c).position!=="absolute"&&getComputedStyle(c).position!=="fixed")walk(c,d+1);continue}
+var s=getComputedStyle(c),h=c.getBoundingClientRect().height;
+if(TXT.test(c.tagName)||textual(c)||d>=7){T.push(c);continue}
+if(boxy(c,s)&&h<VH*0.8){T.push(c);CARD.push(c);continue}
+if(c.tagName==="LI"&&h<VH*0.5){T.push(c);continue}
+walk(c,d+1)}}
+[].forEach.call(document.querySelectorAll("main section:not(#top) > .wrap, .ghero .hvis"),function(w){walk(w,0)});
+var pend=[];T.forEach(function(el){if(el.getBoundingClientRect().top<VH*0.96)return;el.classList.add("v9-sr");if(CARD.indexOf(el)>=0)el.classList.add("v9-sc");
+[].forEach.call(el.querySelectorAll(".cm-bar,.pf-fill,.ptl-fill,.stp-bar,.gbar"),function(b){b.classList.add("v9bar")});if(el.matches(".cm-bar,.pf-fill,.ptl-fill,.stp-bar,.gbar"))el.classList.add("v9bar");pend.push(el)});
+var io=null,seen=false,ST=RM?60:90;
+function done(el){setTimeout(function(){el.classList.remove("v9-sr","v9-sc","in","now");el.style.removeProperty("--sd");[].forEach.call(el.querySelectorAll(".v9bar"),function(b){b.classList.remove("v9bar")});el.classList.remove("v9bar")},2600)}
 function reveal(list,instant){list=list.filter(function(el){return pend.indexOf(el)>=0});if(!list.length)return;
-list.sort(function(a,b){var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();return (ra.top-rb.top)||(ra.left-rb.left)});
-var k=0;list.forEach(function(el){var r=el.getBoundingClientRect();if(instant||r.bottom<=0){el.classList.add("now")}else{el.style.setProperty("--sd",(Math.min(k++,4)*70)+"ms")}el.classList.add("in");if(io)io.unobserve(el)});
+list.sort(function(a,b){var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();return (Math.round(ra.top/8)-Math.round(rb.top/8))||(ra.left-rb.left)});
+var k=0;list.forEach(function(el){var r=el.getBoundingClientRect();if(instant||r.bottom<=0){el.classList.add("now")}else{el.style.setProperty("--sd",(Math.min(k++,8)*ST)+"ms")}el.classList.add("in");if(io)io.unobserve(el);done(el)});
 pend=pend.filter(function(el){return list.indexOf(el)<0})}
-function check(){var lim=vh()*0.94,l=[];pend.forEach(function(el){if(el.getBoundingClientRect().top<lim)l.push(el)});reveal(l)}
+function check(){var lim=(window.innerHeight||H.clientHeight)*0.92,l=[];pend.forEach(function(el){if(el.getBoundingClientRect().top<lim)l.push(el)});reveal(l)}
 var q=false;function sched(){if(q)return;q=true;requestAnimationFrame(function(){q=false;check()})}
-io=new IntersectionObserver(function(es){seen=true;var l=[];es.forEach(function(e){if(e.isIntersecting||e.boundingClientRect.top<0)l.push(e.target)});reveal(l)},{rootMargin:"0px 0px -6% 0px",threshold:0});
+io=new IntersectionObserver(function(es){seen=true;var l=[];es.forEach(function(e){if(e.isIntersecting||e.boundingClientRect.top<0)l.push(e.target)});reveal(l)},{rootMargin:"0px 0px -8% 0px",threshold:0});
 pend.forEach(function(el){io.observe(el)});
 addEventListener("scroll",sched,{passive:true});addEventListener("resize",sched);addEventListener("orientationchange",sched);addEventListener("hashchange",function(){setTimeout(check,80)});addEventListener("pageshow",sched);addEventListener("load",sched);
 setTimeout(function(){if(!seen){reveal(pend.slice(),true)}else{check()}},2500);
-}catch(e){H.classList.remove("v9-anim")}})();</script></body></html>
+}catch(e){H.classList.remove("v9-anim")}})();</script><script>(function(){var H=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches||!("translate" in H.style))return;
+var q=function(s){return document.querySelector(s)};var hero=q(".ghero"),h1=q(".ghero h1"),sub=q(".ghero .sub"),act=q(".ghero .act"),hv=q(".ghero .hvis"),fr=q(".ghero .hv-frame"),sx=q("#shift"),sw=q("#shift > .wrap");
+var sm=matchMedia("(max-width:600px)"),last={},tick=false;H.classList.add("v9-px");
+function cl(v,a,b){return v<a?a:v>b?b:v}
+function put(el,k,v){if(!el)return;v=Math.round(v*10)/10;if(last[k]===v)return;last[k]=v;el.style.translate=v?"0 "+v+"px":""}
+function frame(){tick=false;var y=window.scrollY||H.scrollTop,vh=window.innerHeight,m=sm.matches?.5:1;
+var rh=hv?hv.getBoundingClientRect():null,rs=sx?sx.getBoundingClientRect():null;
+if(y<vh*1.5){var c=cl(y,0,600);put(h1,"h",-c*.10*m);put(sub,"s",-c*.07*m);put(act,"a",-c*.04*m)}
+if(rh&&rh.bottom>-200&&rh.top<vh+200){put(fr,"f",cl(((rh.top+rh.height/2)-vh/2)*.08,0,24)*m)}
+if(rs&&rs.bottom>-200&&rs.top<vh+200){put(sw,"w",cl(((rs.top+rs.height/2)-vh/2)*.05,-20,20)*m)}}
+function req(){if(!tick){tick=true;requestAnimationFrame(frame)}}
+addEventListener("scroll",req,{passive:true});addEventListener("resize",req);addEventListener("load",req);addEventListener("pageshow",req);
+if(sm.addEventListener)sm.addEventListener("change",function(){last={};req()});req()}catch(e){}})();</script></body></html>
