@@ -2,5 +2,6 @@
 // Old confirmation links and any stray calls go to the homepage. Nothing is sent or changed.
 export function onRequest({ env }) {
   const site = (env.SITE_URL || 'https://nthlayer.co.uk').replace(/\/$/, '');
-  return Response.redirect(`${site}/`, 302);
+  // a plain Response: Response.redirect() has immutable headers, which Pages rejects with a 500
+  return new Response(null, { status: 302, headers: { Location: `${site}/`, 'Cache-Control': 'no-store' } });
 }

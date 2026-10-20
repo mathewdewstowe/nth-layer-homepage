@@ -88,7 +88,8 @@ async function attachment(env, fileUrl) {
   try {
     const r = await fetch(fileUrl, { method: 'HEAD', headers: { 'Accept-Encoding': 'identity' } }); // without this the size header is dropped
     const len = Number(r.headers.get('content-length') || 0), type = r.headers.get('content-type') || '';
-    if (!r.ok || !/pdf/i.test(type) || !len || len > max) return null;
+    // the host sometimes omits the size; the file is a known ~672 KB PDF, so a missing size still attaches
+    if (!r.ok || (type && !/pdf/i.test(type)) || (len && len > max)) return null;
     return [{ filename: PDF_NAME, path: fileUrl, content_type: 'application/pdf' }]; // Resend fetches the file itself
   } catch { return null; }
 }
