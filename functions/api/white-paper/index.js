@@ -1,10 +1,10 @@
 // POST /api/white-paper  (2026-10-19)
 // White paper demand test: log the request in D1, send the requester a double opt-in email
-// with a signed one-time link, and notify Matthew. Uses the same Resend account and sender
+// with a signed one-time link, and notify the owner. Uses the same Resend account and sender
 // as functions/api/contact.js.
 // Bindings: WP_DB (D1). Secrets: RESEND_API_KEY (existing), WP_SIGNING_SECRET (new).
-// Vars: WP_NOTIFY_TO (default matthew@nthlayer.co.uk), SITE_URL (default https://nthlayer.co.uk),
-//       WP_TEST_ONLY ("1" = accept only WP_TEST_EMAIL, default matthewdewstowe@gmail.com).
+// Vars: WP_NOTIFY_TO (owner notification address, required), SITE_URL (default https://nthlayer.co.uk),
+//       WP_TEST_ONLY ("1" = accept only WP_TEST_EMAIL; with no WP_TEST_EMAIL every request is refused).
 
 const FROM = 'The Nth Layer <hello@nthlayer.co.uk>';
 const LOGO = '/images/nthlayer-email-logo.png';
@@ -60,7 +60,7 @@ export function optInEmail({ site, name, link }) {
 }
 
 export function notifyEmail(row, status) {
-  const rows = [['Name', row.name], ['Email', row.email], ['Company', row.company], ['Job title', row.job_title], ['Source', row.source], ['Requested', row.created_at], ['Confirmed', status]];
+  const rows = [['Name', row.name], ['Email', row.email], ['Company', row.company], ['Job title', row.job_title], ['Source', row.source], ['Requested', row.created_at], ['Consent', row.consent_at], ['Confirmed', status]];
   const html = `<div style="font-family:Manrope,'Helvetica Neue',Arial,sans-serif;color:#252423;max-width:560px;"><p style="font-size:16px;margin:0 0 12px;"><b>White paper download</b> (${esc(status)})</p><table cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:14px;">${rows.map(([k, v]) => `<tr><td style="color:#6B6862;border-bottom:1px solid #eee;">${k}</td><td style="border-bottom:1px solid #eee;">${esc(v)}</td></tr>`).join('')}</table></div>`;
   const text = rows.map(([k, v]) => `${k}: ${v}`).join('\n');
   return { html, text };
@@ -76,10 +76,13 @@ export async function onRequestPost({ request, env, waitUntil }) {
     company: clean(b.company, 160), job_title: clean(b.jobtitle ?? b.job_title, 160),
     source: clean(b.source || 'home', 40), created_at: new Date().toISOString(),
   };
+  // consent is required; the server time is stored (the browser's consent_at is not trusted)
+  if (b.consent !== true) return json({ ok: false, error: 'Please tick the consent box to continue.' }, 400);
+  row.consent_at = row.created_at;
   if (!row.name || !row.company || !row.job_title || !EMAIL_RE.test(row.email)) return json({ ok: false, error: 'Please complete every field with a valid email address.' }, 400);
   const testOnly = String(env.WP_TEST_ONLY || '') === '1';
-  const testEmail = (env.WP_TEST_EMAIL || 'matthewdewstowe@gmail.com').toLowerCase();
-  if (testOnly && row.email !== testEmail) return json({ ok: false, error: 'Requests are paused during testing.' }, 403);
+  const testEmail = String(env.WP_TEST_EMAIL || '').trim().toLowerCase();
+  if (testOnly && (!testEmail || row.email !== testEmail)) return json({ ok: false, error: 'Requests are paused during testing.' }, 403);
   if (!env.WP_DB || !env.WP_SIGNING_SECRET || !env.RESEND_API_KEY) return json({ ok: false, error: 'Not configured.' }, 500);
 
   // light abuse limit: at most 3 requests per email per 24 hours
@@ -87,8 +90,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
   const recent = await env.WP_DB.prepare('SELECT COUNT(*) AS n FROM wp_requests WHERE email = ? AND created_at > ?').bind(row.email, since).first();
   if (recent && recent.n >= 3) return json({ ok: true }); // quietly accept, no more email
 
-  await env.WP_DB.prepare('INSERT INTO wp_requests (id,name,email,company,job_title,source,created_at,confirmed_at) VALUES (?,?,?,?,?,?,?,NULL)')
-    .bind(row.id, row.name, row.email, row.company, row.job_title, row.source, row.created_at).run();
+  await env.WP_DB.prepare('INSERT INTO wp_requests (id,name,email,company,job_title,source,created_at,confirmed_at,consent_at) VALUES (?,?,?,?,?,?,?,NULL,?)')
+    .bind(row.id, row.name, row.email, row.company, row.job_title, row.source, row.created_at, row.consent_at).run();
 
   const site = (env.SITE_URL || 'https://nthlayer.co.uk').replace(/\/$/, '');
   const exp = Date.now() + 7 * 864e5;
@@ -100,6 +103,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
     return json({ ok: false, error: 'The request could not be sent. Please try again in a moment.' }, 502);
   }
   const n = notifyEmail(row, 'not yet');
-  waitUntil(sendEmail(env, { to: [env.WP_NOTIFY_TO || 'matthew@nthlayer.co.uk'], reply_to: row.email, subject: `White paper download: ${row.name}, ${row.company}`, ...n }).catch(() => {}));
+  if (env.WP_NOTIFY_TO) waitUntil(sendEmail(env, { to: [env.WP_NOTIFY_TO], reply_to: row.email, subject: `White paper download: ${row.name}, ${row.company}`, ...n }).catch(() => {}));
   return json({ ok: true });
 }

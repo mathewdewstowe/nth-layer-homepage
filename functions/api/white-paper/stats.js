@@ -8,7 +8,7 @@ export async function onRequestGet({ request, env }) {
     SUM(CASE WHEN confirmed_at IS NOT NULL THEN 1 ELSE 0 END) AS confirmed_requests FROM wp_requests`).first();
   const out = { ...t };
   if (new URL(request.url).searchParams.get('list') === '1') {
-    out.rows = (await env.WP_DB.prepare('SELECT name,email,company,job_title,source,created_at,confirmed_at FROM wp_requests ORDER BY created_at DESC LIMIT 200').all()).results;
+    out.rows = (await env.WP_DB.prepare('SELECT name,email,company,job_title,source,created_at,consent_at,confirmed_at FROM wp_requests ORDER BY created_at DESC LIMIT 200').all()).results;
   }
   return Response.json(out, { headers: { 'Cache-Control': 'no-store' } });
 }
