@@ -1765,6 +1765,9 @@ html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .g
 html.v9-anim body.v9 .ghero .act .btn.btn-wp{animation-delay:320ms!important}
 @media(max-width:600px){.v9 .act-b,.v9 .gcta .cta2{flex-direction:column;align-items:stretch;gap:10px;width:100%;max-width:300px;margin-left:auto;margin-right:auto}.v9 .act-b .btn,.v9 .gcta .cta2 .btn{width:100%!important;justify-content:center;text-align:center}}
 @media(max-width:899px) and (max-height:700px){.v9 .ghero .act-b .btn{min-height:46px!important;padding-top:10px!important;padding-bottom:10px!important}.v9 .ghero .act-b{gap:8px}}
+/* white paper success state */
+#white-paper .cm-ok .wp-ok-h{font:600 clamp(26px,3vw,32px)/1.15 Manrope,Arial,sans-serif;letter-spacing:-.02em;color:var(--ink,#0d0f0d);margin:0 0 10px;outline:none}
+#white-paper .cm-ok p{color:var(--ink,#0d0f0d)!important;font-size:16px;line-height:1.6;margin:0}
 /* consent checkbox */
 #wpForm .wp-consent{display:flex!important;gap:10px;align-items:flex-start;margin:4px 0 14px!important;font:400 14px/1.5 "Open Sans",Arial,sans-serif;color:var(--ink2,#3d403b)}
 #wpForm .wp-consent input{width:18px!important;height:18px!important;min-height:0!important;flex:0 0 18px;margin:2px 0 0!important;padding:0!important;accent-color:#0d0f0d}
@@ -1858,27 +1861,28 @@ catch(x){er.textContent="The message could not be sent. Please try again in a mo
 <div id="white-paper" class="cmodal wpmodal" role="dialog" aria-modal="true" aria-labelledby="wp-title" hidden>
 <div class="cm-box"><button class="cm-x" type="button" aria-label="Close">&times;</button>
 <h2 id="wp-title">Download the White Paper</h2>
-<p class="cm-sub">Leave your details and confirm your email address. The white paper is emailed to you straight after you confirm.</p>
+<p class="cm-sub">Leave your details and the white paper will be emailed to you straight away.</p>
 <form id="wpForm" novalidate>
 <div class="cm-two"><label><span>Name</span><input name="name" required autocomplete="name"></label><label><span>Work email</span><input type="email" name="email" required autocomplete="email"></label></div>
 <div class="cm-two"><label><span>Company</span><input name="company" required autocomplete="organization"></label><label><span>Job title</span><input name="jobtitle" required autocomplete="organization-title"></label></div>
 <label class="wp-consent"><input type="checkbox" name="consent" value="yes" required><span>I agree to Nth Layer storing these details and emailing me about the white paper. See the <a href="/privacy/" target="_blank" rel="noopener">privacy notice</a>.</span></label>
 <div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div><p class="cm-err" role="alert" hidden></p>
 <button type="submit" class="btn cm-send">Request the white paper</button></form>
-<div class="cm-ok" hidden><p>Thank you. Check your inbox for an email from Nth Layer and confirm your address to receive the white paper.</p></div>
+<div class="cm-ok" hidden><h2 class="wp-ok-h" tabindex="-1">Thank You</h2><p>Check your inbox. The white paper is on its way from Nth Layer.</p></div>
 </div></div>
-<!-- White paper: the PDF is at /white-paper/Nth-Layer-AI-Native-SDLC-White-Paper.pdf and is emailed by functions/api/white-paper/confirm.js after confirmation. Requests are logged in D1 (wp_requests) with double opt-in; see BACKEND-WHITE-PAPER.md. -->
+<!-- White paper: the PDF is at /white-paper/Nth-Layer-AI-Native-SDLC-White-Paper.pdf and is emailed by functions/api/white-paper/index.js on submit. Requests are logged in D1 (wp_requests) with double opt-in; see BACKEND-WHITE-PAPER.md. -->
 <script>(function(){
 var m=document.getElementById("white-paper"),f=document.getElementById("wpForm"),ok=m.querySelector(".cm-ok"),er=m.querySelector(".cm-err"),last=null,src="home";
-function open(e){if(e)e.preventDefault();last=document.activeElement;src=(this&&this.getAttribute&&this.getAttribute("data-src"))||"home";f.hidden=false;ok.hidden=true;er.hidden=true;m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
+function done(on){m.querySelector("#wp-title").hidden=on;m.querySelector(".cm-sub").hidden=on;f.hidden=on;ok.hidden=!on;if(on){var h=ok.querySelector(".wp-ok-h");if(h)h.focus()}}
+function open(e){if(e)e.preventDefault();last=document.activeElement;done(false);src=(this&&this.getAttribute&&this.getAttribute("data-src"))||"home";f.hidden=false;ok.hidden=true;er.hidden=true;m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
 function close(){m.hidden=true;document.body.style.overflow="";if(location.hash==="#white-paper")history.replaceState(null,"",location.pathname+location.search);if(last&&last.focus)last.focus()}
 document.querySelectorAll("[data-wpaper]").forEach(function(a){a.addEventListener("click",open)});
 m.querySelector(".cm-x").addEventListener("click",close);m.addEventListener("click",function(e){if(e.target===m)close()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!m.hidden)close()});
 if(location.hash==="#white-paper")open();
 f.addEventListener("submit",async function(e){e.preventDefault();er.hidden=true;if(!f.checkValidity()){er.textContent=f.consent.checked?"Please complete every field with a valid email address.":"Please complete every field and tick the consent box.";er.hidden=false;return}
-var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();f.hidden=true;ok.hidden=false;return}var b=f.querySelector(".cm-send"),t=b.textContent,d=new FormData(f),p={source:src,formType:"White paper download"};d.forEach(function(v,k){if(k!=="website"&&k!=="consent")p[k]=String(v).trim()});p.consent=f.consent.checked===true;p.consent_at=new Date().toISOString();b.disabled=true;b.textContent="Sending";
-try{var r=await fetch("/api/white-paper",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok){var j=null;try{j=await r.json()}catch(z){}throw j&&j.error?j.error:0}f.reset();f.hidden=true;ok.hidden=false}
+var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();done(true);return}var b=f.querySelector(".cm-send"),t=b.textContent,d=new FormData(f),p={source:src,formType:"White paper download"};d.forEach(function(v,k){if(k!=="website"&&k!=="consent")p[k]=String(v).trim()});p.consent=f.consent.checked===true;p.consent_at=new Date().toISOString();b.disabled=true;b.textContent="Sending";
+try{var r=await fetch("/api/white-paper",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok){var j=null;try{j=await r.json()}catch(z){}throw j&&j.error?j.error:0}f.reset();done(true)}
 catch(x){er.textContent=typeof x==="string"?x:"The request could not be sent. Please try again in a moment.";er.hidden=false}finally{b.disabled=false;b.textContent=t}})})()</script>
 
 
