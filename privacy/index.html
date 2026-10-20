@@ -1581,7 +1581,8 @@ body.v6{background:var(--bg);color:var(--ink)}
 .v8 .pilot .cols h3{color:var(--ink)!important}
 .v8 .pilot .cols li::before{border-color:var(--ink)!important;background:#BFFF00!important}
 .v8 .pilot .cols li:nth-child(2)::after{background:#BFFF00!important}
-.v8 #cmForm input:focus,.v8 #cmForm textarea:focus{border-color:var(--ink)!important;outline-color:var(--ink)!important}
+.v8 #cmForm input:focus,.v8 #cmForm textarea:focus,
+.v8 #wpForm input:focus,.v8 #wpForm textarea:focus{border-color:var(--ink)!important;outline-color:var(--ink)!important}
 .v8 .cm-eb{color:var(--ink)!important}
 .v8 .dband :focus-visible,.v8 .stp-b :focus-visible,.v8 .oa-y :focus-visible{outline-color:#BFFF00!important}
 /* 2026-10-17 12:52: segmented tab switchers: active pill = brand lime #BFFF00 with ink text */
@@ -1648,9 +1649,12 @@ html.v8-anim .v8-sr.in{opacity:1;transform:none;transition:opacity .6s cubic-bez
 .cm-box h2{font:800 26px/1.2 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:0 0 8px}
 .cm-sub,.cm-ok p{font:400 15px/1.6 "Open Sans",Arial,sans-serif;color:#555;margin:0 0 18px}
 .cm-ok h3{font:800 20px/1.3 "Inter Tight",Arial,sans-serif;margin:8px 0}
-#cmForm label{display:block;margin:0 0 12px;min-width:0}#cmForm label span{display:block;font:600 13px/1.4 "Inter Tight",Arial,sans-serif;margin:0 0 4px}
-#cmForm input,#cmForm textarea{width:100%;box-sizing:border-box;border:1px solid #d6d8d0;border-radius:10px;padding:11px 12px;font:400 16px/1.4 "Open Sans",Arial,sans-serif;background:#fafaf7}
-#cmForm input:focus,#cmForm textarea:focus{outline:2px solid #BFFF00;border-color:#3F6212}
+#cmForm label,
+#wpForm label{display:block;margin:0 0 12px;min-width:0}#cmForm label span,#wpForm label span{display:block;font:600 13px/1.4 "Inter Tight",Arial,sans-serif;margin:0 0 4px}
+#cmForm input,#cmForm textarea,
+#wpForm input,#wpForm textarea{width:100%;box-sizing:border-box;border:1px solid #d6d8d0;border-radius:10px;padding:11px 12px;font:400 16px/1.4 "Open Sans",Arial,sans-serif;background:#fafaf7}
+#cmForm input:focus,#cmForm textarea:focus,
+#wpForm input:focus,#wpForm textarea:focus{outline:2px solid #BFFF00;border-color:#3F6212}
 .cm-two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}@media(max-width:520px){.cm-two{grid-template-columns:1fr}.cm-box{padding:28px 20px 22px}}
 .cm-err{color:#b3261e;font:600 14px/1.4 "Open Sans",Arial,sans-serif;margin:0 0 10px}
 .cm-send{border:0;cursor:pointer;width:100%}
@@ -1731,7 +1735,7 @@ html.v9-anim .v9-sr.in.now,html.v9-anim .v9-sr.in.now .v9bar{transition:none!imp
 .v9 .ghero .hmain::before,.v9 .ghero .hmain::after{display:none!important}
 .v9 .ghero .hlogos{margin-top:auto!important;padding-top:28px}
 }
-@media(max-width:899px) and (max-height:660px){
+@media(max-width:899px) and (max-height:700px){
 .v9 .ghero .hmain{padding:12px 0 12px!important}
 .v9 .ghero .sub{margin-top:14px!important}
 .v9 .ghero .act{margin-top:18px!important}
@@ -1749,6 +1753,30 @@ html.v9-anim .v9-sr.in.now,html.v9-anim .v9-sr.in.now .v9bar{transition:none!imp
 .v9 .gfoot .ft-pv:hover,.v9 .gfoot .ft-pv:focus-visible{color:var(--ink)!important}
 /* parallax uses the individual translate property, so it never fights the load/reveal transforms */
 html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .ghero .hv-frame{will-change:translate}
+</style>
+<style id="v9css4">
+/* white paper: outlined secondary button beside the main call button (2026-10-20 09:59) */
+.v9 .act-b,.v9 .gcta .cta2{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+.v9 .act-b .btn,.v9 .gcta .cta2 .btn{min-width:224px;justify-content:center;text-align:center}
+@media(min-width:601px){.v9 .gcta .cta2{flex-direction:row!important}.v9 .gcta .cta2 .btn{width:auto!important;flex:0 0 auto}}
+.v9 .btn.btn-wp{background:transparent!important;color:var(--ink)!important;box-shadow:inset 0 0 0 1.5px var(--ink)!important}
+.v9 .btn.btn-wp:hover,.v9 .btn.btn-wp:focus-visible{background:#BFFF00!important;color:#141414!important;box-shadow:inset 0 0 0 1.5px #141414!important}
+html.v9-anim body.v9 .ghero .act .btn.btn-wp{animation-delay:320ms!important}
+@media(max-width:600px){.v9 .act-b,.v9 .gcta .cta2{flex-direction:column;align-items:stretch;gap:10px;width:100%;max-width:300px;margin-left:auto;margin-right:auto}.v9 .act-b .btn,.v9 .gcta .cta2 .btn{width:100%!important;justify-content:center;text-align:center}}
+@media(max-width:899px) and (max-height:700px){.v9 .ghero .act-b .btn{min-height:46px!important;padding-top:10px!important;padding-bottom:10px!important}.v9 .ghero .act-b{gap:8px}}
+/* consent checkbox */
+#wpForm .wp-consent{display:flex!important;gap:10px;align-items:flex-start;margin:4px 0 14px!important;font:400 14px/1.5 "Open Sans",Arial,sans-serif;color:var(--ink2,#3d403b)}
+#wpForm .wp-consent input{width:18px!important;height:18px!important;min-height:0!important;flex:0 0 18px;margin:2px 0 0!important;padding:0!important;accent-color:#0d0f0d}
+#wpForm .wp-consent span{display:inline!important;font:inherit!important;margin:0!important}
+#wpForm .wp-consent a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+/* both forms: visible open animation; gentler under reduced motion */
+@keyframes cmFade{from{opacity:0}to{opacity:1}}
+@keyframes cmIn{from{opacity:0;transform:translate3d(0,28px,0) scale(.96)}to{opacity:1;transform:none}}
+@keyframes cmInR{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+body.v9 .cmodal:not([hidden]){animation:cmFade .3s ease-out both}
+body.v9 .cmodal:not([hidden]) .cm-box{animation:cmIn .5s cubic-bezier(.16,1,.3,1) both}
+html.v9-rm body.v9 .cmodal:not([hidden]){animation:cmFade .3s ease-out both!important;animation-duration:.3s!important}
+html.v9-rm body.v9 .cmodal:not([hidden]) .cm-box{animation:cmInR .35s ease-out both!important;animation-duration:.35s!important}
 </style>
 <style id="anoncss">#who .wa{grid-template-columns:1fr!important;max-width:880px}#who .wa-g{display:none!important}</style><style id="pvcss">
 .pv-main{padding:clamp(40px,7vw,88px) 0 clamp(56px,8vw,104px)}
@@ -1775,7 +1803,7 @@ html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .g
 <!-- CONFIRM WITH OWNER / LEGAL BEFORE PUBLISH: privacy statement text and every placeholder -->
 <p class="lab">Privacy</p>
 <h1>Privacy Statement</h1>
-<p class="pv-date">Last updated: 18 October 2026</p>
+<p class="pv-date">Last updated: 20 October 2026</p>
 <p>This statement explains what personal data is collected through nthlayer.co.uk, why, and what rights you have. It is written for a small UK consultancy website and covers only this site.</p>
 <h2>Who We Are</h2>
 <p>This website is run by The Nth Layer, <span class="ph">[PLACEHOLDER: registered company name]</span>, company number <span class="ph">[PLACEHOLDER: company number]</span>, registered office <span class="ph">[PLACEHOLDER: registered office address]</span>. We are the controller of the personal data described here.</p>
@@ -1793,6 +1821,8 @@ html.v9-px .ghero h1,html.v9-px .ghero .sub,html.v9-px .ghero .act,html.v9-px .g
 <li>To keep the site secure and working.</li>
 </ul>
 <p>We do not sell your data, use it for automated decision-making or add you to a mailing list without your agreement.</p>
+<h2>White Paper Requests</h2>
+<p>When you ask for the white paper, Nth Layer stores your name, work email, company, job title and the time you gave consent. These details are used only to send you an email confirming your address and, once confirmed, the white paper itself. They are stored with Cloudflare, which may hold them in the United States, emails are sent through Resend, and the details are kept for <span class="ph">[PLACEHOLDER: retention period]</span>. To have them deleted, email <span class="ph">[PLACEHOLDER: contact email]</span>.</p>
 <h2>Our Lawful Basis</h2>
 <p>Under the UK GDPR, we rely on our legitimate interests in responding to business enquiries and keeping the site secure. Where you ask us to discuss a possible engagement, we also rely on taking steps at your request before entering into a contract.</p>
 <h2>Who We Share It With</h2>

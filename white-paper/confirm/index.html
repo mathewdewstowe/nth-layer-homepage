@@ -1,0 +1,36 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Confirm Your Email | The Nth Layer</title><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0}body{min-height:100vh;background:#F7F6F3;color:#252423;font-family:Manrope,"Helvetica Neue",Arial,sans-serif;display:flex;flex-direction:column}
+header{padding:24px clamp(20px,5vw,48px)}.brand{display:inline-flex;align-items:center;gap:12px;color:#252423;text-decoration:none}.brand svg{width:30px;height:30px}.brand span{font:800 10.5px/.92 Manrope,Arial,sans-serif;letter-spacing:.03em;text-transform:uppercase}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 20px 64px}
+.card{width:100%;max-width:520px;background:#fff;color:#252423;border:1px solid #E6E2DA;border-radius:20px;box-shadow:0 20px 60px rgba(20,20,20,.08);padding:clamp(28px,5vw,44px);animation:in .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes in{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card{animation-duration:.25s}@keyframes in{from{opacity:0}to{opacity:1}}}
+.eb{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6862}.eb i{display:inline-block;width:8px;height:8px;background:#BFFF00;margin-right:8px;font-style:normal}
+h1{margin:0 0 14px;font-size:clamp(26px,4vw,32px);line-height:1.15;font-weight:600;letter-spacing:-.02em}
+p{margin:0 0 18px;font-size:16px;line-height:1.6;color:#4A4842}
+.btn{display:inline-block;border:0;cursor:pointer;background:#252423;color:#fff;font:700 16px Manrope,Arial,sans-serif;padding:15px 30px;border-radius:999px;text-decoration:none}.btn:hover{background:#BFFF00;color:#141414}.btn[disabled]{opacity:.6;cursor:wait}
+.st{display:none}.st.on{display:block}.small{font-size:13px;color:#6B6862;margin:16px 0 0}
+</style></head><body>
+<header><a class="brand" href="/" aria-label="The Nth Layer home"><svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg><span>The<br>Nth<br>Layer</span></a></header>
+<main><div class="card" aria-live="polite">
+<p class="eb"><i></i>White paper</p>
+<div class="st on" id="s-ask"><h1>Confirm Your Email</h1><p>One more step. Confirm your email address and the white paper will be emailed to you straight away.</p><button class="btn" id="go" type="button">Confirm email address</button></div>
+<div class="st" id="s-confirmed"><h1>Email Confirmed</h1><p>Thank you. The white paper is on its way to your inbox. If it has not arrived in a few minutes, check your spam folder.</p><a class="btn" href="/">Back to the homepage</a></div>
+<div class="st" id="s-expired"><h1>This Link Has Expired</h1><p>Confirmation links last 7 days. Request the white paper again from the homepage and a new link will be sent.</p><a class="btn" href="/#white-paper">Request the white paper</a></div>
+<div class="st" id="s-invalid"><h1>This Link Is Not Valid</h1><p>The link may be incomplete. Try copying the full address from the email, or request the white paper again.</p><a class="btn" href="/#white-paper">Request the white paper</a></div>
+<div class="st" id="s-error"><h1>Something Went Wrong</h1><p>The confirmation could not be completed. Please try again in a moment.</p><button class="btn" type="button" onclick="location.reload()">Try again</button></div>
+<noscript><p class="small">Please turn on JavaScript to confirm your email address.</p></noscript>
+</div></main>
+<script>
+(function(){var q=new URLSearchParams(location.search),d={id:q.get('id'),e:q.get('e'),s:q.get('s')};
+function show(k){document.querySelectorAll('.st').forEach(function(x){x.classList.toggle('on',x.id==='s-'+k)})}
+if(!d.id||!d.e||!d.s){show('invalid');return}
+var b=document.getElementById('go');b.addEventListener('click',function(){b.disabled=true;b.textContent='Confirming';
+fetch('/api/white-paper/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+.then(function(r){return r.json()}).then(function(j){show(['confirmed','expired','invalid'].indexOf(j.state)>-1?j.state:'error')})
+.catch(function(){show('error')})});})();
+</script></body></html>
