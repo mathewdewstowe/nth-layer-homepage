@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Preview only. This page stays off the public homepage and off the sitemap. -->
+<meta name="robots" content="noindex, nofollow">
+<title>AI-Native Readiness Diagnostic | The Nth Layer</title>
+<meta name="description" content="Ten short questions about your Software Development Lifecycle (SDLC). About two minutes. A plain result and one next move.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F6F5;
+  --bg2:#F0EDEA;
+  --ink:#252423;
+  --ink2:#5E5A56;
+  --ink3:#8C8781;
+  --line:#E4DFDA;
+  --card:#fff;
+  --lime:#BFFF00;
+  --dark:#252423;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Manrope,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:inherit}
+h1,h2,p{margin:0}
+h1,h2{text-wrap:balance}
+p{text-wrap:pretty}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.wrap{width:min(1344px,100%);margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.gbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(248,246,245,.86);
+  backdrop-filter:saturate(1.2) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.gbar .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
+.brand svg{width:30px;height:30px;flex:none}
+.brand span{font:800 10.5px/.92 Manrope,Arial,sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.book{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--dark);color:#fff;text-decoration:none;
+  font-weight:600;font-size:13.5px;line-height:1.3;
+  padding:8px 16px;border-radius:999px;white-space:nowrap;
+}
+.book:hover{background:#3a3836}
+main{flex:1}
+.hero{padding:clamp(56px,8vh,96px) 0 clamp(72px,10vh,120px);text-align:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  margin:0 0 18px;
+  font-weight:600;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+}
+.eyebrow::before{
+  content:"";width:6px;height:6px;border-radius:2px;background:var(--lime);
+  box-shadow:0 0 0 1px rgba(37,36,35,.12);
+}
+h1{
+  max-width:12em;margin:0 auto;
+  font-weight:500;font-size:clamp(42px,6.2vw,76px);line-height:1.02;letter-spacing:-.045em;
+}
+.sub{
+  max-width:36em;margin:28px auto 0;
+  font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink2);
+}
+.act{margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;padding:14px 26px;border:0;border-radius:999px;
+  background:var(--dark);color:#fff;text-decoration:none;cursor:pointer;
+  font:600 16px/1.2 Manrope,sans-serif;letter-spacing:-.01em;
+}
+.btn:hover{background:#3a3836}
+.btn-wp{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-wp:hover,.btn-wp:focus-visible{background:var(--lime);color:#141414;box-shadow:inset 0 0 0 1.5px #141414}
+.note{font-size:14px;color:var(--ink3);max-width:28em}
+.foot{
+  border-top:1px solid var(--line);
+  color:var(--ink3);font-size:14px;
+}
+.foot .wrap{display:flex;align-items:center;gap:12px;padding-top:28px;padding-bottom:36px;flex-wrap:wrap}
+.foot svg{width:18px;height:18px;color:var(--ink)}
+.foot a{color:var(--ink3);text-underline-offset:3px}
+.foot a:hover{color:var(--ink)}
+
+.cmodal{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;overflow-y:auto;
+  background:rgba(10,12,10,.62);
+}
+.cmodal[hidden]{display:none}
+.cm-box{
+  position:relative;
+  width:min(600px,100%);
+  max-height:calc(100dvh - 32px);
+  overflow:auto;
+  background:var(--card);color:var(--ink);
+  border-radius:18px;
+  padding:34px 30px 28px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+.cm-x{
+  position:absolute;top:8px;right:12px;
+  width:44px;height:44px;border:0;background:none;
+  font-size:30px;line-height:1;cursor:pointer;color:#555;
+}
+.kicker{
+  margin:0 0 8px;
+  font:700 12px/1.4 Manrope,sans-serif;
+  letter-spacing:.08em;text-transform:uppercase;color:#3F6212;
+}
+.prog{margin:0 0 10px;font:700 13px/1 Manrope,sans-serif;letter-spacing:.04em;color:var(--ink2)}
+.meter{height:4px;border-radius:99px;background:var(--line);margin:0 0 18px;overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:var(--lime);border-radius:99px}
+@media (prefers-reduced-motion:no-preference){
+  .meter span{transition:width .25s ease}
+  .cmodal:not([hidden]){animation:cmFade .3s ease-out both}
+  .cmodal:not([hidden]) .cm-box{animation:cmIn .45s cubic-bezier(.16,1,.3,1) both}
+}
+@keyframes cmFade{from{opacity:0}to{opacity:1}}
+@keyframes cmIn{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+#dx-title,#dx-result-title{
+  font:500 clamp(22px,3vw,28px)/1.2 Manrope,sans-serif;
+  letter-spacing:-.03em;margin:0 0 18px;
+}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;align-items:flex-start;gap:12px;
+  width:100%;text-align:left;cursor:pointer;
+  background:#fff;color:var(--ink);
+  border:1px solid var(--line);border-radius:14px;
+  padding:14px 14px;min-height:56px;
+  font:600 16px/1.35 Manrope,sans-serif;
+}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:#f7ffe0}
+.opt .k{
+  flex:none;width:28px;height:28px;border-radius:8px;
+  display:grid;place-items:center;
+  background:var(--bg2);color:var(--ink);
+  font:700 13px/1 Manrope,sans-serif;
+}
+.opt:hover .k,.opt[aria-checked="true"] .k{background:var(--lime)}
+.row{display:flex;align-items:center;min-height:44px;margin-top:8px}
+.back{
+  border:0;background:none;padding:8px 0;cursor:pointer;
+  font:600 14px/1 Manrope,sans-serif;color:var(--ink2);
+  text-decoration:underline;text-underline-offset:3px;
+}
+.back:hover{color:var(--ink)}
+.score{margin:0 0 8px;font-size:15px;color:var(--ink2)}
+.score strong{color:var(--ink);font-weight:700;font-size:18px}
+.summary{margin:0 0 16px;font-size:16px;line-height:1.55;color:var(--ink2)}
+.move-k{margin:0 0 4px;font:700 12px/1.4 Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#3F6212}
+.move{margin:0 0 22px;font-size:16px;line-height:1.5}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.ctas .btn{min-width:0;flex:1 1 200px}
+.stub{
+  margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+}
+.stub p{margin:0 0 12px;font-size:14px;line-height:1.5;color:var(--ink2)}
+.stub label{display:block;font:600 13px/1.4 Manrope,sans-serif;margin:0 0 6px}
+.stub input{
+  width:100%;border:1px solid #d6d8d0;border-radius:10px;
+  padding:11px 12px;background:#fafaf7;
+  font:400 16px/1.4 Manrope,sans-serif;color:var(--ink);
+}
+.stub input:focus{outline:2px solid var(--lime);border-color:#3F6212}
+.stub .btn{width:100%;margin-top:12px}
+.err{color:#b3261e;font:600 14px/1.4 Manrope,sans-serif;margin:10px 0 0}
+.stub-msg{font:600 14px/1.45 Manrope,sans-serif;color:var(--ink);margin:10px 0 0}
+.again{
+  margin-top:16px;border:0;background:none;padding:8px 0;cursor:pointer;
+  font:600 14px/1 Manrope,sans-serif;color:var(--ink2);
+  text-decoration:underline;text-underline-offset:3px;
+}
+.again:hover{color:var(--ink)}
+@media (max-width:600px){
+  .gbar .wrap{height:62px}
+  .hero{padding:40px 0 64px}
+  h1{font-size:clamp(36px,10vw,48px)}
+  .cm-box{padding:28px 18px 22px}
+  .ctas{flex-direction:column}
+  .ctas .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .cmodal,.cm-box,.meter span{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<header class="gbar">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="The Nth Layer home">
+      <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg>
+      <span>The<br>Nth<br>Layer</span>
+    </a>
+    <a class="book" href="https://nthlayer.co.uk/#contact">Book a call</a>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Preview</p>
+      <h1>AI-Native Readiness Diagnostic</h1>
+      <p class="sub">Ten questions about your Software Development Lifecycle (SDLC). About two minutes. One at a time.</p>
+      <div class="act">
+        <button class="btn" type="button" id="start-diagnostic">Start diagnostic</button>
+        <p class="note">No email needed to start. This preview is not on the public site.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg>
+    <span>Nth Layer Ltd · AI-native Product and Engineering</span>
+    <a href="/v9/privacy/">Privacy</a>
+  </div>
+</footer>
+
+<div id="dx" class="cmodal" role="dialog" aria-modal="true" aria-labelledby="dx-title" hidden>
+  <div class="cm-box">
+    <button class="cm-x" type="button" aria-label="Close">&times;</button>
+    <div id="dx-quiz">
+      <p class="prog" id="dx-prog">1/10</p>
+      <div class="meter" aria-hidden="true"><span id="dx-meter"></span></div>
+      <h2 id="dx-title" tabindex="-1"></h2>
+      <div class="opts" id="dx-opts" role="radiogroup" aria-labelledby="dx-title"></div>
+      <div class="row"><button class="back" type="button" id="dx-back">Back</button></div>
+    </div>
+    <div id="dx-result" hidden>
+      <p class="kicker">Your result</p>
+      <p class="score" id="dx-score"></p>
+      <h2 id="dx-result-title" tabindex="-1"></h2>
+      <p class="summary" id="dx-summary"></p>
+      <p class="move-k">Suggested next move</p>
+      <p class="move" id="dx-next"></p>
+      <div class="ctas">
+        <a class="btn" href="https://nthlayer.co.uk/#contact">Book a 30-minute call</a>
+        <a class="btn btn-wp" href="https://nthlayer.co.uk/#white-paper">Download Whitepaper</a>
+      </div>
+      <form class="stub" id="dx-email" novalidate>
+        <p>Preview only. This box does not send or store your email.</p>
+        <label for="dx-email-input">Work email</label>
+        <input id="dx-email-input" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@company.com">
+        <p class="err" id="dx-email-err" role="alert" hidden></p>
+        <p class="stub-msg" id="dx-email-msg" role="status" hidden></p>
+        <button class="btn" type="submit">Email me this result</button>
+      </form>
+      <button class="again" type="button" id="dx-again">Start again</button>
+    </div>
+  </div>
+</div>
+<script src="/diagnostic/quiz.js"></script>
+<script>
+(function () {
+  var D = window.NthDiagnostic;
+  var modal = document.getElementById("dx");
+  var quiz = document.getElementById("dx-quiz");
+  var result = document.getElementById("dx-result");
+  var title = document.getElementById("dx-title");
+  var opts = document.getElementById("dx-opts");
+  var prog = document.getElementById("dx-prog");
+  var meter = document.getElementById("dx-meter");
+  var back = document.getElementById("dx-back");
+  var start = document.getElementById("start-diagnostic");
+  var step = 0;
+  var answers = [];
+  var lastFocus = null;
+  var ticket = 0;
+  var letters = ["A", "B", "C"];
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function showQuiz() {
+    quiz.hidden = false;
+    result.hidden = true;
+    modal.setAttribute("aria-labelledby", "dx-title");
+    render();
+  }
+  function begin() {
+    step = 0;
+    answers = [];
+    ticket++;
+    openModal();
+    showQuiz();
+  }
+  function render() {
+    var q = D.questions[step];
+    var n = step + 1;
+    prog.textContent = n + "/10";
+    prog.setAttribute("aria-label", "Question " + n + " of 10");
+    meter.style.width = (n / 10 * 100) + "%";
+    title.textContent = q.prompt;
+    opts.replaceChildren();
+    q.options.forEach(function (label, index) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "opt";
+      btn.setAttribute("role", "radio");
+      btn.setAttribute("aria-checked", answers[step] === index + 1 ? "true" : "false");
+      var k = document.createElement("span");
+      k.className = "k";
+      k.setAttribute("aria-hidden", "true");
+      k.textContent = letters[index];
+      var t = document.createElement("span");
+      t.textContent = label;
+      btn.append(k, t);
+      btn.addEventListener("click", function () { choose(index + 1, btn); });
+      opts.append(btn);
+    });
+    back.hidden = step === 0;
+    title.focus();
+  }
+  function choose(value, btn) {
+    var mine = ++ticket;
+    answers[step] = value;
+    Array.prototype.forEach.call(opts.children, function (el) {
+      el.disabled = true;
+      el.setAttribute("aria-checked", el === btn ? "true" : "false");
+    });
+    var wait = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 160;
+    window.setTimeout(function () {
+      if (mine !== ticket) return;
+      if (step < D.questions.length - 1) {
+        step += 1;
+        render();
+      } else {
+        showResult();
+      }
+    }, wait);
+  }
+  function showResult() {
+    var score = D.scoreOf(answers);
+    var band = D.bandFor(score);
+    quiz.hidden = true;
+    result.hidden = false;
+    modal.setAttribute("aria-labelledby", "dx-result-title");
+    document.getElementById("dx-score").innerHTML = "<strong>" + score + "</strong> of 30";
+    var heading = document.getElementById("dx-result-title");
+    heading.textContent = band.name;
+    heading.setAttribute("data-band", band.id);
+    document.getElementById("dx-summary").textContent = band.summary;
+    document.getElementById("dx-next").textContent = band.next;
+    document.getElementById("dx-email-err").hidden = true;
+    document.getElementById("dx-email-msg").hidden = true;
+    document.getElementById("dx-email").hidden = false;
+    heading.focus();
+  }
+
+  start.addEventListener("click", begin);
+  back.addEventListener("click", function () {
+    if (step === 0) return;
+    ticket++;
+    step -= 1;
+    render();
+  });
+  document.getElementById("dx-again").addEventListener("click", function () {
+    step = 0;
+    answers = [];
+    ticket++;
+    showQuiz();
+  });
+  modal.querySelector(".cm-x").addEventListener("click", closeModal);
+  modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", function (e) {
+    if (modal.hidden) return;
+    if (e.key === "Escape") { closeModal(); return; }
+    if (e.key !== "Tab") return;
+    var nodes = modal.querySelectorAll("button, a[href], input");
+    var list = [];
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].disabled || nodes[i].closest("[hidden]")) continue;
+      list.push(nodes[i]);
+    }
+    if (!list.length) return;
+    var first = list[0];
+    var last = list[list.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  document.getElementById("dx-email").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var input = document.getElementById("dx-email-input");
+    var err = document.getElementById("dx-email-err");
+    var msg = document.getElementById("dx-email-msg");
+    var email = input.value.trim();
+    msg.hidden = true;
+    if (!input.checkValidity() || !email) {
+      err.textContent = "Enter a valid work email.";
+      err.hidden = false;
+      input.focus();
+      return;
+    }
+    err.hidden = true;
+    msg.textContent = "Preview stub. Nothing was sent or stored.";
+    msg.hidden = false;
+  });
+
+  if (location.hash === "#start" || /(?:^|[?&])start=1(?:&|$)/.test(location.search)) begin();
+})();
+</script>
+</body>
+</html>
