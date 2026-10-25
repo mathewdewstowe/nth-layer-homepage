@@ -8,7 +8,7 @@
   var D = window.NthDiagnostic;
   if (!D || !D.questions || !D.scoreOf || !D.bandFor) return;
 
-  var letters = ["A", "B", "C"];
+  var letters = ["A", "B", "C", "D", "E"];
   var modal;
   var quiz;
   var result;
@@ -54,6 +54,10 @@
       "#dx .summary{margin:0 0 16px;font-size:16px;line-height:1.55;color:#5E5A56}",
       "#dx .move-k{margin:0 0 4px;font:700 12px/1.4 inherit;letter-spacing:.08em;text-transform:uppercase;color:#3F6212}",
       "#dx .move{margin:0 0 22px;font-size:16px;line-height:1.5}",
+      "#dx .fixes{list-style:none;margin:8px 0 22px;padding:0;display:flex;flex-direction:column;gap:10px}",
+      "#dx .fixes li{margin:0;padding:12px 14px;border:1px solid #E4DFDA;border-radius:14px;background:#fafaf7}",
+      "#dx .fix-q{margin:0 0 4px;font:700 13px/1.35 inherit;color:#252423}",
+      "#dx .fix-t{margin:0;font:400 15px/1.45 inherit;color:#5E5A56}",
       "#dx .ctas{display:flex;flex-wrap:wrap;gap:10px}",
       "#dx .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 26px;border:0;border-radius:999px;background:#252423;color:#fff;text-decoration:none;cursor:pointer;font:600 16px/1.2 inherit;letter-spacing:-.01em}",
       "#dx .btn::after,#dx .btn::before{display:none!important}",
@@ -98,6 +102,10 @@
       '<p class="summary" id="dx-summary"></p>',
       '<p class="move-k">Suggested next move</p>',
       '<p class="move" id="dx-next"></p>',
+      '<div id="dx-fixes" hidden>',
+      '<p class="move-k">Your fixes</p>',
+      '<ul class="fixes" id="dx-fix-list"></ul>',
+      "</div>",
       '<div class="ctas">',
       '<a class="btn" href="https://nthlayer.co.uk/#contact">Book a 30-minute call</a>',
       '<a class="btn btn-wp" href="https://nthlayer.co.uk/#white-paper">Download Whitepaper</a>',
@@ -223,16 +231,37 @@
     scoreEl.replaceChildren();
     var strong = document.createElement("strong");
     strong.textContent = String(score);
-    scoreEl.append(strong, document.createTextNode(" of 30"));
+    scoreEl.append(strong, document.createTextNode(" of 50"));
     var heading = document.getElementById("dx-result-title");
     heading.textContent = band.name;
     heading.setAttribute("data-band", band.id);
     document.getElementById("dx-summary").textContent = band.summary;
     document.getElementById("dx-next").textContent = band.next;
+    renderFixes(answers);
     document.getElementById("dx-email-err").hidden = true;
     document.getElementById("dx-email-msg").hidden = true;
     document.getElementById("dx-email").hidden = false;
     heading.focus();
+  }
+
+  function renderFixes(answers) {
+    var wrap = document.getElementById("dx-fixes");
+    var list = document.getElementById("dx-fix-list");
+    if (!wrap || !list || typeof D.fixesFor !== "function") return;
+    var fixes = D.fixesFor(answers) || [];
+    list.replaceChildren();
+    fixes.forEach(function (item) {
+      var li = document.createElement("li");
+      var q = document.createElement("p");
+      q.className = "fix-q";
+      q.textContent = item.label;
+      var t = document.createElement("p");
+      t.className = "fix-t";
+      t.textContent = item.fix;
+      li.append(q, t);
+      list.append(li);
+    });
+    wrap.hidden = fixes.length === 0;
   }
 
   function bindOpener(el) {
@@ -245,6 +274,7 @@
   }
 
   function boot() {
+    ensureCss();
     ensureModal();
     quiz = document.getElementById("dx-quiz");
     result = document.getElementById("dx-result");
