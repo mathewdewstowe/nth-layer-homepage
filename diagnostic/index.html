@@ -172,6 +172,10 @@ h1{
 .summary{margin:0 0 16px;font-size:16px;line-height:1.55;color:var(--ink2)}
 .move-k{margin:0 0 4px;font:700 12px/1.4 Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#3F6212}
 .move{margin:0 0 22px;font-size:16px;line-height:1.5}
+.fixes{list-style:none;margin:8px 0 22px;padding:0;display:flex;flex-direction:column;gap:10px}
+.fixes li{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:#fafaf7}
+.fix-q{margin:0 0 4px;font:700 13px/1.35 Manrope,sans-serif;color:var(--ink)}
+.fix-t{margin:0;font:400 15px/1.45 Manrope,sans-serif;color:var(--ink2)}
 .ctas{display:flex;flex-wrap:wrap;gap:10px}
 .ctas .btn{min-width:0;flex:1 1 200px}
 .stub{
@@ -255,6 +259,10 @@ h1{
       <p class="summary" id="dx-summary"></p>
       <p class="move-k">Suggested next move</p>
       <p class="move" id="dx-next"></p>
+      <div id="dx-fixes" hidden>
+        <p class="move-k">Your fixes</p>
+        <ul class="fixes" id="dx-fix-list"></ul>
+      </div>
       <div class="ctas">
         <a class="btn" href="https://nthlayer.co.uk/#contact">Book a 30-minute call</a>
         <a class="btn btn-wp" href="https://nthlayer.co.uk/#white-paper">Download Whitepaper</a>
