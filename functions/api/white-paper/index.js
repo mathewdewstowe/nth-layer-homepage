@@ -136,7 +136,7 @@ ${rows.map(([k, v]) => `${k}: ${v}`).join('\n')}`;
 
 export async function onRequestPost({ request, env, waitUntil }) {
   let b;
-  try { b = await request.json(); } catch { return json({ ok: false, error: 'Invalid request.' }, 400); }
+  try { b = await request.json(); } catch { return json({ ok: false, error: 'Something went wrong, please try again or email matthew@nthlayer.co.uk' }, 400); }
   if (b.website) return json({ ok: true }); // honeypot
   const row = {
     id: crypto.randomUUID(),
@@ -144,26 +144,34 @@ export async function onRequestPost({ request, env, waitUntil }) {
     company: clean(b.company, 160), job_title: clean(b.jobtitle ?? b.job_title, 160),
     source: clean(b.source || 'home', 40), created_at: new Date().toISOString(),
   };
+  if (!row.name) return json({ ok: false, error: 'Please enter your name', field: 'name' }, 400);
+  if (!row.email) return json({ ok: false, error: 'Please enter your work email', field: 'email' }, 400);
+  if (!EMAIL_RE.test(row.email)) return json({ ok: false, error: "That email address doesn't look right", field: 'email' }, 400);
+  if (!row.company) return json({ ok: false, error: 'Please enter your company', field: 'company' }, 400);
+  if (!row.job_title) return json({ ok: false, error: 'Please enter your job title', field: 'jobtitle' }, 400);
   // consent is required; the server time is stored (the browser's consent_at is not trusted)
-  if (b.consent !== true) return json({ ok: false, error: 'Please tick the consent box to continue.' }, 400);
+  if (b.consent !== true) return json({ ok: false, error: 'Please tick the box to continue', field: 'consent' }, 400);
   row.consent_at = row.created_at;
-  if (!row.name || !row.company || !row.job_title || !EMAIL_RE.test(row.email)) return json({ ok: false, error: 'Please complete every field with a valid email address.' }, 400);
   const testOnly = String(env.WP_TEST_ONLY || '') === '1';
   const testEmail = String(env.WP_TEST_EMAIL || '').trim().toLowerCase();
   let host = '';
   try { host = new URL(request.url).hostname; } catch { host = ''; }
   const previewProbe = host.endsWith('.pages.dev') && row.email === 'groqbotdewstowe@gmail.com';
   if (testOnly && !previewProbe && (!testEmail || row.email !== testEmail)) return json({ ok: false, error: 'Requests are paused during testing.' }, 403);
-  if (!env.WP_DB || !env.RESEND_API_KEY) return json({ ok: false, error: 'Not configured.' }, 500);
+  if (!env.WP_DB || !env.RESEND_API_KEY) return json({ ok: false, error: 'Something went wrong, please try again or email matthew@nthlayer.co.uk' }, 500);
 
   // no re-sends: if this address already received the paper in the last 24 hours, log the request but send nothing
   const since = new Date(Date.now() - 864e5).toISOString();
   const prior = await env.WP_DB.prepare('SELECT COUNT(*) AS n FROM wp_requests WHERE email = ? AND delivered_at > ?').bind(row.email, since).first();
   const recent = await env.WP_DB.prepare('SELECT COUNT(*) AS n FROM wp_requests WHERE email = ? AND created_at > ?').bind(row.email, since).first();
-  if ((prior && prior.n > 0) || (recent && recent.n >= 3)) {
+  const logDuplicate = async () => {
     if (!recent || recent.n < 10) await env.WP_DB.prepare("INSERT INTO wp_requests (id,name,email,company,job_title,source,created_at,confirmed_at,consent_at,delivery_method) VALUES (?,?,?,?,?,?,?,NULL,?,'duplicate')")
       .bind(row.id, row.name, row.email, row.company, row.job_title, row.source, row.created_at, row.consent_at).run();
-    return json({ ok: true });
+  };
+  if (prior && prior.n > 0) { await logDuplicate(); return json({ ok: true }); }
+  if (recent && recent.n >= 3) {
+    await logDuplicate();
+    return json({ ok: false, error: 'You have requested this a few times today. Please try again tomorrow or email matthew@nthlayer.co.uk' }, 429);
   }
 
   await env.WP_DB.prepare('INSERT INTO wp_requests (id,name,email,company,job_title,source,created_at,confirmed_at,consent_at) VALUES (?,?,?,?,?,?,?,NULL,?)')
@@ -178,7 +186,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   if (att) { try { await sendEmail(env, { ...mail, attachments: att }, `wp-deliver-${row.id}`); method = 'attached'; } catch {} }
   if (!method) {
     try { await sendEmail(env, mail, `wp-deliver-${row.id}-link`); method = 'link'; }
-    catch { return json({ ok: false, error: 'The white paper could not be sent. Please try again in a moment.' }, 502); }
+    catch { return json({ ok: false, error: 'Something went wrong, please try again or email matthew@nthlayer.co.uk' }, 502); }
   }
   await env.WP_DB.prepare('UPDATE wp_requests SET delivered_at = ?, delivery_method = ? WHERE id = ?').bind(new Date().toISOString(), method, row.id).run();
   if (env.WP_NOTIFY_TO) {

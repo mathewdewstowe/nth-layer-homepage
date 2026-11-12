@@ -1656,6 +1656,11 @@ html.v8-anim .v8-sr.in{opacity:1;transform:none;transition:opacity .6s cubic-bez
 #wpForm input,#wpForm textarea{width:100%;box-sizing:border-box;border:1px solid #d6d8d0;border-radius:10px;padding:11px 12px;font:400 16px/1.4 "Open Sans",Arial,sans-serif;background:#fafaf7}
 #cmForm input:focus,#cmForm textarea:focus,
 #wpForm input:focus,#wpForm textarea:focus{outline:2px solid #BFFF00;border-color:#3F6212}
+#cmForm span.fld-err,#wpForm span.fld-err,#wpForm p.fld-err{display:block;color:#b3261e;font:600 13px/1.35 "Open Sans",Arial,sans-serif;margin:4px 0 0}
+#wpForm p.fld-err{margin:-6px 0 12px}
+.v8 #cmForm input.bad,.v8 #cmForm textarea.bad,.v8 #wpForm input.bad,.v8 #wpForm textarea.bad{border-color:#b3261e!important}
+.v8 #cmForm input.bad:focus,.v8 #cmForm textarea.bad:focus,.v8 #wpForm input.bad:focus,.v8 #wpForm textarea.bad:focus{border-color:#b3261e!important;outline-color:#b3261e!important}
+#wpForm input[type=checkbox].bad{outline:2px solid #b3261e;outline-offset:2px}
 .cm-two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}@media(max-width:520px){.cm-two{grid-template-columns:1fr}.cm-box{padding:28px 20px 22px}}
 .cm-err{color:#b3261e;font:600 14px/1.4 "Open Sans",Arial,sans-serif;margin:0 0 10px}
 .cm-send{border:0;cursor:pointer;width:100%}
@@ -1871,32 +1876,65 @@ show(0);run()})()</script></div></section>
 <h2 id="cm-title">Book a 30-minute call</h2>
 <p class="cm-sub">Tell us about your team and a reply will follow to arrange a time.</p>
 <form id="cmForm" novalidate>
-<div class="cm-two"><label><span>Name</span><input name="name" required autocomplete="name"></label><label><span>Work email</span><input type="email" name="email" required autocomplete="email"></label></div>
-<div class="cm-two"><label><span>Job title</span><input name="jobtitle" required autocomplete="organization-title"></label><label><span>Company</span><input name="company" required autocomplete="organization"></label></div>
-<label><span>Message</span><textarea name="message" rows="4" required></textarea></label>
+<div class="cm-two"><label><span>Name</span><input name="name" required autocomplete="name" aria-describedby="cm-err-name"><span class="fld-err" id="cm-err-name" hidden></span></label><label><span>Work email</span><input type="email" name="email" required autocomplete="email" aria-describedby="cm-err-email"><span class="fld-err" id="cm-err-email" hidden></span></label></div>
+<div class="cm-two"><label><span>Job title</span><input name="jobtitle" required autocomplete="organization-title" aria-describedby="cm-err-jobtitle"><span class="fld-err" id="cm-err-jobtitle" hidden></span></label><label><span>Company</span><input name="company" required autocomplete="organization" aria-describedby="cm-err-company"><span class="fld-err" id="cm-err-company" hidden></span></label></div>
+<label><span>Message</span><textarea name="message" rows="4" required aria-describedby="cm-err-message"></textarea><span class="fld-err" id="cm-err-message" hidden></span></label>
 <div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div><p class="cm-err" role="alert" hidden></p>
 <button type="submit" class="btn cm-send">Send</button></form>
 <div class="cm-ok" hidden><p>Sent. A reply will follow shortly.</p></div>
 </div></div>
+<script>(function(){
+var EMAIL=/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/;
+var FAIL="Something went wrong, please try again or email matthew@nthlayer.co.uk";
+window.nlFields=function(form,rules){
+  function input(name){return form.elements[name]}
+  function setErr(el,message){
+    if(!el)return;
+    var box=document.getElementById(el.getAttribute("aria-describedby")||"");
+    if(message){el.setAttribute("aria-invalid","true");el.classList.add("bad");if(box){box.hidden=false;box.textContent=message}}
+    else{el.removeAttribute("aria-invalid");el.classList.remove("bad");if(box){box.hidden=true;box.textContent=""}}
+  }
+  function check(rule){var el=input(rule.name);var message=rule.check(el);setErr(el,message);return message?el:null}
+  rules.forEach(function(rule){
+    var el=input(rule.name);
+    el.addEventListener("blur",function(){check(rule)});
+    el.addEventListener("input",function(){if(el.getAttribute("aria-invalid")==="true")check(rule)});
+    if(el.type==="checkbox")el.addEventListener("change",function(){check(rule)});
+  });
+  return {clear:function(){rules.forEach(function(rule){setErr(input(rule.name),"")})},validate:function(){var first=null;rules.forEach(function(rule){var bad=check(rule);if(bad&&!first)first=bad});if(first)first.focus();return !first},set:setErr};
+};
+window.nlEmail=function(el){var v=el.value.trim();if(!v)return "Please enter your work email";if(!EMAIL.test(v))return "That email address doesn't look right";return ""};
+window.nlFail=FAIL;
+})();</script>
 <script>(function(){var m=document.getElementById("contact"),f=document.getElementById("cmForm"),ok=m.querySelector(".cm-ok"),er=m.querySelector(".cm-err"),last=null;
-function open(e){if(e)e.preventDefault();last=document.activeElement;f.hidden=false;ok.hidden=true;er.hidden=true;m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
+var fields=nlFields(f,[
+  {name:"name",check:function(el){return el.value.trim()?"":"Please enter your name"}},
+  {name:"email",check:nlEmail},
+  {name:"jobtitle",check:function(el){return el.value.trim()?"":"Please enter your job title"}},
+  {name:"company",check:function(el){return el.value.trim()?"":"Please enter your company"}},
+  {name:"message",check:function(el){return el.value.trim()?"":"Please enter a message"}}
+]);
+function open(e){if(e)e.preventDefault();last=document.activeElement;f.hidden=false;ok.hidden=true;er.hidden=true;fields.clear();m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
 function close(){m.hidden=true;document.body.style.overflow="";if(location.hash==="#contact")history.replaceState(null,"",location.pathname+location.search);if(last&&last.focus)last.focus()}
 document.querySelectorAll("[data-contact]").forEach(function(a){a.addEventListener("click",open)});
 m.querySelector(".cm-x").addEventListener("click",close);m.addEventListener("click",function(e){if(e.target===m)close()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!m.hidden)close()});
 if(location.hash==="#contact")open();
-f.addEventListener("submit",async function(e){e.preventDefault();er.hidden=true;if(!f.checkValidity()){er.textContent="Please complete every field with a valid email address.";er.hidden=false;return}
-var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();f.hidden=true;ok.hidden=false;return}var b=f.querySelector(".cm-send"),t=b.textContent,d=new FormData(f),p={sourcePage:"home"};d.forEach(function(v,k){if(k!=="website")p[k]=String(v).trim()});b.disabled=true;b.textContent="Sending";
-try{var r=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok)throw 0;f.reset();f.hidden=true;ok.hidden=false}
-catch(x){er.textContent="The message could not be sent. Please try again in a moment.";er.hidden=false}finally{b.disabled=false;b.textContent=t}})})()</script>
+f.addEventListener("submit",async function(e){e.preventDefault();er.hidden=true;
+var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();fields.clear();f.hidden=true;ok.hidden=false;return}
+if(!fields.validate())return;
+var b=f.querySelector(".cm-send");if(b.disabled)return;var t=b.textContent,d=new FormData(f),p={sourcePage:"home"};d.forEach(function(v,k){if(k!=="website")p[k]=String(v).trim()});b.disabled=true;b.setAttribute("aria-busy","true");b.textContent="Sending...";
+try{var r=await fetch("/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok){var j=null;try{j=await r.json()}catch(z){}if(j&&j.field){var el=f.elements[j.field];if(el){fields.set(el,j.error||"");el.focus()}}throw j&&j.error?j.error:0}f.reset();fields.clear();f.hidden=true;ok.hidden=false}
+catch(x){er.textContent=typeof x==="string"&&x?x:nlFail;er.hidden=false}finally{b.disabled=false;b.removeAttribute("aria-busy");b.textContent=t}})})()</script>
 <div id="white-paper" class="cmodal wpmodal" role="dialog" aria-modal="true" aria-labelledby="wp-title" hidden>
 <div class="cm-box"><button class="cm-x" type="button" aria-label="Close">&times;</button>
 <h2 id="wp-title">Download the White Paper</h2>
 <p class="cm-sub">Leave your details and the white paper will be emailed to you straight away.</p>
 <form id="wpForm" novalidate>
-<div class="cm-two"><label><span>Name</span><input name="name" required autocomplete="name"></label><label><span>Work email</span><input type="email" name="email" required autocomplete="email"></label></div>
-<div class="cm-two"><label><span>Company</span><input name="company" required autocomplete="organization"></label><label><span>Job title</span><input name="jobtitle" required autocomplete="organization-title"></label></div>
-<label class="wp-consent"><input type="checkbox" name="consent" value="yes" required><span>I agree to Nth Layer storing these details and emailing me about the white paper. See the <a href="/privacy/" target="_blank" rel="noopener">privacy notice</a>.</span></label>
+<div class="cm-two"><label><span>Name</span><input name="name" required autocomplete="name" aria-describedby="wp-err-name"><span class="fld-err" id="wp-err-name" hidden></span></label><label><span>Work email</span><input type="email" name="email" required autocomplete="email" aria-describedby="wp-err-email"><span class="fld-err" id="wp-err-email" hidden></span></label></div>
+<div class="cm-two"><label><span>Company</span><input name="company" required autocomplete="organization" aria-describedby="wp-err-company"><span class="fld-err" id="wp-err-company" hidden></span></label><label><span>Job title</span><input name="jobtitle" required autocomplete="organization-title" aria-describedby="wp-err-jobtitle"><span class="fld-err" id="wp-err-jobtitle" hidden></span></label></div>
+<label class="wp-consent"><input type="checkbox" name="consent" value="yes" required aria-describedby="wp-err-consent"><span>I agree to Nth Layer storing these details and emailing me about the white paper. See the <a href="/privacy/" target="_blank" rel="noopener">privacy notice</a>.</span></label>
+<p class="fld-err" id="wp-err-consent" hidden></p>
 <div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div><p class="cm-err" role="alert" hidden></p>
 <button type="submit" class="btn cm-send">Request the white paper</button></form>
 <div class="cm-ok" hidden><h2 class="wp-ok-h" tabindex="-1">Thank You</h2><p>Check your inbox. The white paper is on its way from Nth Layer.</p><p class="wp-dl"><a class="btn wp-dl-btn" href="/white-paper/Nth-Layer-AI-Native-SDLC-White-Paper.pdf">Download the white paper</a></p></div>
@@ -1904,17 +1942,26 @@ catch(x){er.textContent="The message could not be sent. Please try again in a mo
 <!-- White paper: the PDF is at /white-paper/Nth-Layer-AI-Native-SDLC-White-Paper.pdf and is emailed by functions/api/white-paper/index.js on submit. Requests are logged in D1 (wp_requests) with double opt-in; see BACKEND-WHITE-PAPER.md. -->
 <script>(function(){
 var m=document.getElementById("white-paper"),f=document.getElementById("wpForm"),ok=m.querySelector(".cm-ok"),er=m.querySelector(".cm-err"),last=null,src="home";
+var fields=nlFields(f,[
+  {name:"name",check:function(el){return el.value.trim()?"":"Please enter your name"}},
+  {name:"email",check:nlEmail},
+  {name:"company",check:function(el){return el.value.trim()?"":"Please enter your company"}},
+  {name:"jobtitle",check:function(el){return el.value.trim()?"":"Please enter your job title"}},
+  {name:"consent",check:function(el){return el.checked?"":"Please tick the box to continue"}}
+]);
 function done(on){m.querySelector("#wp-title").hidden=on;m.querySelector(".cm-sub").hidden=on;f.hidden=on;ok.hidden=!on;if(on){var h=ok.querySelector(".wp-ok-h");if(h)h.focus()}}
-function open(e){if(e)e.preventDefault();last=document.activeElement;done(false);src=(this&&this.getAttribute&&this.getAttribute("data-src"))||"home";f.hidden=false;ok.hidden=true;er.hidden=true;m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
+function open(e){if(e)e.preventDefault();last=document.activeElement;done(false);src=(this&&this.getAttribute&&this.getAttribute("data-src"))||"home";f.hidden=false;ok.hidden=true;er.hidden=true;fields.clear();m.hidden=false;document.body.style.overflow="hidden";var i=f.querySelector("input");if(i)i.focus()}
 function close(){m.hidden=true;document.body.style.overflow="";if(location.hash==="#white-paper")history.replaceState(null,"",location.pathname+location.search);if(last&&last.focus)last.focus()}
 document.querySelectorAll("[data-wpaper]").forEach(function(a){a.addEventListener("click",open)});
 m.querySelector(".cm-x").addEventListener("click",close);m.addEventListener("click",function(e){if(e.target===m)close()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!m.hidden)close()});
 if(location.hash==="#white-paper")open();
-f.addEventListener("submit",async function(e){e.preventDefault();er.hidden=true;if(!f.checkValidity()){er.textContent=f.consent.checked?"Please complete every field with a valid email address.":"Please complete every field and tick the consent box.";er.hidden=false;return}
-var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();done(true);return}var b=f.querySelector(".cm-send"),t=b.textContent,d=new FormData(f),p={source:src,formType:"White paper download"};d.forEach(function(v,k){if(k!=="website"&&k!=="consent")p[k]=String(v).trim()});p.consent=f.consent.checked===true;p.consent_at=new Date().toISOString();b.disabled=true;b.textContent="Sending";
-try{var r=await fetch("/api/white-paper",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok){var j=null;try{j=await r.json()}catch(z){}throw j&&j.error?j.error:0}f.reset();done(true)}
-catch(x){er.textContent=typeof x==="string"?x:"The request could not be sent. Please try again in a moment.";er.hidden=false}finally{b.disabled=false;b.textContent=t}})})()</script>
+f.addEventListener("submit",async function(e){e.preventDefault();er.hidden=true;
+var hp=f.querySelector("[name=website]");if(hp&&hp.value){f.reset();fields.clear();done(true);return}
+if(!fields.validate())return;
+var b=f.querySelector(".cm-send");if(b.disabled)return;var t=b.textContent,d=new FormData(f),p={source:src,formType:"White paper download"};d.forEach(function(v,k){if(k!=="website"&&k!=="consent")p[k]=String(v).trim()});p.consent=f.consent.checked===true;p.consent_at=new Date().toISOString();b.disabled=true;b.setAttribute("aria-busy","true");b.textContent="Sending...";
+try{var r=await fetch("/api/white-paper",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!r.ok){var j=null;try{j=await r.json()}catch(z){}if(j&&j.field){var el=f.elements[j.field];if(el){fields.set(el,j.error||"");el.focus()}}throw j&&j.error?j.error:0}f.reset();fields.clear();done(true)}
+catch(x){er.textContent=typeof x==="string"&&x?x:nlFail;er.hidden=false}finally{b.disabled=false;b.removeAttribute("aria-busy");b.textContent=t}})})()</script>
 
 
 <script>(function(){var H=document.documentElement;if(!H.classList.contains("v9-anim"))return;
