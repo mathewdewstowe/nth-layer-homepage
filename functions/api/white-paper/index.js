@@ -8,6 +8,7 @@
 //       WP_BOOK_URL (default SITE_URL + /#contact), WP_ATTACH ("0" = link only),
 //       WP_ATTACH_MAX_BYTES (default 5000000),
 //       WP_TEST_ONLY ("1" = accept only WP_TEST_EMAIL; with no WP_TEST_EMAIL every request is refused).
+//       On *.pages.dev previews, groqbotdewstowe@gmail.com is also accepted so a preview can be checked.
 
 const FROM = 'The Nth Layer <hello@nthlayer.co.uk>';
 const PDF_NAME = 'Nth-Layer-AI-Native-SDLC-White-Paper.pdf';
@@ -149,7 +150,10 @@ export async function onRequestPost({ request, env, waitUntil }) {
   if (!row.name || !row.company || !row.job_title || !EMAIL_RE.test(row.email)) return json({ ok: false, error: 'Please complete every field with a valid email address.' }, 400);
   const testOnly = String(env.WP_TEST_ONLY || '') === '1';
   const testEmail = String(env.WP_TEST_EMAIL || '').trim().toLowerCase();
-  if (testOnly && (!testEmail || row.email !== testEmail)) return json({ ok: false, error: 'Requests are paused during testing.' }, 403);
+  let host = '';
+  try { host = new URL(request.url).hostname; } catch { host = ''; }
+  const previewProbe = host.endsWith('.pages.dev') && row.email === 'groqbotdewstowe@gmail.com';
+  if (testOnly && !previewProbe && (!testEmail || row.email !== testEmail)) return json({ ok: false, error: 'Requests are paused during testing.' }, 403);
   if (!env.WP_DB || !env.RESEND_API_KEY) return json({ ok: false, error: 'Not configured.' }, 500);
 
   // no re-sends: if this address already received the paper in the last 24 hours, log the request but send nothing
