@@ -1,0 +1,267 @@
+{
+  "decide": {
+    "low": [
+      {
+        "text": "Name one owner for whether a bet is worth building.",
+        "firstStep": "Put a single name on the next bet before a ticket is opened.",
+        "outcome": "It is obvious who can stop the work."
+      },
+      {
+        "text": "Run a 30-minute customer check before build spend.",
+        "firstStep": "Talk to five users before the next build ticket is opened.",
+        "outcome": "The bet has a customer signal before engineering time is spent."
+      },
+      {
+        "text": "Write the bet in one sentence with a stop rule.",
+        "firstStep": "Add one sentence and a stop rule to the top of the spec.",
+        "outcome": "The team can tell when to quit."
+      }
+    ],
+    "mid": [
+      {
+        "text": "Move the customer check in front of the spec.",
+        "firstStep": "Do the customer check before design, not after it.",
+        "outcome": "Specs start from a customer signal."
+      },
+      {
+        "text": "Score the bet on retention, revenue, or cost before kickoff.",
+        "firstStep": "Add one of those three numbers to the kickoff note.",
+        "outcome": "The bet is judged on an outcome, not on activity."
+      },
+      {
+        "text": "Limit new bets to what the team can finish this month.",
+        "firstStep": "Cap new starts at the number the team finished last month.",
+        "outcome": "Fewer bets sit half built."
+      }
+    ],
+    "high": [
+      {
+        "text": "Review the customer result when the feature goes live.",
+        "firstStep": "Book a 20-minute review two weeks after release.",
+        "outcome": "The decision is checked against what customers did."
+      },
+      {
+        "text": "Publish which bets were stopped.",
+        "firstStep": "Share one stopped bet in the next planning note.",
+        "outcome": "The bar stays real."
+      },
+      {
+        "text": "Pair the decision owner with one engineer before the spec grows.",
+        "firstStep": "Spend 30 minutes together before the spec is written up.",
+        "outcome": "The bet is shaped before it becomes a queue of tickets."
+      }
+    ]
+  },
+  "build": {
+    "low": [
+      {
+        "text": "Put one approved AI coding tool in front of every engineer.",
+        "firstStep": "Pick one tool and turn it on for the whole team this month.",
+        "outcome": "AI coding is available on real work, not only in trials."
+      },
+      {
+        "text": "Share a short prompt pack for the repo's real tasks.",
+        "firstStep": "Write five prompts from last month's pull requests.",
+        "outcome": "People start from a known prompt instead of a blank box."
+      },
+      {
+        "text": "Check weekly that the tool is used on production code.",
+        "firstStep": "Ask each squad for one production change that used the tool.",
+        "outcome": "Usage is visible, not assumed."
+      }
+    ],
+    "mid": [
+      {
+        "text": "Give each senior a WIP limit of three agent streams.",
+        "firstStep": "Set the limit on the board this week.",
+        "outcome": "Parallel AI work does not outrun review."
+      },
+      {
+        "text": "Require a one-page spec before a second stream starts.",
+        "firstStep": "Block a second stream until the one-pager exists.",
+        "outcome": "Agents work from a spec, not a vague ticket."
+      },
+      {
+        "text": "Review AI-written code with the same bar as other code.",
+        "firstStep": "Add 'who reviewed the AI edits' to the pull request template.",
+        "outcome": "AI edits are not merged unseen."
+      }
+    ],
+    "high": [
+      {
+        "text": "Keep the WIP limit as coding gets faster.",
+        "firstStep": "Leave the limit of three in place for the quarter.",
+        "outcome": "Speed does not become a pile of open work."
+      },
+      {
+        "text": "List the files where unreviewed AI edits are not allowed.",
+        "firstStep": "Name auth, billing, and migrations as review-required.",
+        "outcome": "The risky paths stay human-reviewed."
+      },
+      {
+        "text": "Measure cycle time of AI-assisted changes on their own.",
+        "firstStep": "Tag AI-assisted pull requests and read the median time on Friday.",
+        "outcome": "You can see whether AI coding is actually faster."
+      }
+    ]
+  },
+  "test": {
+    "low": [
+      {
+        "text": "Automate regression on the top 3 journeys.",
+        "firstStep": "Name the three journeys and record a passing automated test for each.",
+        "outcome": "Those journeys fail the build instead of failing in front of customers."
+      },
+      {
+        "text": "Block release if those three tests are red.",
+        "firstStep": "Make the three tests a required check on the release branch.",
+        "outcome": "A red journey cannot ship by accident."
+      },
+      {
+        "text": "After every serious incident, add one test before the ticket closes.",
+        "firstStep": "Add that rule to the incident template this week.",
+        "outcome": "The same failure does not return unseen."
+      }
+    ],
+    "mid": [
+      {
+        "text": "Move security checks into the merge path.",
+        "firstStep": "Run the security checklist on every change, not only near release.",
+        "outcome": "Compliance is not a surprise at the end."
+      },
+      {
+        "text": "Delete manual scripts that duplicate an automated test.",
+        "firstStep": "Pick the five scripts QA repeats and retire the ones a test already covers.",
+        "outcome": "QA time goes to gaps, not to repeated clicks."
+      },
+      {
+        "text": "Give QA a queue of failing tests, not a pile of tickets.",
+        "firstStep": "Route red tests to QA before new manual passes.",
+        "outcome": "Failures are fixed before the next round of clicking."
+      }
+    ],
+    "high": [
+      {
+        "text": "Keep the journey tests running on every change.",
+        "firstStep": "Leave the three journey tests required on each pull request.",
+        "outcome": "Cover does not rot."
+      },
+      {
+        "text": "Add a test for the last incident that had none.",
+        "firstStep": "Write that test before the next planning meeting.",
+        "outcome": "The last gap is closed."
+      },
+      {
+        "text": "Count how often a red test stops a release.",
+        "firstStep": "Note each stop in the release log for a month.",
+        "outcome": "The tests are earning their place."
+      }
+    ]
+  },
+  "release": {
+    "low": [
+      {
+        "text": "Ship weekly behind feature flags.",
+        "firstStep": "Pick one product area and release it every week behind a flag.",
+        "outcome": "A small change reaches customers the same week it is finished."
+      },
+      {
+        "text": "Open a same-day path for low-risk changes.",
+        "firstStep": "Define the risk bar: tests green, no schema change, no personal data.",
+        "outcome": "Small safe changes do not wait for the train."
+      },
+      {
+        "text": "Cut the sign-off that waits on people who are not blocking.",
+        "firstStep": "List who must say yes, and remove the rest from the meeting.",
+        "outcome": "Release waits on a decision, not on a calendar."
+      }
+    ],
+    "mid": [
+      {
+        "text": "Shorten the train from monthly to every two weeks.",
+        "firstStep": "Put the next train on the calendar 14 days out and keep it.",
+        "outcome": "Finished code waits days, not a month."
+      },
+      {
+        "text": "Flag any change that sits more than five days after merge.",
+        "firstStep": "Add a board column for merged and not released.",
+        "outcome": "The wait is visible."
+      },
+      {
+        "text": "Make compliance a checklist in the spec, not a gate at the end.",
+        "firstStep": "Add the checklist to the spec template and block merge until it is ticked.",
+        "outcome": "Release day is not the first time compliance is asked."
+      }
+    ],
+    "high": [
+      {
+        "text": "Review flags that are still off after two weeks.",
+        "firstStep": "Read the open flags every other Friday and delete or ship them.",
+        "outcome": "Flags do not become a second backlog."
+      },
+      {
+        "text": "Publish time from merge to customer each Friday.",
+        "firstStep": "Post the median hours in the engineering channel.",
+        "outcome": "The team can see the path getting shorter or stuck."
+      },
+      {
+        "text": "Remove one manual approval that has not caught a defect this quarter.",
+        "firstStep": "Pick the approval with no catches and drop it for low-risk changes.",
+        "outcome": "A step that only adds wait is gone."
+      }
+    ]
+  },
+  "measure": {
+    "low": [
+      {
+        "text": "Attach one adoption metric to each feature.",
+        "firstStep": "Add one usage event before the feature is called done.",
+        "outcome": "Each new feature has a number you can read two weeks after release."
+      },
+      {
+        "text": "Read that number two weeks after release.",
+        "firstStep": "Put a 15-minute read-out on the calendar for the last feature.",
+        "outcome": "The number is used, not only collected."
+      },
+      {
+        "text": "Stop judging the quarter on tickets closed.",
+        "firstStep": "Replace the headline number in the review with one customer outcome.",
+        "outcome": "The review talks about customers, not throughput."
+      }
+    ],
+    "mid": [
+      {
+        "text": "Tie each bet to revenue, retention, or cost.",
+        "firstStep": "Pick one of the three for the current bet and write it on the spec.",
+        "outcome": "The bet has a business number."
+      },
+      {
+        "text": "Drop velocity as the number that decides success.",
+        "firstStep": "Take velocity off the first slide of the review.",
+        "outcome": "A faster build is not mistaken for a better outcome."
+      },
+      {
+        "text": "Write down what 'used it' means before build.",
+        "firstStep": "Add one sentence to the spec: the event that counts as use.",
+        "outcome": "The metric is agreed before the code exists."
+      }
+    ],
+    "high": [
+      {
+        "text": "Review the adoption number when you plan the next bet.",
+        "firstStep": "Start planning by reading the last feature's number.",
+        "outcome": "The next bet learns from the last one."
+      },
+      {
+        "text": "Stop a follow-up that shows no movement after two releases.",
+        "firstStep": "Name one follow-up you will stop if the number is flat.",
+        "outcome": "Flat work does not continue by habit."
+      },
+      {
+        "text": "Share the number with the people who wrote the code.",
+        "firstStep": "Post the number in the squad channel the day you read it.",
+        "outcome": "The builders see whether customers used the work."
+      }
+    ]
+  }
+}
