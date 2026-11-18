@@ -1826,6 +1826,14 @@ html.v9-rm body.v9 .cmodal:not([hidden]) .cm-box{animation:cmInR .35s ease-out b
 .hlogos .gq .gq-by{display:block;margin-top:12px;font:400 12.5px/1.4 Manrope,ui-sans-serif,system-ui,sans-serif;color:#666a62}
 .hlogos .gq .gq-link{display:inline-block;margin-top:4px;font:600 12.5px/1.4 Manrope,ui-sans-serif,system-ui,sans-serif;color:#3a5200;text-decoration:underline;text-underline-offset:2px}
 .hlogos .gq .gq-link:hover{color:#0d0f0d}
+@media(min-width:900px) and (min-height:640px){
+.v8 .ghero .hmain::before{content:"";display:block!important;flex:2 1 0;min-height:0}
+.v8 .ghero .hmain>h1{margin-top:0!important}
+.v8 .ghero .hlogos{margin-top:0!important;padding-top:clamp(34px,calc(3.5vh + 10px),58px)!important}
+.gq-gap{flex:1 1 0;min-height:0;width:100%}
+.v8 .ghero .hmain::after{content:"";display:block!important;flex:1 1 0;min-height:0}
+}
+@media(max-width:899px){.gq-gap{display:none}}
 @media(max-width:600px){
 .hlogos .gq{margin:0 auto 14px;max-width:100%;padding:0 2px}
 .hlogos .gq .gq-q{font-size:16.5px;line-height:1.45}
@@ -1839,7 +1847,7 @@ html.v9-rm body.v9 .cmodal:not([hidden]) .cm-box{animation:cmInR .35s ease-out b
 <div class="hmain"><p class="eyebrow">AI-native product and engineering</p>
 <h1><span class="nw">Code Ships in Hours.</span> <span class="nw">Customers Still Wait Months</span></h1>
 <p class="sub">AI made building code faster. Deciding what to build, testing it, releasing it and measuring the result still run at human speed.</p>
-<div class="act"><div class="act-b"><a class="btn" href="#contact" data-contact>Book a 30-minute call</a><a class="btn btn-wp" href="#white-paper" data-wpaper data-src="home-hero">Download Whitepaper</a></div><span class="note">No deck. Just the right questions.</span></div><div class="hlogos">
+<div class="act"><div class="act-b"><a class="btn" href="#contact" data-contact>Book a 30-minute call</a><a class="btn btn-wp" href="#white-paper" data-wpaper data-src="home-hero">Download Whitepaper</a></div><span class="note">No deck. Just the right questions.</span></div><div class="gq-gap" aria-hidden="true"></div><div class="hlogos">
 <p class="gq">
 <span class="gq-q">“The rapid advancement of AI is reshaping the software development life cycle (SDLC).”</span>
 <span class="gq-by">Manjunath Bhat, Distinguished VP Analyst, Gartner, November 2026</span>
