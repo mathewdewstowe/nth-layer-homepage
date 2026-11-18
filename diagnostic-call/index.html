@@ -7,96 +7,28 @@
 <title>30-minute AI-Native SDLC Diagnostic | The Nth Layer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/diagnostic-call/call.css">
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="/diagnostic-call/">
+<header class="bar">
+  <div class="brand">
     <svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><rect x="2" y="2" width="76" height="76" stroke="currentColor" stroke-width="4"/><rect x="14" y="14" width="52" height="52" stroke="currentColor" stroke-width="4"/><rect x="26" y="26" width="28" height="28" stroke="currentColor" stroke-width="4"/><rect x="35" y="35" width="10" height="10" fill="currentColor"/></svg>
-    <span><strong>The Nth Layer</strong><em>Call tool · preview</em></span>
-  </a>
-  <nav>
-    <a href="/diagnostic-call/intake/">Intake</a>
-    <a href="/diagnostic-call/scorecard/">Scorecard</a>
-    <a href="/diagnostic-call/example-report/">Example report</a>
-  </nav>
-</header>
-<main class="wrap">
-  <h1>30-minute AI-Native SDLC Diagnostic</h1>
-  <p class="note">For the live call. Intake prefills the scores. You confirm them, capture notes and how long each stage took, then open the scorecard. Add a transcript later if you have one.</p>
-  <p id="banner" class="banner" hidden></p>
-  <div class="work">
-    <section class="fields" id="fields">
-      <label>Company <input id="f-company" autocomplete="organization"></label>
-      <label>Person <input id="f-person" autocomplete="name"></label>
-      <label>Date conducted <input id="f-date" type="date"></label>
-      <label>Feature traced <input id="f-feature"></label>
-      <label>Idea-to-customer time <input id="f-cycle" placeholder="16 weeks"></label>
-      <label>Release frequency
-        <select id="f-freq">
-          <option value="unsaid">Not said</option>
-          <option value="weekly">Weekly</option>
-          <option value="2-weeks">Every 2 weeks</option>
-          <option value="monthly">Monthly</option>
-          <option value="6-weeks">Every 6 weeks</option>
-          <option value="quarterly">Quarterly</option>
-          <option value="slower">Slower than quarterly</option>
-        </select>
-      </label>
-    </section>
-    <section class="run" id="run">
-      <div class="clock"><small id="t-name">Opening</small><span id="t-clock">03:00</span></div>
-      <div class="sheet" id="t-bar"></div>
-      <ol class="secs" id="t-secs"></ol>
-      <p class="note">30-minute run sheet. Sections run 25 minutes. 5 minutes stay free.</p>
-      <div class="rowbtns">
-        <button class="btn" type="button" id="t-start">Start</button>
-        <button class="btn ghost" type="button" id="t-pause">Pause</button>
-        <button class="btn ghost" type="button" id="t-reset">Reset timer</button>
-      </div>
-    </section>
-    <aside id="summary"></aside>
-    <div class="maincol">
-      <section class="ask" id="ask"></section>
-      <div id="stages"></div>
-      <section>
-        <h2>Priorities for the next 90 days</h2>
-        <p class="note">Suggested from the scores, weighted to the bottleneck. Swap or edit. The top 3 are marked for the scorecard.</p>
-        <div class="rowbtns"><button class="btn ghost" type="button" id="reset-actions">Reset suggestions</button></div>
-        <div id="actions"></div>
-      </section>
-      <section>
-        <h2>Risks</h2>
-        <div id="risks"></div>
-      </section>
-      <section id="later">
-        <h2>Add transcript later</h2>
-        <p class="note">Paste an Otter or Granola transcript when you have it. The scorecard regenerates from whatever is saved. Nothing is emailed.</p>
-        <label>Paste call transcript
-          <textarea id="f-transcript" rows="6"></textarea>
-        </label>
-        <div class="rowbtns">
-          <button class="btn" type="button" id="analyse">Analyse transcript</button>
-        </div>
-        <p id="analyse-note" class="note"></p>
-        <div id="highlight" class="hi"></div>
-        <div id="suggest"></div>
-        <div class="grid2">
-          <label>Quote 1 <textarea id="q0" rows="2"></textarea></label>
-          <label>Quote 2 <textarea id="q1" rows="2"></textarea></label>
-        </div>
-      </section>
-      <div class="rowbtns">
-        <button class="btn" type="button" id="open-score">Open scorecard</button>
-        <button class="btn ghost" type="button" id="copy-link">Copy session link</button>
-        <button class="btn ghost" type="button" id="copy-email">Copy as email HTML</button>
-        <button class="btn ghost" type="button" id="new-session">New session</button>
-      </div>
-      <p id="status" class="status"></p>
-    </div>
+    <strong id="bar-co">New session</strong>
   </div>
-</main>
+  <div class="clocks">
+    <p><span>Call</span> <b id="t-all">00:00</b></p>
+    <p><span id="t-sec-name">Opening</span> <b id="t-sec">03:00</b></p>
+    <button type="button" class="tiny" id="t-pause">Pause</button>
+  </div>
+  <ol class="dots" id="dots"></ol>
+  <button type="button" class="tiny" id="rail-toggle" aria-pressed="true">Chart</button>
+</header>
+<div class="shell">
+  <main id="step"></main>
+  <aside id="rail"></aside>
+</div>
+<p id="status" class="status" hidden></p>
 <script src="/diagnostic-call/model.js"></script>
 <script src="/diagnostic-call/report.js"></script>
 <script src="/diagnostic-call/call.js"></script>

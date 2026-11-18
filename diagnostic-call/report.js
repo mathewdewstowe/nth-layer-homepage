@@ -106,9 +106,8 @@
     return '<div class="time"><div class="segs">' + segs + '</div></div>';
   }
 
-  function rag(v) {
-    var label = v === "red" ? "Red" : v === "green" ? "Green" : "Amber";
-    return '<span class="rag rag-' + esc(v || "amber") + '">' + label + '</span>';
+  function sec(label) {
+    return '<h2 class="sec"><span>' + esc(label) + '</span></h2>';
   }
 
   function footer() {
@@ -118,85 +117,144 @@
       '</footer>';
   }
 
+  function priPill(p) {
+    var key = String(p || "").toLowerCase();
+    var name = key.indexOf("high") === 0 ? "High" : key.indexOf("low") === 0 ? "Low" : "Med";
+    return '<span class="pill ' + name.toLowerCase() + '">' + name + '</span>';
+  }
+
+  function readyLevel(v) {
+    return v === "red" || v === "green" || v === "amber" ? v : "amber";
+  }
+
+  function heatLevel(v) {
+    var s = String(v || "").toLowerCase();
+    if (s.indexOf("high") === 0) return 2;
+    if (s.indexOf("low") === 0) return 0;
+    return 1;
+  }
+
+  function heatHtml(risks) {
+    var cells = [];
+    var r, c;
+    for (r = 0; r < 3; r++) {
+      for (c = 0; c < 3; c++) cells.push([]);
+    }
+    risks.forEach(function (risk, i) {
+      var row = 2 - heatLevel(risk.likelihood);
+      var col = heatLevel(risk.impact);
+      cells[row * 3 + col].push(String(i + 1));
+    });
+    var boxes = cells.map(function (items, idx) {
+      var row = (idx / 3) | 0;
+      var col = idx % 3;
+      var intensity = (2 - row) + col;
+      var tone = intensity >= 3 ? "hot" : intensity === 2 ? "mid" : "cool";
+      return '<div class="cell ' + tone + '">' + items.join(" ") + '</div>';
+    }).join("");
+    return '<div class="heat">' +
+      '<div class="ylabs"><span>High</span><span>Med</span><span>Low</span></div>' +
+      '<div><div class="grid">' + boxes + '</div>' +
+      '<div class="xlabs"><span>Low</span><span>Med</span><span>High</span></div>' +
+      '<div class="xcap">Impact</div></div></div>';
+  }
+
   function render(session) {
     var person = session.person || "Name not set";
     var company = session.company || "Company not set";
     var date = M.formatDate(session.date);
     var o = M.overall(session);
     var b = M.bottleneck(session);
-    var cost = session.costOverride || M.costOfDelay(session).text;
+    var costInfo = M.costOfDelay(session);
+    var costLine = session.costOverride || costInfo.text;
+    var months = costInfo.months;
     var actions = (session.actions || []).slice().sort(function (a, c) { return a.rank - c.rank; });
     var tops = actions.filter(function (a) { return a.rank <= 3; });
     var quotes = (session.quotes || []).map(function (q) { return String(q || "").trim(); }).filter(Boolean).slice(0, 2);
+    var risks = session.risks || [];
     var example = session.example ? '<span class="ex">Example</span>' : "";
+    var cycle = session.cycleTime ? '<p class="meta">' + esc(session.feature || "Traced feature") + (session.cycleTime ? " · " + esc(session.cycleTime) : "") + '</p>' : (session.feature ? '<p class="meta">' + esc(session.feature) + '</p>' : "");
 
     var findings = M.stageList(session).map(function (r) {
       var hot = b && r.id === b.id ? " hot" : "";
-      return '<tr class="' + hot + '"><th>' + esc(r.name) + '</th><td>' + (r.score == null ? "n/a" : r.score) + '</td><td>' + esc(r.notes || "Not captured in the call.") + '</td><td>' + esc(M.findingMeaning(r.id, r.score)) + '</td></tr>';
+      return '<li class="' + hot + '"><b>' + esc(r.name) + '</b><span class="sc">' + (r.score == null ? "n/a" : r.score) + '</span><span class="line">' + esc(r.notes || "Not captured.") + '</span><span class="mean">' + esc(M.findingMeaning(r.id, r.score)) + '</span></li>';
     }).join("");
 
     var actionRows = actions.map(function (a) {
-      var top = a.rank <= 3 ? " top" : "";
-      return '<tr class="' + top + '">' +
+      return '<tr class="' + (a.rank <= 3 ? "top" : "") + '">' +
         '<td>' + a.rank + '</td>' +
-        '<td><strong>' + esc(a.text) + '</strong><br><span class="sub">' + esc(a.why) + '</span></td>' +
-        '<td>' + esc(a.priority) + '</td>' +
-        '<td>' + esc(a.effort) + '</td>' +
-        '<td>' + esc(a.owner) + '<br><span class="sub">' + esc(a.timeframe) + '</span></td>' +
-        '<td>' + esc(a.firstStep) + '<br><span class="sub">Teams: ' + esc(a.teams) + '. First: ' + esc(a.dependsOn) + '</span><br><span class="sub">' + esc(a.outcome) + '</span></td>' +
-        '</tr>';
+        '<td><strong>' + esc(a.text) + '</strong><span class="why">' + esc(a.why) + '</span></td>' +
+        '<td>' + priPill(a.priority) + '</td>' +
+        '<td><span class="eff">' + esc(a.effort) + '</span></td>' +
+        '<td>' + esc(a.owner) + '</td>' +
+        '<td>' + esc(a.timeframe) + '</td></tr>';
     }).join("");
 
-    var ready = tops.map(function (a) {
-      var overall = M.readinessOverall(a.readiness || {});
-      return '<div class="rcard"><p class="rk">' + a.rank + '. ' + esc(a.text) + '</p>' +
-        '<p>Skills ' + rag(a.readiness.skills) + ' · Tooling ' + rag(a.readiness.tooling) + ' · Leadership time ' + rag(a.readiness.leadership) + ' · Change effort ' + rag(a.readiness.change) + '</p>' +
-        '<p>In-house readiness: ' + rag(overall) + '</p></div>';
+    var lights = tops.map(function (a) {
+      var overall = readyLevel(M.readinessOverall(a.readiness || {}));
+      var word = overall === "red" ? "Red" : overall === "green" ? "Green" : "Amber";
+      return '<tr><td>' + a.rank + '. ' + esc(a.text) + '</td>' +
+        '<td><span class="dot ' + readyLevel(a.readiness.skills) + '" title="' + readyLevel(a.readiness.skills) + '"></span></td>' +
+        '<td><span class="dot ' + readyLevel(a.readiness.tooling) + '" title="' + readyLevel(a.readiness.tooling) + '"></span></td>' +
+        '<td><span class="dot ' + readyLevel(a.readiness.leadership) + '" title="' + readyLevel(a.readiness.leadership) + '"></span></td>' +
+        '<td><span class="dot ' + readyLevel(a.readiness.change) + '" title="' + readyLevel(a.readiness.change) + '"></span></td>' +
+        '<td><span class="pill ' + overall + '">' + word + '</span></td></tr>';
     }).join("");
 
-    var risks = (session.risks || []).map(function (r) {
-      return '<tr><td>' + esc(r.risk) + '</td><td>' + esc(r.likelihood) + '</td><td>' + esc(r.impact) + '</td><td>' + esc(r.mitigation) + '</td></tr>';
+    var mits = risks.map(function (r, i) {
+      return '<li><span class="n">' + (i + 1) + '</span><div><strong>' + esc(r.risk) + '</strong><p>' + esc(r.mitigation) + '</p></div></li>';
     }).join("");
 
     var quoteHtml = quotes.length
       ? quotes.map(function (q) { return '<blockquote>“' + esc(q) + '”</blockquote>'; }).join("")
-      : '<p class="muted">No client quotes captured. Add a transcript later if you want lines from the call.</p>';
+      : '<p>No quotes yet. Add a transcript later if you want lines from the call.</p>';
+
+    var bottleneckLine = b
+      ? b.name + " is the lowest score" + (b.weeks != null ? ", and the traced feature waited " + M.formatWeeks(b.weeks) + " there." : ".")
+      : "Set the five scores to name the bottleneck.";
+
+    var big = months == null ? "n/a" : String(months).replace(/\.0$/, "");
+    var unit = big === "1" ? "month" : "months";
+    var relWeeks = M.weeksOf(session.stages && session.stages.release);
+    var delayRest = session.costOverride || (relWeeks == null
+      ? costLine
+      : "Each feature waits " + M.formatWeeks(relWeeks) + " for release. Figure from the times captured on the call.");
 
     var page1 = '' +
       '<article class="page" id="page-1">' +
-      '<header class="mast">' +
-      '<div class="brand">' + logo() + '<span>The<br>Nth<br>Layer</span>' + example + '</div>' +
-      '<h1>AI-Native SDLC Diagnostic</h1>' +
+      '<header class="mast"><div class="brand">' + logo() + '<span>The<br>Nth<br>Layer</span></div>' + example + '</header>' +
+      '<h1 class="doc">AI-Native SDLC Diagnostic</h1>' +
       '<p class="for">Prepared for ' + esc(person) + ', ' + esc(company) + '</p>' +
       '<p class="meta">Date conducted: ' + esc(date) + '<br>Prepared by Matthew Dewstowe, Nth Layer</p>' +
       (session.example ? '<p class="exnote">Fictional data for layout review. Not a real client.</p>' : '') +
-      '</header>' +
-      '<section><h2>Executive summary</h2><p>' + esc(M.executiveSummary(session)) + '</p></section>' +
-      '<div class="split"><div><h2>Overall maturity</h2>' + dialSvg(o) + '</div><div><h2>AI maturity matrix</h2>' + matrixSvg(session) + '</div></div>' +
-      '<section><h2>Stage scores</h2><p class="muted">Lime marks the bottleneck.</p>' + barsHtml(session) + '</section>' +
+      sec("Executive summary") + '<p class="lead">' + esc(M.executiveSummary(session)) + '</p>' +
+      '<div class="split"><div>' + sec("Overall maturity") + dialSvg(o) + '</div><div>' + sec("AI maturity matrix") + matrixSvg(session) + '</div></div>' +
+      sec("Stage scores") + barsHtml(session) +
+      sec("Idea to customer") + cycle + timelineHtml(session) +
+      '<p class="note">' + esc(bottleneckLine) + '</p>' +
+      sec("What we heard") +
+      '<ul class="heard">' + findings + '</ul>' +
       footer() +
       '</article>';
 
     var page2 = '' +
       '<article class="page" id="page-2">' +
-      '<header class="mast slim"><div class="brand">' + logo() + '<span>The Nth Layer</span></div><p class="meta">' + esc(company) + ' · ' + esc(person) + ' · Page 2</p></header>' +
-      '<section><h2>Idea to customer' + (session.feature ? ': ' + esc(session.feature) : '') + '</h2>' +
-      (session.cycleTime ? '<p class="muted">Captured cycle time: ' + esc(session.cycleTime) + '</p>' : '') +
-      timelineHtml(session) + '</section>' +
-      '<section><h2>What we heard</h2><table class="find"><thead><tr><th>Stage</th><th>Score</th><th>What we heard</th><th>What it means</th></tr></thead><tbody>' + findings + '</tbody></table></section>' +
-      '<section class="callout"><h2>Biggest bottleneck</h2><p>' + esc(M.bottleneckWhy(session)) + '</p></section>' +
-      '<section><h2>Prioritised actions</h2><p class="muted">Rows 1 to 3 are the 90-day priorities. Effort is S, M, or L. This is the what, not a how-to playbook.</p>' +
-      '<table class="acts"><thead><tr><th>#</th><th>Action</th><th>Priority</th><th>Effort</th><th>Owner</th><th>First step, teams, outcome</th></tr></thead><tbody>' + actionRows + '</tbody></table></section>' +
-      '<section><h2>Can you do this in-house?</h2><div class="readies">' + ready + '</div></section>' +
-      '<section><h2>Key risks</h2><table class="risks"><thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>' + risks + '</tbody></table></section>' +
-      '<p class="cost"><strong>Cost of delay.</strong> ' + esc(cost) + ' Estimate based on what was said in the call.</p>' +
-      '<section><h2>What good looks like</h2><p>' + esc(M.whatGoodLooksLike()) + '</p></section>' +
-      '<section><h2>In their words</h2>' + quoteHtml + '</section>' +
-      '<section><h2>Next steps</h2><p>Confirm the three 90-day priorities and name an owner for each. Start with the release wait on one product area. Add the transcript later if you want the quotes locked to this scorecard.</p></section>' +
-      '<section class="close"><p>You now know what to fix. The question is whether you have the time, skills and focus to change the lifecycle while still shipping the roadmap. If not, that is where I help.</p>' +
-      '<h2>90-day pilot with Nth Layer</h2>' +
-      '<p>We take the bottleneck on this page and run it on one product area, with your team, until a small change reaches customers every week and you can see whether customers used it. You keep this scorecard either way.</p>' +
-      '<p><a href="https://nthlayer.co.uk/">Book a call at nthlayer.co.uk</a></p></section>' +
+      '<header class="mast slim"><div class="brand">' + logo() + '<span>The Nth Layer</span></div>' +
+      '<div class="who"><strong>Prepared for ' + esc(person) + ', ' + esc(company) + '</strong>Date conducted: ' + esc(date) + '</div></header>' +
+      sec("Prioritised actions") +
+      '<table class="acts"><thead><tr><th>#</th><th>Action</th><th>Priority</th><th>Effort</th><th>Owner</th><th>Timeframe</th></tr></thead><tbody>' + actionRows + '</tbody></table>' +
+      sec("Can you do this in-house?") +
+      '<table class="lights"><thead><tr><th>90-day priority</th><th>Skills</th><th>Tooling</th><th>Leadership time</th><th>Change effort</th><th>Overall</th></tr></thead><tbody>' + lights + '</tbody></table>' +
+      sec("Key risks") +
+      '<div class="riskrow">' + heatHtml(risks) + '<ol class="mits">' + mits + '</ol></div>' +
+      sec("Cost of delay") +
+      '<div class="delay"><div><p class="k">Estimate</p><p class="big">' + esc(big) + '<span>' + unit + '</span></p></div>' +
+      '<p class="rest">' + esc(delayRest) + '</p></div>' +
+      '<div class="pair"><div>' + sec("In their words") + quoteHtml + '</div><div>' + sec("What good looks like") +
+      '<p class="good">A bet has an owner and a customer check before build. Tests run on every change. A small change reaches customers the same week. Each feature has one adoption number, read while the work is still fresh.</p></div></div>' +
+      '<div class="band"><p>You now know what to fix. The question is whether you have the time, skills and focus to change the lifecycle while still shipping the roadmap. If not, that is where I help.</p>' +
+      '<div class="pilot"><strong>90-day pilot with Nth Layer</strong><p>One product area. The bottleneck on this page. A small change reaches customers every week, and you can see whether they used it.</p>' +
+      '<a href="https://nthlayer.co.uk/">Book a call</a></div></div>' +
       footer() +
       '</article>';
 
